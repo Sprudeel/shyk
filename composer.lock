@@ -1148,35 +1148,35 @@
         },
         {
             "name": "laravel/sanctum",
-            "version": "v2.15.1",
+            "version": "v3.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sanctum.git",
-                "reference": "31fbe6f85aee080c4dc2f9b03dc6dd5d0ee72473"
+                "reference": "b71e80a3a8e8029e2ec8c1aa814b999609ce16dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sanctum/zipball/31fbe6f85aee080c4dc2f9b03dc6dd5d0ee72473",
-                "reference": "31fbe6f85aee080c4dc2f9b03dc6dd5d0ee72473",
+                "url": "https://api.github.com/repos/laravel/sanctum/zipball/b71e80a3a8e8029e2ec8c1aa814b999609ce16dc",
+                "reference": "b71e80a3a8e8029e2ec8c1aa814b999609ce16dc",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "illuminate/console": "^6.9|^7.0|^8.0|^9.0",
-                "illuminate/contracts": "^6.9|^7.0|^8.0|^9.0",
-                "illuminate/database": "^6.9|^7.0|^8.0|^9.0",
-                "illuminate/support": "^6.9|^7.0|^8.0|^9.0",
-                "php": "^7.2|^8.0"
+                "illuminate/console": "^9.21",
+                "illuminate/contracts": "^9.21",
+                "illuminate/database": "^9.21",
+                "illuminate/support": "^9.21",
+                "php": "^8.0.2"
             },
             "require-dev": {
                 "mockery/mockery": "^1.0",
-                "orchestra/testbench": "^4.0|^5.0|^6.0|^7.0",
-                "phpunit/phpunit": "^8.0|^9.3"
+                "orchestra/testbench": "^7.0",
+                "phpunit/phpunit": "^9.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.x-dev"
+                    "dev-master": "3.x-dev"
                 },
                 "laravel": {
                     "providers": [
@@ -1209,7 +1209,7 @@
                 "issues": "https://github.com/laravel/sanctum/issues",
                 "source": "https://github.com/laravel/sanctum"
             },
-            "time": "2022-04-08T13:39:49+00:00"
+            "time": "2022-07-29T21:33:30+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -6430,16 +6430,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.23",
+            "version": "9.5.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "888556852e7e9bbeeedb9656afe46118765ade34"
+                "reference": "d0aa6097bef9fd42458a9b3c49da32c6ce6129c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/888556852e7e9bbeeedb9656afe46118765ade34",
-                "reference": "888556852e7e9bbeeedb9656afe46118765ade34",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d0aa6097bef9fd42458a9b3c49da32c6ce6129c5",
+                "reference": "d0aa6097bef9fd42458a9b3c49da32c6ce6129c5",
                 "shasum": ""
             },
             "require": {
@@ -6468,7 +6468,7 @@
                 "sebastian/global-state": "^5.0.1",
                 "sebastian/object-enumerator": "^4.0.3",
                 "sebastian/resource-operations": "^3.0.3",
-                "sebastian/type": "^3.0",
+                "sebastian/type": "^3.1",
                 "sebastian/version": "^3.0.2"
             },
             "suggest": {
@@ -6512,7 +6512,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.23"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.24"
             },
             "funding": [
                 {
@@ -6524,7 +6524,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-08-22T14:01:36+00:00"
+            "time": "2022-08-30T07:42:16+00:00"
         },
         {
             "name": "sebastian/cli-parser",
