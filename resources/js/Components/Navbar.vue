@@ -2,7 +2,7 @@
 import Logo from "@/Components/svg/logo/Clean.vue";
 import NavLink from "@/Components/NavLink.vue";
 import Searchbar from "@/Components/forms/Searchbar.vue";
-import { Link } from '@inertiajs/inertia-vue3';
+import { Link } from "@inertiajs/inertia-vue3";
 </script>
 
 <template>
@@ -34,17 +34,14 @@ import { Link } from '@inertiajs/inertia-vue3';
     <Searchbar class="ml-32" />
 
     <!-- Login Logout -->
-    <div
-      class="ml-8"
-    >
+    <div class="ml-8">
       <Link
         :href="route('login')"
         class="text-sm text-gray-700 dark:text-gray-500"
         >Anmelden</Link
       >
 
-      <Link
-        class="ml-4 text-sm text-gray-700 dark:text-gray-500"
+      <Link class="ml-4 text-sm text-gray-700 dark:text-gray-500"
         >Registrieren</Link
       >
     </div>
