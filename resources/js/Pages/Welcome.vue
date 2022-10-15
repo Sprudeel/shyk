@@ -1,21 +1,24 @@
-<script setup>
-import { Head, Link } from '@inertiajs/inertia-vue3';
-import NavBar from '@/Components/Navbar.vue'
-
-defineProps({
-    canLogin: Boolean,
-    canRegister: Boolean,
-    laravelVersion: String,
-    phpVersion: String,
-})
-</script>
-
 <template>
-    <Head title="Welcome" />
+    <Head title="Home" />
 
     <NavBar />
 
-
-    
-
+    <p>{{ user }}</p>
+    <p>{{ laravelVersion }}</p>
+    <p>{{ phpVersion }}</p>
 </template>
+
+<script setup>
+import NavBar from "@/Components/Navbar.vue";
+import { computed } from 'vue'
+import { Head, Link } from "@inertiajs/inertia-vue3";
+
+
+
+const props = defineProps({
+    laravelVersion: String,
+    phpVersion: String,
+    user: Object,
+});
+
+</script>

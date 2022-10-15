@@ -43,6 +43,9 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
+            'information' => [
+                'shykVersion' => 'Alpha 0.1',
+            ]
         ]);
     }
 }
