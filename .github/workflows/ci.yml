@@ -1,0 +1,24 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  unit-tests:
+    name: "Test"
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - run: composer install
+
+      - run: npm install
+
+      - run: ./vendor/bin/sail up
+
+      - uses: ./.github/actions/wait-for-container-startup
+
+      - run: ./vendor/bin/sail test
