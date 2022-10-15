@@ -34,3 +34,8 @@ Migrate Database
 ```php
 sail artisan migrate
 ```
+
+Seed the Database
+```php
+sail artisan db:seed
+```
