@@ -8,7 +8,7 @@ export default {
 
 <template>
   <div
-    class="ml-8 flex items-center justify-center rounded-md border bg-gray-200 p-2"
+    class="ml-8 flex items-center justify-center rounded-md border bg-gray-200 pl-2 p-1"
   >
     <label for="searchinput">
       <MagnifyingGlassIcon class="h-5 w-5 text-gray-500" />
