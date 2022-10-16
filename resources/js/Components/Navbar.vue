@@ -5,7 +5,7 @@ import Searchbar from "@/Components/forms/Searchbar.vue";
 import { computed } from "vue";
 import { Link, usePage } from "@inertiajs/inertia-vue3";
 
-const user = computed(() => usePage().props.value.auth.user)
+const user = computed(() => usePage().props.value.auth.user);
 </script>
 
 <template>
@@ -45,7 +45,7 @@ const user = computed(() => usePage().props.value.auth.user)
 
         <!-- Login Logout -->
         <Link v-if="user" :href="route('logout')" method="post" class="ml-8">
-          Hallo, {{ user.name }}!
+            Hallo, {{ user.name }}!
         </Link>
         <div v-else class="ml-8">
             <Link
