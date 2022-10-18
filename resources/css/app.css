@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.shyk-blue {
+    color: #14a7db;
+}
+
+.shyk-yellow {
+    color: #f3da38;
+}
+
+.bg-shyk-blue {
+    background-color: #14a7db;
+}
+
+.bg-shyk-yellow {
+    background-color: #f3da38;
+}
