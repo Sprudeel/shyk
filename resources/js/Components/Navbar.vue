@@ -16,7 +16,7 @@ const user = computed(() => usePage().props.value.auth.user);
         <!-- Container for Logo -->
         <Link
             :href="route('home')"
-            class="mr-16 flex items-center justify-center"
+            class="mr-8 flex items-center justify-center"
         >
             <!-- Logo -->
             <Logo class="h-12 w-12" />
@@ -54,7 +54,7 @@ const user = computed(() => usePage().props.value.auth.user);
                 >Anmelden</Link
             >
 
-            <Link class="ml-4 text-sm text-gray-700 dark:text-gray-500"
+            <Link class="ml-2 text-sm text-gray-700 dark:text-gray-500"
                 >Registrieren</Link
             >
         </div>

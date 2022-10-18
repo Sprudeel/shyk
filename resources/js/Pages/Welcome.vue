@@ -100,7 +100,6 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
 import HeroLogo1 from "@/Components/svg/herologos/1.vue";
 import HeroLogo2 from "@/Components/svg/herologos/2.vue";
 import Button from "@/Components/forms/Button.vue";
-import Footer from "@/Components/Footer.vue";
 
 const props = defineProps({
     laravelVersion: String,
