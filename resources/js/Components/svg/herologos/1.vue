@@ -1,10 +1,5 @@
 <template>
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="522"
-        height="571"
-        viewBox="0 0 522 571"
-    >
+    <svg viewBox="0 0 522 571" class="">
         <rect x="272" y="321" width="250" height="250" rx="21" fill="#DEFF59" />
         <rect x="2" width="250" height="250" rx="21" fill="#009AC4" />
         <rect x="269" y="44" width="250" height="250" rx="21" fill="#00C0DC" />

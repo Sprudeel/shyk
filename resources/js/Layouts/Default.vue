@@ -3,7 +3,7 @@ import NavBar from "@/Components/Navbar.vue";
 </script>
 
 <template>
-    <NavBar />
+    <!-- <NavBar /> -->
 
-    <slot />
+    <slot class="overflow-x-hidden" />
 </template>

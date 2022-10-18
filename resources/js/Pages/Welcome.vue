@@ -2,16 +2,18 @@
     <Head title="Home" />
 
     <DefaultLayout>
-        <div class="grid grid-flow-row grid-cols-2 grid-rows-2 items-center">
-            <div class="mr-32 justify-self-end">
-                <HeroLogo1 class="max-w-80 max-h-80 self-end" />
+        <div
+            class="mt-6 grid grid-flow-row grid-cols-1 grid-rows-4 items-center md:grid-cols-2 md:grid-rows-2 md:gap-y-4 xl:mx-32"
+        >
+            <div class="w-8/12 justify-self-center">
+                <HeroLogo1 class="overflow-x-hidden" />
             </div>
 
-            <div class="">
-                <h2 class="text-3xl font-bold">
+            <div class="mx-auto w-10/12">
+                <h2 class="text-xl font-bold md:text-2xl xl:text-3xl">
                     Willkommen auf <span class="shyk-blue">shyk</span>!
                 </h2>
-                <p class="max-w-xl">
+                <p class="">
                     Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
                     diam nonumy eirmod tempor invidunt ut labore et dolore magna
                     aliquyam erat, sed diam voluptua. At vero eos et accusam et
@@ -27,8 +29,12 @@
                 >
             </div>
 
-            <div class="ml-96">
-                <h2 class="text-3xl font-bold">
+            <div class="w-11/12 justify-self-center md:hidden">
+                <HeroLogo2 class="overflow-x-hidden" />
+            </div>
+
+            <div class="mx-auto w-10/12">
+                <h2 class="text-xl font-bold md:text-2xl xl:text-3xl">
                     Was ist <span class="shyk-yellow">shyk</span>?
                 </h2>
                 <p class="max-w-xl">
@@ -40,38 +46,51 @@
                 </p>
             </div>
 
-            <div class="mr-16 justify-self-start">
-                <HeroLogo2 class="h-3/4 w-3/4" />
+            <div class="w-11/12 justify-self-center ph:hidden md:block">
+                <HeroLogo2 class="overflow-x-hidden" />
             </div>
         </div>
 
-        <h2 class="ml-96 mt-16 mb-8 text-3xl font-bold">shyk in Zahlen</h2>
+        <h2
+            class="ml-16 text-2xl font-bold md:ml-8 lg:ml-12 lg:text-3xl xl:ml-40"
+        >
+            shyk in Zahlen
+        </h2>
 
-        <div class="flex justify-center gap-16">
-            <div class="rounded-xl border border-slate-400 p-12 text-center">
-                <span class="text-2xl font-extrabold">0</span>
+        <div
+            class="justify-center gap-16 ph:m-8 ph:grid ph:grid-cols-2 ph:grid-rows-2 ph:items-center ph:gap-4 md:flex md:gap-4"
+        >
+            <div
+                class="w-full justify-self-center rounded-xl border border-slate-400 text-center ph:p-6 sm:p-12"
+            >
+                <span class="text-2xl font-extrabold">1,000</span>
                 <p class="text-gray-600">Posts</p>
             </div>
 
-            <div class="rounded-xl border border-slate-400 p-12 text-center">
-                <span class="text-2xl font-extrabold">0</span>
+            <div
+                class="w-full justify-self-center rounded-xl border border-slate-400 text-center ph:p-6 sm:p-12"
+            >
+                <span class="text-2xl font-extrabold">1,000</span>
                 <p class="text-gray-600">Nutzer</p>
             </div>
 
-            <div class="rounded-xl border border-slate-400 p-12 text-center">
-                <span class="text-2xl font-extrabold">0</span>
+            <div
+                class="w-full justify-self-center rounded-xl border border-slate-400 text-center ph:p-6 sm:p-12"
+            >
+                <span class="text-2xl font-extrabold">1,000</span>
                 <p class="text-gray-600">Kommentare</p>
             </div>
 
-            <div class="rounded-xl border border-slate-400 p-12 text-center">
-                <span class="text-2xl font-extrabold">0</span>
+            <div
+                class="w-full justify-self-center rounded-xl border border-slate-400 text-center ph:p-6 sm:p-12"
+            >
+                <span class="text-2xl font-extrabold">1,000</span>
                 <p class="text-gray-600">Likes</p>
             </div>
         </div>
 
         <br />
         <br />
-        <Footer />
     </DefaultLayout>
 </template>
 
