@@ -37,9 +37,8 @@
         <NavBarDropdownMenu class="ph:block md:hidden" />
 
         <!-- Login Logout -->
-        <Link v-if="user" :href="route('logout')" method="post" class="ml-8">
-            Hallo, {{ user.name }}!
-        </Link>
+        <NavBarUserSettings v-if="user" />
+
         <div v-else class="ph:ml-2 lg:ml-8">
             <Link
                 :href="route('login')"
@@ -63,6 +62,7 @@ import Searchbar from "@/Components/forms/Searchbar.vue";
 import { computed } from "vue";
 import { Link, usePage } from "@inertiajs/inertia-vue3";
 import NavBarDropdownMenu from "@/Components/NavBarDropdownMenu.vue";
+import NavBarUserSettings from "@/Components/NavBarUserSettings.vue";
 
 const user = computed(() => usePage().props.value.auth.user);
 </script>
