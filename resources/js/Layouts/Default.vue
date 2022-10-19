@@ -4,7 +4,7 @@ import Footer from "@/Components/Footer.vue";
 </script>
 
 <template>
-    <!-- <NavBar /> -->
+    <NavBar />
 
     <slot />
 
