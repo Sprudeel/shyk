@@ -1,13 +1,3 @@
-<script setup>
-import Logo from "@/Components/svg/logo/Clean.vue";
-import NavLink from "@/Components/NavLink.vue";
-import Searchbar from "@/Components/forms/Searchbar.vue";
-import { computed } from "vue";
-import { Link, usePage } from "@inertiajs/inertia-vue3";
-
-const user = computed(() => usePage().props.value.auth.user);
-</script>
-
 <template>
     <!-- Navbar -->
     <nav
@@ -16,17 +6,17 @@ const user = computed(() => usePage().props.value.auth.user);
         <!-- Container for Logo -->
         <Link
             :href="route('home')"
-            class="mr-8 flex items-center justify-center"
+            class="flex items-center justify-center ph:mr-2 lg:mr-8"
         >
             <!-- Logo -->
-            <Logo class="h-12 w-12" />
+            <Logo class="h-12 w-12 o-ph:h-8 o-md:h-8" />
 
             <!-- Text -->
-            <p class="text-2xl font-bold">shyk</p>
+            <p class="text-2xl font-bold o-ph:text-base o-md:text-xl">shyk</p>
         </Link>
 
         <!-- Container for Link Elements -->
-        <div class="flex items-center justify-center">
+        <div class="flex items-center justify-center ph:hidden md:flex">
             <NavLink
                 :href="route('dashboard')"
                 :active="route().current('dashboard')"
@@ -41,22 +31,38 @@ const user = computed(() => usePage().props.value.auth.user);
         </div>
 
         <!-- Search Bar -->
-        <Searchbar class="ml-32" />
+        <Searchbar class="ml-32 ph:hidden md:flex o-md:ml-2" />
+
+        <!-- Dropdown Menu -->
+        <NavBarDropdownMenu class="ph:block md:hidden" />
 
         <!-- Login Logout -->
-        <Link v-if="user" :href="route('logout')" method="post" class="ml-8">
-            Hallo, {{ user.name }}!
-        </Link>
-        <div v-else class="ml-8">
+        <NavBarUserSettings v-if="user" />
+
+        <div v-else class="ph:ml-2 lg:ml-8">
             <Link
                 :href="route('login')"
-                class="text-sm text-gray-700 dark:text-gray-500"
+                class="text-gray-700 dark:text-gray-500 ph:text-xs lg:text-sm"
                 >Anmelden</Link
             >
+            <br class="hidden o-ph:block" />
 
-            <Link class="ml-2 text-sm text-gray-700 dark:text-gray-500"
+            <Link
+                class="ml-2 text-gray-700 dark:text-gray-500 ph:text-xs lg:text-sm o-ph:ml-0"
                 >Registrieren</Link
             >
         </div>
     </nav>
 </template>
+
+<script setup>
+import Logo from "@/Components/svg/logo/Clean.vue";
+import NavLink from "@/Components/NavLink.vue";
+import Searchbar from "@/Components/forms/Searchbar.vue";
+import { computed } from "vue";
+import { Link, usePage } from "@inertiajs/inertia-vue3";
+import NavBarDropdownMenu from "@/Components/NavBarDropdownMenu.vue";
+import NavBarUserSettings from "@/Components/NavBarUserSettings.vue";
+
+const user = computed(() => usePage().props.value.auth.user);
+</script>
