@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,5 +26,16 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('admin/roles-permissions', function () {
+    return Inertia::render('Admin/RolesPermissions');
+})->name('admin/roles-permissions');
+
+Route::get('/sandbox', function () {
+    $user = App\Models\User::first();
+    $roles = App\Models\Role::first();
+    $permissions = $user->role->RolePermissions;
+    return $permissions->map(fn ($permissions) => $permissions->Permission->name );
+});
 
 require __DIR__.'/auth.php';

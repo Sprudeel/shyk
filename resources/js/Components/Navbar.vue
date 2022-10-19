@@ -28,16 +28,20 @@
             <NavLink :href="route('login')" :active="route().current('login')"
                 >FAQ</NavLink
             >
+
+
         </div>
 
         <!-- Search Bar -->
         <Searchbar class="ml-32 ph:hidden md:flex o-md:ml-2" />
 
         <!-- Dropdown Menu -->
+
         <NavBarDropdownMenu class="ph:block md:hidden" />
 
+        <AdminDropDown v-if="auth.user" class="ph:hidden lph:flex"/>
         <!-- Login Logout -->
-        <NavBarUserSettings v-if="user" />
+        <NavBarUserSettings v-if="auth.user" />
 
         <div v-else class="ph:ml-2 lg:ml-8">
             <Link
@@ -53,6 +57,7 @@
             >
         </div>
     </nav>
+    <AdminDropDown v-if="auth.user" class="float-right ph:block lph:hidden m-2"/>
 </template>
 
 <script setup>
@@ -63,6 +68,7 @@ import { computed } from "vue";
 import { Link, usePage } from "@inertiajs/inertia-vue3";
 import NavBarDropdownMenu from "@/Components/NavBarDropdownMenu.vue";
 import NavBarUserSettings from "@/Components/NavBarUserSettings.vue";
+import AdminDropDown from "@/Components/AdminDropDown.vue";
 
-const user = computed(() => usePage().props.value.auth.user);
+const auth = computed(() => usePage().props.value.auth);
 </script>
