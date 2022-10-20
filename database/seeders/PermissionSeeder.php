@@ -16,18 +16,13 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         DB::table('permissions')->insert([
-            'id' => 1,
-            'name' => 'can_view'
+            'name' => 'admin_roles_permissions',
+            'explanation' => 'Kann Berechtigungen, Rollen und Nutzer verwalten',
         ]);
 
         DB::table('permissions')->insert([
-            'id' => 2,
-            'name' => 'can_edit'
-        ]);
-
-        DB::table('permissions')->insert([
-            'id' => 3,
-            'name' => 'nothing'
+            'name' => 'view_homepage',
+            'explanation' => 'Kann die Homepage anschauen',
         ]);
     }
 }

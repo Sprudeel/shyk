@@ -14,13 +14,34 @@ class Role extends Model
         'id',
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+       'laravel_through_key'
+    ];
+
+
+    public function getRolewithPermissions(Role $role) {
+        return [
+            'role' => $role,
+            'permissions' => $role->RolePermissions->map(fn ($permissions) => $permissions->Permission->name ),
+        ];
+    }
+
     public function users() {
-        return $this->belongsToMany(User::class, 'users', 'id', 'role_id');
+        return $this->belongsToMany(User::class, 'roles', 'id', 'id');
     }
 
 
-    public function RolePermissions()
+    public function permissions()
     {
         return $this->hasMany(RolePermission::class);
+    }
+
+    public function permission() {
+        return $this->hasManyThrough(Permission::class, RolePermission::class, 'role_id', 'id', 'id', 'id');
     }
 }
