@@ -4,6 +4,12 @@ import { Head, usePage } from '@inertiajs/inertia-vue3';
 import { computed } from "vue";
 
 const auth = computed(() => usePage().props.value.auth);
+
+const props = defineProps({
+    Roles: Object,
+    Permissions: Object,
+    RolePermissions: Object,
+});
 </script>
 
 <template>

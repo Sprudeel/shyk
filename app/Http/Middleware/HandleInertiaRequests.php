@@ -34,12 +34,17 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
+        if (!$request->user() == null) {
+            $permissions = ((($request->user())->role->RolePermissions))->map(fn ($permissions) => $permissions->Permission->name);
+        } else {
+            $permissions = [];
+        };
 
         return array_merge(parent::share($request), [
             'auth' => [
                 'user' => $request->user(),
-                'role' => ($request->user())->role,
-                'permissions' => (($request->user())->role->RolePermissions)->map(fn ($permissions) => $permissions->Permission->name ),
+                'role' => ($request->user())->role ?? [],
+                'permissions' =>  $permissions,
             ],
             'ziggy' => function () use ($request) {
                 return array_merge((new Ziggy)->toArray(), [
