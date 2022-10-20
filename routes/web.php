@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\User;
 use App\Http\Controllers\RolePermissionController;
+use App\Http\Controllers\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,14 +53,21 @@ Route::prefix('/admin')->group(function () {
          * Edit Users
          */
         Route::get('/users/edit/{id}', [App\Http\Controllers\UsersController::class, 'adminEdit'])->name('admin/roles-permissions/users/edit');
+        Route::post('/users/edit', [App\Http\Controllers\UsersController::class, 'updateRole'])->name("admin/roles-permissions/users/editform");
 
         /**
          * Manage Roles
          */
         Route::get('/roles', [App\Http\Controllers\RoleController::class, 'datatable'])->name('admin/roles-permissions/roles');
 
+        /**
+         * Add Roles
+         */
+        Route::get('/roles/create', [App\Http\Controllers\RoleController::class, 'create'])->middleware(['auth', 'verified'])->name('admin.role.create.form');
+        Route::post('/roles/create/new', [App\Http\Controllers\RoleController::class, 'insert'])->name('admin.role.create');
     });
 });
+
 
 
 require __DIR__.'/auth.php';

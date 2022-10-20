@@ -6,20 +6,23 @@ import Button from "@/Components/forms/Button.vue";
 import Input from "@/Components/forms/Input.vue";
 import InputError from "@/Components/forms/InputError.vue";
 import Label from "@/Components/forms/Label.vue";
-import Dropdown from "@/Components/forms/Dropdown.vue";
-import { onMounted } from "vue";
 
 const props = defineProps({
     user: Object,
     roles: Object,
+    errors: Object,
 });
-const roleid = props.user.role_id;
 
-const form = useForm({
-    username: "",
-    email: "",
-    role: roleid,
+let form = useForm({
+    id: props.user.id,
+    username: props.user.name,
+    email: props.user.email,
+    role: props.user.role_id,
 });
+
+const submit = () => {
+    form.post(route("admin/roles-permissions/users/editform"));
+};
 </script>
 
 <template>
@@ -35,7 +38,7 @@ const form = useForm({
                             Nutzer bearbeiten
                         </h2>
                         <div class="mx-16 mt-8">
-                            <form>
+                            <form @prevent.submit="submit">
                                 <div class="mb-4">
                                     <Label
                                         for="username"
@@ -46,13 +49,12 @@ const form = useForm({
                                         type="text"
                                         class="mt-1 block w-full"
                                         v-model="form.username"
-                                        :value="user.name"
                                         required
                                         autofocus
                                     />
                                     <InputError
                                         class="mt-2"
-                                        :message="form.errors.username"
+                                        :message="errors.username"
                                     />
                                 </div>
 
@@ -62,14 +64,12 @@ const form = useForm({
                                         id="email"
                                         type="email"
                                         class="mt-1 block w-full"
-                                        v-model="form.username"
-                                        :value="user.email"
+                                        v-model="form.email"
                                         required
-                                        autofocus
                                     />
                                     <InputError
                                         class="mt-2"
-                                        :message="form.errors.email"
+                                        :message="errors.email"
                                     />
                                 </div>
 
@@ -84,7 +84,6 @@ const form = useForm({
                                         <option
                                             v-for="role in roles"
                                             :key="role.id"
-                                            :value="role.id"
                                         >
                                             {{ role.name }}
                                         </option>

@@ -13,6 +13,7 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class UsersController extends Controller
 {
+    protected $attributes = ['name' => ""];
 
     public function datatable()
     {
@@ -38,18 +39,16 @@ class UsersController extends Controller
         return Inertia::render('Admin/Manage/ManageUser', ['user' => User::find($id), 'roles' => Role::all()]);
     }
 
+    public function updateRole(Request $request) {
+        // $request->validate([
+        //     'id' => 'required',
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|string|email|max:255|unique:users',
+        //     'role_id' => 'required',
+        // ]);
 
-    public function updateRole() {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'role_id' => 'required',
-        ]);
+        User::create('$request');
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        return back();
     }
 }
