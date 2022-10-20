@@ -1,10 +1,25 @@
 <script setup>
 import DefaultLayout from "@/Layouts/Default.vue";
-import { Head } from "@inertiajs/inertia-vue3";
+import { Head, useForm } from "@inertiajs/inertia-vue3";
 import Navigation from "@/Pages/Admin/Manage/Navigation.vue";
 import Button from "@/Components/forms/Button.vue";
+import Input from "@/Components/forms/Input.vue";
+import InputError from "@/Components/forms/InputError.vue";
+import Label from "@/Components/forms/Label.vue";
+import Dropdown from "@/Components/forms/Dropdown.vue";
+import { onMounted } from "vue";
 
-defineProps(["user", "roles"]);
+const props = defineProps({
+    user: Object,
+    roles: Object,
+});
+const roleid = props.user.role_id;
+
+const form = useForm({
+    username: "",
+    email: "",
+    role: roleid,
+});
 </script>
 
 <template>
@@ -19,43 +34,75 @@ defineProps(["user", "roles"]);
                         <h2 class="ml-4 text-lg font-bold">
                             Nutzer bearbeiten
                         </h2>
-
-                        <form @submit.prevent="submit">
-                            <Button></Button>
-                            <div class="group relative z-0 m-4 mb-6 w-full">
-                                <input
-                                    type="email"
-                                    name="floating_email"
-                                    id="floating_email"
-                                    class="peer block w-full appearance-none border-0 border-b-2 border-gray-300 bg-transparent py-2.5 px-0 text-sm text-gray-900 focus:border-blue-600 focus:outline-none focus:ring-0 dark:border-gray-600 dark:text-white dark:focus:border-blue-500"
-                                    placeholder=" "
-                                    required
-                                />
-                                <label
-                                    for="floating_email"
-                                    class="absolute top-3 -z-10 origin-[0] -translate-y-6 scale-75 transform text-sm text-gray-500 duration-300 peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100 peer-focus:left-0 peer-focus:-translate-y-6 peer-focus:scale-75 peer-focus:font-medium peer-focus:text-blue-600 dark:text-gray-400 peer-focus:dark:text-blue-500"
-                                    >Email address</label
-                                >
-                                <div
-                                    class="pointer-events-none absolute inset-y-0 right-0 flex items-center pl-3"
-                                >
-                                    <svg
-                                        aria-hidden="true"
-                                        class="h-5 w-5 text-gray-500 dark:text-gray-400"
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                    >
-                                        <path
-                                            d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"
-                                        ></path>
-                                        <path
-                                            d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"
-                                        ></path>
-                                    </svg>
+                        <div class="mx-16 mt-8">
+                            <form>
+                                <div class="mb-4">
+                                    <Label
+                                        for="username"
+                                        value="Benutzername"
+                                    />
+                                    <Input
+                                        id="username"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        v-model="form.username"
+                                        :value="user.name"
+                                        required
+                                        autofocus
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.username"
+                                    />
                                 </div>
-                            </div>
-                        </form>
+
+                                <div class="mb-4">
+                                    <Label for="email" value="E-Mail" />
+                                    <Input
+                                        id="email"
+                                        type="email"
+                                        class="mt-1 block w-full"
+                                        v-model="form.username"
+                                        :value="user.email"
+                                        required
+                                        autofocus
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.email"
+                                    />
+                                </div>
+
+                                <div class="mb-4">
+                                    <Label for="roles" value="Rolle" />
+                                    <select
+                                        class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                                        name="roles"
+                                        id="roles"
+                                        v-model="form.role"
+                                    >
+                                        <option
+                                            v-for="role in roles"
+                                            :key="role.id"
+                                            :value="role.id"
+                                        >
+                                            {{ role.name }}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="mt-4 flex items-center justify-end">
+                                    <Button
+                                        class="bg-shyk-blue ml-8 hover:bg-blue-500 hover:font-bold hover:shadow-lg"
+                                        :class="{
+                                            'opacity-25': form.processing,
+                                        }"
+                                        :disabled="form.processing"
+                                    >
+                                        Bearbeiten
+                                    </Button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
