@@ -49,6 +49,11 @@ Route::prefix('/admin')->group(function () {
         Route::get('/users', [App\Http\Controllers\UsersController::class, 'datatable'])->name('admin/roles-permissions/users');
 
         /**
+         * Edit Users
+         */
+        Route::get('/users/edit/{id}', [App\Http\Controllers\UsersController::class, 'adminEdit'])->name('admin/roles-permissions/users/edit');
+
+        /**
          * Manage Roles
          */
         Route::get('/roles', [App\Http\Controllers\RoleController::class, 'datatable'])->name('admin/roles-permissions/roles');

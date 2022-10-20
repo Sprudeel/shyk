@@ -22,7 +22,6 @@ defineProps(["roles"]);
                             </template>
                         </Table>
                     </div>
-                    {{ roles.data }}
                 </div>
             </div>
         </div>

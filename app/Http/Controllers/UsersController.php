@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Support\Collection;
 use Inertia\Inertia;
 use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
@@ -31,5 +32,9 @@ class UsersController extends Controller
             $table->column('created_at', 'Beitritt', searchable: false, sortable: true);
             $table->column(label: 'Actions');
         });
+    }
+
+    public function adminEdit($id) {
+        return Inertia::render('Admin/Manage/ManageUser', ['user' => User::find($id), 'roles' => Role::all()]);
     }
 }

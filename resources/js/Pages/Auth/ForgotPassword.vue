@@ -1,9 +1,9 @@
 <script setup>
-import BreezeButton from "@/Components/forms/Button.vue";
-import BreezeGuestLayout from "@/Layouts/Guest.vue";
-import BreezeInput from "@/Components/Input.vue";
-import BreezeInputError from "@/Components/InputError.vue";
-import BreezeLabel from "@/Components/Label.vue";
+import Button from "@/Components/forms/Button.vue";
+import AuthLayout from "@/Layouts/AuthLayout.vue";
+import Input from "@/Components/forms/Input.vue";
+import InputError from "@/Components/forms/InputError.vue";
+import Label from "@/Components/forms/Label.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
 
 defineProps({
@@ -20,7 +20,7 @@ const submit = () => {
 </script>
 
 <template>
-    <BreezeGuestLayout>
+    <AuthLayout>
         <Head title="Forgot Password" />
 
         <div class="mb-4 text-sm text-gray-600">
@@ -35,8 +35,8 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <BreezeLabel for="email" value="Email" />
-                <BreezeInput
+                <Label for="email" value="Email" />
+                <Input
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
@@ -45,17 +45,18 @@ const submit = () => {
                     autofocus
                     autocomplete="username"
                 />
-                <BreezeInputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
             <div class="mt-4 flex items-center justify-end">
-                <BreezeButton
+                <Button
+                    class="bg-shyk-blue hover:bg-blue-500 hover:font-bold hover:shadow-lg"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Email Password Reset Link
-                </BreezeButton>
+                </Button>
             </div>
         </form>
-    </BreezeGuestLayout>
+    </AuthLayout>
 </template>

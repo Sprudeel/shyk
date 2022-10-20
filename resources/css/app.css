@@ -23,3 +23,8 @@
 .bg-shyk-yellow {
     background-color: #f3da38;
 }
+
+.auth-bg {
+    background-image: url("../js/Components/svg/bg/AuthBG.svg");
+    background-size: cover;
+}

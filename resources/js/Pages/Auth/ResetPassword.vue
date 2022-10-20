@@ -1,9 +1,9 @@
 <script setup>
-import BreezeButton from "@/Components/forms/Button.vue";
-import BreezeGuestLayout from "@/Layouts/Guest.vue";
-import BreezeInput from "@/Components/Input.vue";
-import BreezeInputError from "@/Components/InputError.vue";
-import BreezeLabel from "@/Components/Label.vue";
+import Button from "@/Components/forms/Button.vue";
+import AuthLayout from "@/Layouts/AuthLayout.vue";
+import Input from "@/Components/forms/Input.vue";
+import InputError from "@/Components/forms/InputError.vue";
+import Label from "@/Components/forms/Label.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
 
 const props = defineProps({
@@ -26,13 +26,13 @@ const submit = () => {
 </script>
 
 <template>
-    <BreezeGuestLayout>
+    <AuthLayout>
         <Head title="Reset Password" />
 
         <form @submit.prevent="submit">
             <div>
-                <BreezeLabel for="email" value="Email" />
-                <BreezeInput
+                <Label for="email" value="Email" />
+                <Input
                     id="email"
                     type="email"
                     class="mt-1 block w-full"
@@ -41,12 +41,12 @@ const submit = () => {
                     autofocus
                     autocomplete="username"
                 />
-                <BreezeInputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
             <div class="mt-4">
-                <BreezeLabel for="password" value="Password" />
-                <BreezeInput
+                <Label for="password" value="Password" />
+                <Input
                     id="password"
                     type="password"
                     class="mt-1 block w-full"
@@ -54,18 +54,12 @@ const submit = () => {
                     required
                     autocomplete="new-password"
                 />
-                <BreezeInputError
-                    class="mt-2"
-                    :message="form.errors.password"
-                />
+                <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
             <div class="mt-4">
-                <BreezeLabel
-                    for="password_confirmation"
-                    value="Confirm Password"
-                />
-                <BreezeInput
+                <Label for="password_confirmation" value="Confirm Password" />
+                <Input
                     id="password_confirmation"
                     type="password"
                     class="mt-1 block w-full"
@@ -73,20 +67,21 @@ const submit = () => {
                     required
                     autocomplete="new-password"
                 />
-                <BreezeInputError
+                <InputError
                     class="mt-2"
                     :message="form.errors.password_confirmation"
                 />
             </div>
 
             <div class="mt-4 flex items-center justify-end">
-                <BreezeButton
+                <Button
+                    class="bg-shyk-blue hover:bg-blue-500 hover:font-bold hover:shadow-lg"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Reset Password
-                </BreezeButton>
+                </Button>
             </div>
         </form>
-    </BreezeGuestLayout>
+    </AuthLayout>
 </template>

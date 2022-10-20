@@ -1,9 +1,9 @@
 <script setup>
-import BreezeButton from "@/Components/forms/Button.vue";
-import BreezeGuestLayout from "@/Layouts/Guest.vue";
-import BreezeInput from "@/Components/Input.vue";
-import BreezeInputError from "@/Components/InputError.vue";
-import BreezeLabel from "@/Components/Label.vue";
+import Button from "@/Components/forms/Button.vue";
+import AuthLayout from "@/Layouts/AuthLayout.vue";
+import Input from "@/Components/forms/Input.vue";
+import InputError from "@/Components/forms/InputError.vue";
+import Label from "@/Components/forms/Label.vue";
 import { Head, useForm } from "@inertiajs/inertia-vue3";
 
 const form = useForm({
@@ -18,7 +18,7 @@ const submit = () => {
 </script>
 
 <template>
-    <BreezeGuestLayout>
+    <AuthLayout>
         <Head title="Confirm Password" />
 
         <div class="mb-4 text-sm text-gray-600">
@@ -28,8 +28,8 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <BreezeLabel for="password" value="Password" />
-                <BreezeInput
+                <Label for="password" value="Password" />
+                <Input
                     id="password"
                     type="password"
                     class="mt-1 block w-full"
@@ -38,21 +38,18 @@ const submit = () => {
                     autocomplete="current-password"
                     autofocus
                 />
-                <BreezeInputError
-                    class="mt-2"
-                    :message="form.errors.password"
-                />
+                <InputError class="mt-2" :message="form.errors.password" />
             </div>
 
             <div class="mt-4 flex justify-end">
-                <BreezeButton
-                    class="ml-4"
+                <Button
+                    class="bg-shyk-blue ml-4 hover:bg-blue-500 hover:font-bold hover:shadow-lg"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
                     Confirm
-                </BreezeButton>
+                </Button>
             </div>
         </form>
-    </BreezeGuestLayout>
+    </AuthLayout>
 </template>
