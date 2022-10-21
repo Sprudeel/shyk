@@ -53,6 +53,7 @@
             <br class="hidden o-ph:block" />
 
             <Link
+                :href="route('register')"
                 class="ml-2 text-gray-700 dark:text-gray-500 ph:text-xs lg:text-sm o-ph:ml-0"
                 >Registrieren</Link
             >
