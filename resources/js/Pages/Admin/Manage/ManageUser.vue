@@ -21,7 +21,7 @@ let form = useForm({
 });
 
 const submit = () => {
-    form.post(route("admin/roles-permissions/users/editform"));
+    form.post(route("admin.role.user.edit"));
 };
 </script>
 
@@ -38,7 +38,7 @@ const submit = () => {
                             Nutzer bearbeiten
                         </h2>
                         <div class="mx-16 mt-8">
-                            <form @prevent.submit="submit">
+                            <form @submit.prevent="submit">
                                 <div class="mb-4">
                                     <Label
                                         for="username"

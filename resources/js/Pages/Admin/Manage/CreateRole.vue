@@ -39,10 +39,10 @@ let submit = () => {
                                         required
                                         autofocus
                                     />
-                                    <!-- <InputError
+                                    <InputError
                                         class="mt-2"
-                                        :message="errors.name"
-                                    /> -->
+                                        :message="form.errors.name"
+                                    />
                                 </div>
 
                                 <div class="mt-4 flex items-center justify-end">
