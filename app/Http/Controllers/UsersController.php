@@ -15,8 +15,9 @@ class UsersController extends Controller
 {
     protected $attributes = ['name' => ""];
 
-    public function datatable()
-    {
+    public function datatable() {
+        $this->authorize('viewAny', User::class);
+
         $users = QueryBuilder::for(User::class)
         ->defaultSort('name')
         ->withAggregate('role', 'name')
@@ -36,10 +37,14 @@ class UsersController extends Controller
     }
 
     public function adminEdit($id) {
+        $this->authorize('updateRole', User::class);
+
         return Inertia::render('Admin/Manage/ManageUser', ['user' => User::find($id), 'roles' => Role::all()]);
     }
 
     public function updateRole(Request $request) {
+        $this->authorize('updateRole', User::class);
+
         $request->validate([
             'id' => 'required',
             'username' => 'required|string|max:255',

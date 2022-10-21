@@ -52,5 +52,17 @@ class PermissionSeeder extends Seeder
             'name' => 'permission_view',
             'explanation' => 'Berechtigungen anschauen',
         ]);
+
+        /**
+         * Nutzer
+         */
+        DB::table('permissions')->insert([
+            'name' => 'admin_view_users',
+            'explanation' => 'Nutzertabelle in Admin Sektion anzeigen',
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'admin_update_role',
+            'explanation' => 'Nutzerrollen bearbeiten',
+        ]);
     }
 }

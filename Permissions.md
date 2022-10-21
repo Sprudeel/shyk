@@ -12,3 +12,8 @@ This list Contains all Permissions
 ## Permissions
 
 -   **permission_view** <br> Berechtigungen anzeigen
+
+## User
+
+-   **admin_view_users** <br> Nutzertabelle in Admin Sektion anzeigen
+-   **admin_update_role** <br> Nutzerrollen bearbeiten

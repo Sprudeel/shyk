@@ -17,7 +17,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->permissions()['admin_view_users'];
     }
 
     /**
@@ -53,6 +53,17 @@ class UserPolicy
     public function update(User $user, User $model)
     {
         //
+    }
+
+    /**
+     * Determine whether the user can update the role.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function updateRole(User $user)
+    {
+        return $user->permissions()['admin_update_role'];
     }
 
     /**
