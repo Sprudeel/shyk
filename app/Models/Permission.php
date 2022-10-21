@@ -12,4 +12,10 @@ class Permission extends Model
     public function RolePermissions() {
         return $this->belongstoMany(RolePermission::class);
     }
+
+    public function truepermission() {
+        foreach ($permission as $perm ) {
+            $permission;
+        }
+    }
 }

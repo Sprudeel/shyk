@@ -12,13 +12,17 @@ use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\RedirectResponse;
+use App\Policies\Rolepolicy;
 
 
 class RoleController extends Controller
 {
+    /**
+     * Return a Datatable
+     */
+    public function datatable() {
+        $this->authorize('viewAny', Role::class);
 
-    public function datatable()
-    {
         $roles = QueryBuilder::for(Role::class)
         ->defaultSort('id')
         ->with(['permission'=> function ($query) {
@@ -37,11 +41,20 @@ class RoleController extends Controller
         });
     }
 
+    /**
+     * Redirect to create a new Role
+     */
     public function create() {
+        $this->authorize('create', Role::class);
+
         return Inertia::render('Admin/Manage/CreateRole');
     }
 
+    /**
+     * Create a new Role
+     */
     public function store(Request $request) {
+        $this->authorize('create', Role::class);
 
         $request->validate([
                 'name' => 'required',
@@ -54,7 +67,12 @@ class RoleController extends Controller
         return redirect("admin/roles-permissions/roles");
     }
 
+    /**
+     * Destroy a Role
+     */
     public function destroy(Request $request) {
+        $this->authorize('delete', Role::class);
+
         $role = Role::find($request->id);
 
         $role->delete();
@@ -62,7 +80,12 @@ class RoleController extends Controller
         return redirect(route('admin.role.roles'));
     }
 
+    /**
+     * Redirect to Edit Rolepermissions
+     */
     public function edit($id) {
+        $this->authorize('update', Role::class);
+
         return Inertia::render('Admin/Manage/ManageRole', [
             'role' => Role::find($id),
             'role_permissions' => Role::find($id)->permission,
@@ -70,7 +93,12 @@ class RoleController extends Controller
         ]);
     }
 
+    /**
+     * Update Role
+     */
     public function update(Request $request) {
+        $this->authorize('update', Role::class);
+
         RolePermission::where('role_id', $request->role_id)->delete();
 
         foreach ($request->permissions as $permission) {

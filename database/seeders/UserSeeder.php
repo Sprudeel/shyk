@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'email' => 'leonard@schafer.li',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'role_id' => '1'
+            'role_id' => '2'
         ]);
     }
 }

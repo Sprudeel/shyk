@@ -28,8 +28,6 @@
             <NavLink :href="route('login')" :active="route().current('login')"
                 >FAQ</NavLink
             >
-
-
         </div>
 
         <!-- Search Bar -->
@@ -39,7 +37,10 @@
 
         <NavBarDropdownMenu class="ph:block md:hidden" />
 
-        <AdminDropDown v-if="auth.user" class="ph:hidden lph:flex"/>
+        <AdminDropDown
+            v-if="auth.role.name == 'Admin'"
+            class="ph:hidden lph:flex"
+        />
         <!-- Login Logout -->
         <NavBarUserSettings v-if="auth.user" />
 
@@ -57,7 +58,10 @@
             >
         </div>
     </nav>
-    <AdminDropDown v-if="auth.user" class="float-right ph:block lph:hidden m-2"/>
+    <AdminDropDown
+        v-if="auth.role.name == 'Admin'"
+        class="float-right m-2 ph:block lph:hidden"
+    />
 </template>
 
 <script setup>

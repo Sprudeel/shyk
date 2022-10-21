@@ -16,13 +16,33 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         DB::table('permissions')->insert([
-            'name' => 'admin_roles_permissions',
-            'explanation' => 'Kann Berechtigungen, Rollen und Nutzer verwalten',
+            'name' => 'view_homepage',
+            'explanation' => 'Kann die Homepage anschauen',
         ]);
 
         DB::table('permissions')->insert([
-            'name' => 'view_homepage',
-            'explanation' => 'Kann die Homepage anschauen',
+            'name' => 'view_admin_section',
+            'explanation' => 'Kann die Admin Sektion anschauen',
+        ]);
+
+        /**
+         * Rollen
+         */
+        DB::table('permissions')->insert([
+            'name' => 'roles_view',
+            'explanation' => 'Rollen anschauen',
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'roles_create',
+            'explanation' => 'Rollen erstellen',
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'roles_delete',
+            'explanation' => 'Rollen löschen',
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'roles_update',
+            'explanation' => 'Rollen bearbeiten',
         ]);
     }
 }
