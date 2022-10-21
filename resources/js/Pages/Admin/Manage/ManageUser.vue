@@ -6,6 +6,7 @@ import Button from "@/Components/forms/Button.vue";
 import Input from "@/Components/forms/Input.vue";
 import InputError from "@/Components/forms/InputError.vue";
 import Label from "@/Components/forms/Label.vue";
+import { Inertia } from "@inertiajs/inertia";
 
 const props = defineProps({
     user: Object,
@@ -17,11 +18,11 @@ let form = useForm({
     id: props.user.id,
     username: props.user.name,
     email: props.user.email,
-    role: props.user.role_id,
+    role_id: props.user.role_id,
 });
 
 const submit = () => {
-    form.post(route("admin.role.user.edit"));
+    Inertia.post(route("admin.role.user.edit"), form);
 };
 </script>
 
@@ -54,7 +55,7 @@ const submit = () => {
                                     />
                                     <InputError
                                         class="mt-2"
-                                        :message="errors.username"
+                                        :message="form.errors.username"
                                     />
                                 </div>
 
@@ -69,7 +70,7 @@ const submit = () => {
                                     />
                                     <InputError
                                         class="mt-2"
-                                        :message="errors.email"
+                                        :message="form.errors.email"
                                     />
                                 </div>
 
@@ -79,11 +80,12 @@ const submit = () => {
                                         class="rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                                         name="roles"
                                         id="roles"
-                                        v-model="form.role"
+                                        v-model="form.role_id"
                                     >
                                         <option
                                             v-for="role in roles"
                                             :key="role.id"
+                                            :value="role.id"
                                         >
                                             {{ role.name }}
                                         </option>

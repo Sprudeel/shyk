@@ -18,7 +18,7 @@ defineProps(["users"]);
                     <div class="border-b border-gray-200 bg-white p-6">
                         <Table :resource="users">
                             <template #cell(actions)="{ item: user }">
-                                <a :href="`/users/${user.id}/edit`"> Edit </a>
+                                <a :href="`users/edit/${user.id}`"> Edit </a>
                             </template>
                         </Table>
                     </div>

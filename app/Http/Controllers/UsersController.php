@@ -40,15 +40,21 @@ class UsersController extends Controller
     }
 
     public function updateRole(Request $request) {
-        // $request->validate([
-        //     'id' => 'required',
-        //     'name' => 'required|string|max:255',
-        //     'email' => 'required|string|email|max:255|unique:users',
-        //     'role_id' => 'required',
-        // ]);
+        $request->validate([
+            'id' => 'required',
+            'username' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'role_id' => 'required',
+        ]);
 
-        User::create('$request');
+        $user = User::find($request->id);
 
-        return back();
+        $user->name = $request->username;
+        $user->email = $request->email;
+        $user->role_id = $request->role_id;
+
+        $user->save();
+
+        return redirect(route('admin.role.users'));
     }
 }

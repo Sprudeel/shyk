@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\User;
 use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,13 +48,13 @@ Route::prefix('/admin')->group(function () {
         /**
          * Manage Users
          */
-        Route::get('/users', [App\Http\Controllers\UsersController::class, 'datatable'])->name('admin.role.users');
+        Route::get('/users', [UsersController::class, 'datatable'])->name('admin.role.users');
 
         /**
          * Edit Users
          */
-        Route::get('/users/edit/{id}', [App\Http\Controllers\UsersController::class, 'adminEdit'])->name('admin.role.user');
-        Route::post('/users/edit', [App\Http\Controllers\UsersController::class, 'updateRole'])->name("admin.role.user.edit");
+        Route::get('/users/edit/{id}', [UsersController::class, 'adminEdit'])->name('admin.role.user');
+        Route::post('/users/edit', [UsersController::class, 'updateRole'])->name("admin.role.user.edit");
 
         /**
          * Manage Roles
