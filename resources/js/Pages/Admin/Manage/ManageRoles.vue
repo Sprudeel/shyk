@@ -4,6 +4,7 @@ import { Head, Link } from "@inertiajs/inertia-vue3";
 import Button from "@/Components/forms/Button.vue";
 import { Table } from "@protonemedia/inertiajs-tables-laravel-query-builder";
 import Navigation from "@/Pages/Admin/Manage/Navigation.vue";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/24/outline";
 
 defineProps(["roles"]);
 </script>
@@ -26,7 +27,19 @@ defineProps(["roles"]);
                         </Link>
                         <Table :resource="roles">
                             <template #cell(actions)="{ item: role }">
-                                <a :href="`/role/${role.id}/edit`"> Edit </a>
+                                <div class="flex flex-row">
+                                    <a :href="`/role/edit/${role.id}`">
+                                        <PencilSquareIcon
+                                            class="shyk-blue mr-2 h-5 w-5"
+                                        />
+                                    </a>
+
+                                    <a :href="`/role/delete/${role.id}`">
+                                        <TrashIcon
+                                            class="mr-0 h-5 w-5 text-red-500"
+                                        />
+                                    </a>
+                                </div>
                             </template>
                         </Table>
                     </div>
