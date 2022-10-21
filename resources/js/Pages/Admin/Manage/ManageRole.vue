@@ -73,10 +73,6 @@ const submit = () => {
                             }}</span>
                             bearbeiten
                         </h2>
-
-                        {{ role }} <br />
-                        {{ role_permissions }} <br />
-                        {{ permissions }}
                         <div class="mx-16 mt-8">
                             <form @submit.prevent="submit">
                                 <div class="grid grid-cols-3">

@@ -42,6 +42,6 @@ class Role extends Model
     }
 
     public function permission() {
-        return $this->hasManyThrough(Permission::class, RolePermission::class, 'role_id', 'id', 'id', 'id');
+        return $this->hasManyThrough(Permission::class, RolePermission::class, 'role_id', 'id', 'id', 'permission_id');
     }
 }

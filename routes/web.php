@@ -76,6 +76,7 @@ Route::prefix('/admin')->group(function () {
          * Edit Role
          */
         Route::get('role/edit/{id}', [RoleController::class, 'edit'])->name('admin.role.edit.form');
+        Route::post('role/edit', [RoleController::class, 'update'])->name('admin.role.edit');
     });
 });
 

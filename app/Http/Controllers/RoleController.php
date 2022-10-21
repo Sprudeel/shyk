@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\RolePermission;
 use App\Models\Permission;
 use Illuminate\Support\Collection;
 use Inertia\Inertia;
@@ -67,6 +68,21 @@ class RoleController extends Controller
             'role_permissions' => Role::find($id)->permission,
             'permissions' => Permission::all(),
         ]);
+    }
+
+    public function update(Request $request) {
+        RolePermission::where('role_id', $request->role_id)->delete();
+
+        foreach ($request->permissions as $permission) {
+            if($permission['haspermission'] == true) {
+                RolePermission::create([
+                    'role_id' => $request->role_id,
+                    'permission_id' => $permission['permission_id'],
+                ]);
+            }
+        }
+
+        return redirect(route('admin.role.roles'));
     }
 
 }
