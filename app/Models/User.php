@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Models\Permissions;
 
 class User extends Authenticatable
 {
@@ -41,4 +42,40 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public $timestamps = true;
+
+    /**
+     * Get the Role associated with the User
+     */
+    public function role() {
+        return $this->belongsTo(Role::class);
+    }
+
+
+    /**
+     * Get the Permissions that the User has through his Role
+     */
+    public function permissions() {
+        $permissions = $this->role->permission ?? [];
+        $allpermissions = Permission::all();
+        $truepermissions = [];
+
+        $permissions_id = [];
+        foreach ($permissions as $permission ) {
+            array_push($permissions_id, $permission->id);
+        }
+
+        foreach ($allpermissions as $permission) {
+            foreach ($allpermissions as $permission) {
+                if(in_array($permission->id, $permissions_id)) {
+                    $truepermissions += [$permission->name => true];
+                } else {
+                    $truepermissions += [$permission->name => false];
+
+                }
+            };
+        }
+        return (array) $truepermissions;
+    }
 }

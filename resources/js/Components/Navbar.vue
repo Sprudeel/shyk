@@ -34,10 +34,15 @@
         <Searchbar class="ml-32 ph:hidden md:flex o-md:ml-2" />
 
         <!-- Dropdown Menu -->
+
         <NavBarDropdownMenu class="ph:block md:hidden" />
 
+        <AdminDropDown
+            v-if="auth.role.name == 'Admin'"
+            class="ph:hidden lph:flex"
+        />
         <!-- Login Logout -->
-        <NavBarUserSettings v-if="user" />
+        <NavBarUserSettings v-if="auth.user" />
 
         <div v-else class="ph:ml-2 lg:ml-8">
             <Link
@@ -48,11 +53,16 @@
             <br class="hidden o-ph:block" />
 
             <Link
+                :href="route('register')"
                 class="ml-2 text-gray-700 dark:text-gray-500 ph:text-xs lg:text-sm o-ph:ml-0"
                 >Registrieren</Link
             >
         </div>
     </nav>
+    <AdminDropDown
+        v-if="auth.role.name == 'Admin'"
+        class="float-right m-2 ph:block lph:hidden"
+    />
 </template>
 
 <script setup>
@@ -63,6 +73,7 @@ import { computed } from "vue";
 import { Link, usePage } from "@inertiajs/inertia-vue3";
 import NavBarDropdownMenu from "@/Components/NavBarDropdownMenu.vue";
 import NavBarUserSettings from "@/Components/NavBarUserSettings.vue";
+import AdminDropDown from "@/Components/AdminDropDown.vue";
 
-const user = computed(() => usePage().props.value.auth.user);
+const auth = computed(() => usePage().props.value.auth);
 </script>
