@@ -39,7 +39,7 @@ class RoleController extends Controller
         return Inertia::render('Admin/Manage/CreateRole');
     }
 
-    public function insert(Request $request) {
+    public function store(Request $request) {
 
         $request->validate([
                 'name' => 'required',
@@ -50,6 +50,14 @@ class RoleController extends Controller
         ]);
 
         return redirect("admin/roles-permissions/roles");
+    }
+
+    public function destroy(Request $request) {
+        $role = Role::find($request->id);
+
+        $role->delete();
+
+        return redirect(route('admin.role.roles'));
     }
 
 }

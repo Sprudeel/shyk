@@ -59,13 +59,18 @@ Route::prefix('/admin')->group(function () {
         /**
          * Manage Roles
          */
-        Route::get('/roles', [App\Http\Controllers\RoleController::class, 'datatable'])->name('admin.role.roles');
+        Route::get('/roles', [RoleController::class, 'datatable'])->name('admin.role.roles');
 
         /**
          * Add Roles
          */
-        Route::get('/roles/create', [App\Http\Controllers\RoleController::class, 'create'])->middleware(['auth', 'verified'])->name('admin.role.create.form');
-        Route::post('/roles/create/new', [App\Http\Controllers\RoleController::class, 'insert'])->name('admin.role.create');
+        Route::get('/roles/create', [RoleController::class, 'create'])->name('admin.role.create.form');
+        Route::post('/roles/create/new', [RoleController::class, 'store'])->name('admin.role.create');
+
+        /**
+         * Delete Role
+        */
+        Route::post('/role/delete/{id}', [RoleController::class, 'destroy'])->name('admin.role.destory');
     });
 });
 

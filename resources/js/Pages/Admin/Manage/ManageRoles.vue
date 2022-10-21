@@ -15,7 +15,7 @@ defineProps(["roles"]);
     <DefaultLayout>
         <div class="py-8">
             <Navigation />
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div class="max-w-10/12 mx-auto sm:px-6 lg:px-8">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="border-b border-gray-200 bg-white p-6">
                         <Link :href="route('admin.role.create.form')"
@@ -25,20 +25,23 @@ defineProps(["roles"]);
                                 Erstellen
                             </Button>
                         </Link>
-                        <Table :resource="roles">
+                        <Table :resource="roles" class="w-full">
                             <template #cell(actions)="{ item: role }">
                                 <div class="flex flex-row">
-                                    <a :href="`/role/edit/${role.id}`">
+                                    <Link :href="`role/edit/${role.id}`">
                                         <PencilSquareIcon
                                             class="shyk-blue mr-2 h-5 w-5"
                                         />
-                                    </a>
+                                    </Link>
 
-                                    <a :href="`/role/delete/${role.id}`">
+                                    <Link
+                                        :href="`role/delete/${role.id}`"
+                                        method="post"
+                                    >
                                         <TrashIcon
                                             class="mr-0 h-5 w-5 text-red-500"
                                         />
-                                    </a>
+                                    </Link>
                                 </div>
                             </template>
                         </Table>
