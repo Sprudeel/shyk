@@ -19,4 +19,5 @@ class RolePermissionController extends Controller
             'permissions' => $permissions,
         ]);
     }
+
 }

@@ -25,27 +25,26 @@
                     class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                 >
                     <div class="px-1 py-1">
-                        <Link :href="route('admin/roles-permissions')">
-                        <MenuItem v-slot="{ active }">
-                            <button
-                                :class="[
-                                    active
-                                        ? 'bg-blue-300 text-white'
-                                        : 'text-gray-900',
-                                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                                ]"
-                            >
-                                <FingerPrintIcon
-                                    :active="active"
-                                    class="shyk-blue mr-2 h-5 w-5"
-                                    aria-hidden="true"
-                                />
-                                Rollen & Berechtigungen
-                            </button>
-                        </MenuItem>
+                        <Link :href="route('admin.role.permissions')">
+                            <MenuItem v-slot="{ active }">
+                                <button
+                                    :class="[
+                                        active
+                                            ? 'bg-blue-300 text-white'
+                                            : 'text-gray-900',
+                                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                    ]"
+                                >
+                                    <FingerPrintIcon
+                                        :active="active"
+                                        class="shyk-blue mr-2 h-5 w-5"
+                                        aria-hidden="true"
+                                    />
+                                    Rollen & Berechtigungen
+                                </button>
+                            </MenuItem>
                         </Link>
                     </div>
-
                 </MenuItems>
             </transition>
         </Menu>
@@ -57,7 +56,10 @@ import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
 import { computed } from "vue";
 import { Link, usePage } from "@inertiajs/inertia-vue3";
 import { ChevronDownIcon, CommandLineIcon } from "@heroicons/vue/24/solid";
-import { ArrowLeftOnRectangleIcon, FingerPrintIcon } from "@heroicons/vue/24/outline";
+import {
+    ArrowLeftOnRectangleIcon,
+    FingerPrintIcon,
+} from "@heroicons/vue/24/outline";
 
 const user = computed(() => usePage().props.value.auth.user);
 </script>

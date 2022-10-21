@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Support\Collection;
 use Inertia\Inertia;
 use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
@@ -58,6 +59,14 @@ class RoleController extends Controller
         $role->delete();
 
         return redirect(route('admin.role.roles'));
+    }
+
+    public function edit($id) {
+        return Inertia::render('Admin/Manage/ManageRole', [
+            'role' => Role::find($id),
+            'role_permissions' => Role::find($id)->permission,
+            'permissions' => Permission::all(),
+        ]);
     }
 
 }

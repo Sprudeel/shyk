@@ -71,6 +71,11 @@ Route::prefix('/admin')->group(function () {
          * Delete Role
         */
         Route::post('/role/delete/{id}', [RoleController::class, 'destroy'])->name('admin.role.destory');
+
+        /**
+         * Edit Role
+         */
+        Route::get('role/edit/{id}', [RoleController::class, 'edit'])->name('admin.role.edit.form');
     });
 });
 

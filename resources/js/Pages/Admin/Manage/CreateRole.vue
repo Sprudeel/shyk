@@ -18,7 +18,7 @@ let submit = () => {
 </script>
 
 <template>
-    <Head title="Admin - Nutzer bearbeiten" />
+    <Head title="Admin - Rolle Erstellen" />
 
     <DefaultLayout>
         <div class="py-8">
