@@ -8,3 +8,7 @@ This list Contains all Permissions
 -   **roles_create** <br> Rolle erstellen
 -   **roles_delete** <br> Rolle löschen
 -   **roles_update** <br> Rolle bearbeiten
+
+## Permissions
+
+-   **permission_view** <br> Berechtigungen anzeigen

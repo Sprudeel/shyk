@@ -44,5 +44,13 @@ class PermissionSeeder extends Seeder
             'name' => 'roles_update',
             'explanation' => 'Rollen bearbeiten',
         ]);
+
+        /**
+         * Berechtigungen
+         */
+        DB::table('permissions')->insert([
+            'name' => 'permission_view',
+            'explanation' => 'Berechtigungen anschauen',
+        ]);
     }
 }

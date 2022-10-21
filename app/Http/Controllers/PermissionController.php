@@ -11,7 +11,7 @@ class PermissionController extends Controller
 {
     public function index() {
 
-        $this->authorize('view_admin_section', User::class);
+        $this->authorize('viewAny', Permission::class);
 
         // Get all Permissions
         $permissions = Permission::all();
