@@ -57,7 +57,7 @@ class User extends Authenticatable
      * Get the Permissions that the User has through his Role
      */
     public function permissions() {
-        $permissions = $this->role->permission;
+        $permissions = $this->role->permission ?? [];
         $allpermissions = Permission::all();
         $truepermissions = [];
 

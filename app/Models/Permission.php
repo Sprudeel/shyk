@@ -13,9 +13,4 @@ class Permission extends Model
         return $this->belongstoMany(RolePermission::class);
     }
 
-    public function truepermission() {
-        foreach ($permission as $perm ) {
-            $permission;
-        }
-    }
 }
