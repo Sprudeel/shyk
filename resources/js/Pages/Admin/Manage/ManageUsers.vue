@@ -1,11 +1,13 @@
 <script setup>
 import DefaultLayout from "@/Layouts/Default.vue";
-import { Head } from "@inertiajs/inertia-vue3";
+import { Head, usePage } from "@inertiajs/inertia-vue3";
 import { Table } from "@protonemedia/inertiajs-tables-laravel-query-builder";
 import Navigation from "@/Pages/Admin/Manage/Navigation.vue";
 import { PencilSquareIcon } from "@heroicons/vue/24/outline";
+import { computed } from "vue";
 
 defineProps(["users"]);
+const auth = computed(() => usePage().props.value.auth);
 </script>
 
 <template>
@@ -19,7 +21,10 @@ defineProps(["users"]);
                     <div class="border-b border-gray-200 bg-white p-6">
                         <Table :resource="users">
                             <template #cell(actions)="{ item: user }">
-                                <a :href="`users/edit/${user.id}`">
+                                <a
+                                    v-if="auth.permissions.admin_update_role"
+                                    :href="`users/edit/${user.id}`"
+                                >
                                     <PencilSquareIcon
                                         :active="active"
                                         class="shyk-blue mr-2 h-5 w-5"

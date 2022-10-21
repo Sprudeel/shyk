@@ -36,7 +36,7 @@ class RoleController extends Controller
         return Inertia::render('Admin/Manage/ManageRoles', ['roles' => $roles])->table(function (InertiaTable $table) {
             $table->column('id', 'ID', searchable: false, sortable: true);
             $table->column('name', 'Name', searchable: true, sortable: true);
-            $table->column('permission', 'Berechtigungen', searchable: false, sortable: false);
+            // $table->column('permission', 'Berechtigungen', searchable: false, sortable: false);
             $table->column(label: 'Actions');
         });
     }
