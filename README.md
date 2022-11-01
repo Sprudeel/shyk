@@ -2,6 +2,8 @@
 ![](https://lchsd.ch/images/shyk_logo.png)
 #
 
+## Test Server now online at: https://shyk.patria-test.ch !
+
 ## Start Local Development
 
 ### Install dependencies
