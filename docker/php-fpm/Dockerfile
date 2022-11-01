@@ -55,6 +55,9 @@ RUN docker-php-ext-install intl
 # Install the PHP gmp extention
 RUN docker-php-ext-install gmp
 
+# Install the PHP mpstring extension
+RUN docker-php-ext-install mbstring
+
 #####################################
 # PHPRedis:
 #####################################
