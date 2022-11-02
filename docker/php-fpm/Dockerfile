@@ -13,6 +13,7 @@ RUN apt-get update && \
         libz-dev \
         libzip-dev \
         libpq-dev \
+        libonig-dev \
         libjpeg-dev \
         libpng-dev \
         libfreetype6-dev \

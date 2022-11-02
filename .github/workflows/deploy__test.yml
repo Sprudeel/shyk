@@ -1,13 +1,11 @@
-name: shyk test
+name: deploy test
 
 on:
-  push:
-    branches:
   pull_request:
-    branches:
+    branches: ["devel", "deploy-test"]
 
 jobs:
-  laravel-tests:
+  run-test-on-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -44,9 +42,12 @@ jobs:
       
       - name: Bundle Frontend
         run: npm run build
+       
+      - name: Start Sail Service
+        run: ./vendor/bin/sail -f docker-compose.production.yml up -d --build
 
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         env:
           DB_CONNECTION: sqlite
           DB_DATABASE: database/database.sqlite
-        run: vendor/bin/phpunit
+        run: php artisan test
