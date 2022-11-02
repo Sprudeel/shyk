@@ -1,11 +1,9 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "reviewers": [
-       "Sprudeel"
-    ],
+    "reviewers": ["Sprudeel"],
+    "labels": ["dependencies"],
     "extends": [
         "config:base"
     ],
     "commitMessagePrefix": "📦",
-    "commitMessageAction": "⬆️ Upgrade"
 }
