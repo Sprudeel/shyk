@@ -9,4 +9,5 @@
         "config:base"
     ],
     "commitMessagePrefix": "📦",
+    "commitMessageAction": "⬆️ Upgrade"
 }
