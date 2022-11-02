@@ -13,6 +13,7 @@ RUN apt-get update && \
         libz-dev \
         libzip-dev \
         libpq-dev \
+        libonig-dev \
         libjpeg-dev \
         libpng-dev \
         libfreetype6-dev \
@@ -54,9 +55,6 @@ RUN docker-php-ext-install intl
 
 # Install the PHP gmp extention
 RUN docker-php-ext-install gmp
-
-# Install libonig-dev
-RUN docker-php-ext-install libonig-dev
 
 # Install the PHP mpstring extension
 RUN docker-php-ext-install mbstring
