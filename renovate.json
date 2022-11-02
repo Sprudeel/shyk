@@ -4,8 +4,9 @@
     {
       "assignees": ["Sprudeel"]
     }
-  ]
+    ],
     "extends": [
         "config:base"
-    ]
+    ],
+    "commitMessagePrefix": "📦",
 }
