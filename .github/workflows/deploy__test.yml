@@ -1,11 +1,11 @@
-name: shyk test
+name: deploy test
 
 on:
   pull_request:
     branches: ["devel", "deploy-test"]
 
 jobs:
-  laravel-tests:
+  run-test-on-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -42,9 +42,6 @@ jobs:
       
       - name: Bundle Frontend
         run: npm run build
-        
-      - name: Install libonig-dev
-        run: docker-php-ext-install libonig-dev
        
       - name: Start Sail Service
         run: ./vendor/bin/sail -f docker-compose.production.yml up -d --build
