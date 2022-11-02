@@ -44,7 +44,7 @@ jobs:
         run: npm run build
         
       - name: Install libonig-dev
-        run: apt-install libonig-dev
+        run: docker-php-ext-install libonig-dev
        
       - name: Start Sail Service
         run: ./vendor/bin/sail -f docker-compose.production.yml up -d --build
