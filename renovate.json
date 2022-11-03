@@ -1,14 +1,8 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "packageRules": [
-    {
-      "matchPackageNames": ["*"],
-      "assignees": ["Sprudeel"]
-    }
-    ],
+    "labels": ["dependencies"],
     "extends": [
         "config:base"
     ],
     "commitMessagePrefix": "📦",
-    "commitMessageAction": "⬆️ Upgrade"
 }
