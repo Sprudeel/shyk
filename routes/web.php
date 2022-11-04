@@ -44,6 +44,12 @@ Route::get('/dashboard', function () {
 
 
 /**
+ * User Profile
+ */
+Route::get('/user/{username}', [UsersController::class, 'index'])->name('userprofile');
+
+
+/**
  * AUTH MIDDLEWARE
  */
 

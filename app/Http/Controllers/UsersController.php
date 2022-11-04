@@ -15,6 +15,11 @@ class UsersController extends Controller
 {
     protected $attributes = ['name' => ""];
 
+
+    public function index(Request $request) {
+        return Inertia::render('User/UserProfile', ['User' => User::where('username', $request->username)->with('role')->firstOrFail()]);
+    }
+
     public function datatable() {
         $this->authorize('viewAny', User::class);
 
