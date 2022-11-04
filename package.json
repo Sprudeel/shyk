@@ -24,6 +24,7 @@
     "dependencies": {
         "@headlessui/vue": "1.7.4",
         "@heroicons/vue": "2.0.13",
-        "@protonemedia/inertiajs-tables-laravel-query-builder": "2.1.0"
+        "@protonemedia/inertiajs-tables-laravel-query-builder": "2.1.0",
+        "moment": "^2.29.4"
     }
 }
