@@ -19,16 +19,17 @@ class UsersController extends Controller
         $this->authorize('viewAny', User::class);
 
         $users = QueryBuilder::for(User::class)
-        ->defaultSort('name')
+        ->defaultSort('username')
         ->withAggregate('role', 'name')
-        ->allowedSorts(['id', 'name', 'email', 'role_name', 'created_at'])
-        ->allowedFilters(['name', 'email'])
+        ->allowedSorts(['id', 'username', 'name', 'email', 'role_name', 'created_at'])
+        ->allowedFilters(['username', 'name', 'email'])
         ->paginate(8)
         ->withQueryString();
 
         return Inertia::render('Admin/Manage/ManageUsers', ['users' => $users])->table(function (InertiaTable $table) {
             $table->column('id', 'ID', searchable: false, sortable: true);
-            $table->column('name', 'Username', searchable: true, sortable: true);
+            $table->column('username', 'Username', searchable: true, sortable: true);
+            $table->column('name', 'Name', searchable: true, sortable: true);
             $table->column('email', 'Email Addresse', searchable: true, sortable: true);
             $table->column('role_name', 'Rolle', searchable: false, sortable: true);
             $table->column('created_at', 'Beitritt', searchable: false, sortable: true);
