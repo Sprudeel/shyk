@@ -5,7 +5,7 @@
                 <MenuButton
                     class="inline-flex w-full justify-center rounded-md bg-opacity-20 px-4 py-2 text-sm font-medium text-black hover:bg-opacity-30 focus:outline-none focus-visible:ring-white focus-visible:ring-opacity-75 o-ph:text-xs"
                 >
-                    Hallo, {{ user.name }}!
+                    Hallo, {{ user.username }}!
                     <ChevronDownIcon
                         class="ml-2 -mr-1 h-4 w-4 text-blue-500 hover:text-blue-600"
                         aria-hidden="true"
