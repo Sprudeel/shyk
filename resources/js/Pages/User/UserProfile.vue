@@ -1,7 +1,7 @@
 <script setup>
 import DefaultLayout from "@/Layouts/Default.vue";
 import { Head, usePage } from "@inertiajs/inertia-vue3";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import LogoMeditating from "@/Components/svg/logo/Meditating.vue";
 import moment from "moment";
 
@@ -15,14 +15,26 @@ const permissions = computed(() => usePage().props.value.auth.permissions);
 
 moment.locale("de-ch");
 const joined = moment(String(props.User.created_at)).format("DD. MMM YY");
+
+const NavClasses = computed(() =>
+    props.active
+        ? "inline-flex items-center px-6 h-16 text-base  o-md:text-sm border-b-2 border-indigo-400 font-medium leading-5 text-black hover:text-gray-700 focus:outline-none focus:text-gray-700 transition duration-150 ease-in-out"
+        : "inline-flex items-center px-6 h-16 text-base  o-md:text-sm border-b-2 border-white font-medium leading-5 text-black hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
+);
+
+let NavSelector = ref("");
+
+function NavSelectorChange(click) {
+    return (this.NavSelector = click);
+}
 </script>
 
 <template>
     <Head :title="User.username + 's Profil'" />
 
     <DefaultLayout>
-        <div class="mx-auto mt-8 mb-8 h-full w-3/4">
-            <div class="flex items-center divide-x shadow-lg">
+        <div class="mx-auto mt-8 mb-8 h-full w-5/6 shadow-lg">
+            <div class="flex items-center divide-x">
                 <div class="mt-8 mb-8 basis-1/3">
                     <LogoMeditating
                         class="mx-auto mb-8 h-56 w-56 rounded-lg p-4"
@@ -34,6 +46,7 @@ const joined = moment(String(props.User.created_at)).format("DD. MMM YY");
                             }}</span>
                             <span
                                 class="ml-4 rounded-lg p-1 text-sm font-bold uppercase tracking-wider text-white"
+                                v-if="User.role.name != 'User'"
                                 :style="
                                     'background-color: ' + User.role.color + ';'
                                 "
@@ -55,6 +68,53 @@ const joined = moment(String(props.User.created_at)).format("DD. MMM YY");
                     <h2 class="text-lg font-bold">Über mich</h2>
                     <span class=""> {{ User.about }}</span>
                     <h2 class="mt-12 text-lg font-bold">Erfahrung</h2>
+                    <span class="italic text-violet-500">
+                        Hier ensteht ein Nutzer Erfahrungs System!</span
+                    >
+                </div>
+            </div>
+            <div class="mx-auto w-4/6">
+                <div class="flex items-center justify-evenly">
+                    <span
+                        :class="NavClasses"
+                        class="cursor-pointer"
+                        @click="NavSelectorChange('posts')"
+                        >Beiträge</span
+                    >
+                    <span
+                        :class="NavClasses"
+                        class="cursor-pointer"
+                        @click="NavSelectorChange('comments')"
+                        >Likes</span
+                    >
+                    <span
+                        :class="NavClasses"
+                        class="cursor-pointer"
+                        @click="NavSelectorChange('likes')"
+                        >Kommentare</span
+                    >
+                </div>
+
+                <div
+                    id="nav__posts"
+                    v-show="NavSelector == 'posts'"
+                    class="text-center"
+                >
+                    POSTS!
+                </div>
+                <div
+                    id="nav__likes"
+                    v-if="NavSelector == 'likes'"
+                    class="text-center"
+                >
+                    likes!
+                </div>
+                <div
+                    id="nav__comments"
+                    v-if="NavSelector == 'comments'"
+                    class="text-center"
+                >
+                    comments!
                 </div>
             </div>
         </div>
