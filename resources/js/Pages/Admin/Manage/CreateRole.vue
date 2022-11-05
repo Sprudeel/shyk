@@ -10,6 +10,7 @@ import { Inertia } from "@inertiajs/inertia";
 
 let form = useForm({
     name: "",
+    color: "",
 });
 
 let submit = () => {
@@ -42,6 +43,22 @@ let submit = () => {
                                     <InputError
                                         class="mt-2"
                                         :message="form.errors.name"
+                                    />
+                                </div>
+
+                                <div class="mb-4">
+                                    <Label for="color" value="Rollenfarbe" />
+                                    <Input
+                                        id="color"
+                                        type="color"
+                                        class="mt-1 block w-full"
+                                        v-model="form.color"
+                                        required
+                                        autofocus
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.color"
                                     />
                                 </div>
 
