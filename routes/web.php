@@ -46,7 +46,8 @@ Route::get('/dashboard', function () {
 /**
  * User Profile
  */
-Route::get('/user/{username}', [UsersController::class, 'index'])->name('userprofile');
+Route::get('/user/{username}', [UsersController::class, 'index'])->name('userprofile.view');
+Route::get('/user/edit/{username}', [UsersController::class, 'edit'])->middleware(['auth', 'verified'])->name('useprofile.edit');
 
 
 /**
