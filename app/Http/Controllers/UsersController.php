@@ -10,6 +10,7 @@ use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -18,6 +19,12 @@ class UsersController extends Controller
 
     public function index(Request $request) {
         return Inertia::render('User/UserProfile', ['User' => User::where('username', $request->username)->with('role')->firstOrFail()]);
+    }
+
+    public function edit(Request $request) {
+        $this->authorize('update', [User::class, User::where('username', $request->username)->firstOrFail()]);
+
+        return Inertia::render('User/EditUserProfile', ['User' => User::where('username', $request->username)->with('role')->firstOrFail()]);
     }
 
     public function datatable() {
