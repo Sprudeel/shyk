@@ -1,0 +1,140 @@
+<script setup>
+import { useEditor, EditorContent } from "@tiptap/vue-3";
+import { inject } from "vue";
+import StarterKit from "@tiptap/starter-kit";
+import CharacterCount from "@tiptap/extension-character-count";
+import { mergeAttributes } from "@tiptap/core";
+import Heading from "@tiptap/extension-heading";
+import Bold from "@/Components/forms/tiptap/Bold.vue";
+import Italic from "@/Components/forms/tiptap/Italic.vue";
+import Strike from "@/Components/forms/tiptap/Strike.vue";
+import Heading1 from "@/Components/forms/tiptap/H1.vue";
+import Heading2 from "@/Components/forms/tiptap/H2.vue";
+import Heading3 from "@/Components/forms/tiptap/H3.vue";
+import Paragraph from "@/Components/forms/tiptap/Paragraph.vue";
+import BulletList from "@/Components/forms/tiptap/BulletList.vue";
+import OrderedList from "@/Components/forms/tiptap/OrderedList.vue";
+
+const props = defineProps({
+    content: String,
+    model: String,
+});
+const maxCharacters = 500;
+
+const emit = defineEmits(["content"]);
+
+let editor = useEditor({
+    content: props.content,
+    extensions: [
+        StarterKit.configure({
+            heading: false,
+        }),
+        CharacterCount.configure({
+            limit: maxCharacters,
+        }),
+        Heading.configure({ levels: [1, 2, 3] }).extend({
+            levels: [1, 2, 3],
+            renderHTML({ node, HTMLAttributes }) {
+                const level = this.options.levels.includes(node.attrs.level)
+                    ? node.attrs.level
+                    : this.options.levels[0];
+                const classes = {
+                    1: "text-3xl font-bold",
+                    2: "text-2xl font-bold",
+                    3: "text-xl font-bold",
+                };
+                return [
+                    `h${level}`,
+                    mergeAttributes(
+                        this.options.HTMLAttributes,
+                        HTMLAttributes,
+                        {
+                            class: `${classes[level]}`,
+                        }
+                    ),
+                    0,
+                ];
+            },
+        }),
+    ],
+    editorProps: {
+        attributes: {
+            class: "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl m-2 focus:outline-none",
+        },
+    },
+    onUpdate: ({ editor }) => {
+        emit("content", editor.getHTML());
+    },
+});
+</script>
+
+<template>
+    <div class="rounded-md border border-gray-500 p-2">
+        <div v-if="editor" class="mb-2 flex flex-row justify-around">
+            <div class="flex flex-row space-x-2">
+                <Bold
+                    @click="editor.chain().focus().toggleBold().run()"
+                    :active="editor.isActive('bold')"
+                />
+
+                <Italic
+                    @click="editor.chain().focus().toggleItalic().run()"
+                    :active="editor.isActive('italic')"
+                />
+
+                <Strike
+                    @click="editor.chain().focus().toggleStrike().run()"
+                    :active="editor.isActive('strike')"
+                />
+            </div>
+
+            <div class="flex flex-row space-x-2">
+                <Heading1
+                    @click="
+                        editor.chain().focus().toggleHeading({ level: 1 }).run()
+                    "
+                    :active="editor.isActive('heading', { level: 1 })"
+                />
+
+                <Heading2
+                    @click="
+                        editor.chain().focus().toggleHeading({ level: 2 }).run()
+                    "
+                    :active="editor.isActive('heading', { level: 2 })"
+                />
+
+                <Heading3
+                    @click="
+                        editor.chain().focus().toggleHeading({ level: 3 }).run()
+                    "
+                    :active="editor.isActive('heading', { level: 3 })"
+                />
+
+                <Paragraph
+                    @click="editor.chain().focus().setParagraph().run()"
+                    :active="editor.isActive('paragraph')"
+                />
+            </div>
+
+            <div class="flex flex-row space-x-2">
+                <BulletList
+                    @click="editor.chain().focus().toggleBulletList().run()"
+                    :active="editor.isActive('bulletList')"
+                />
+
+                <OrderedList
+                    @click="editor.chain().focus().toggleOrderedList().run()"
+                    :active="editor.isActive('orderedList')"
+                />
+            </div>
+        </div>
+        <hr />
+        <editor-content :editor="editor" :v-model="props.model" />
+        <div class="float-right p-2 text-sm text-gray-500" v-if="editor">
+            {{ editor.storage.characterCount.characters() }} /
+            {{ maxCharacters }} Zeichen,
+
+            {{ editor.storage.characterCount.words() }} Wörter
+        </div>
+    </div>
+</template>
