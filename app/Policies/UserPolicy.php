@@ -3,7 +3,10 @@
 namespace App\Policies;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Http\Request;
 
 class UserPolicy
 {
@@ -47,12 +50,15 @@ class UserPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\User  $model
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param  \App\Models\User  $lookupuser
      */
-    public function update(User $user, User $model)
+    public function update(User $user, User  $lookupuser)
     {
-        //
+        if($user->id === $lookupuser->id) {
+            return $user->permissions()['userprofile_edit_self'];
+        } else if ($user->permissions()['userprofile_edit_all']) {
+            return $user->permissions()['userprofile_edit_all'];
+        }
     }
 
     /**
