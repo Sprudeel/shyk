@@ -1,17 +1,16 @@
 <script setup>
 import DefaultLayout from "@/Layouts/Default.vue";
-import { Head, usePage } from "@inertiajs/inertia-vue3";
+import { Head, usePage, Link } from "@inertiajs/inertia-vue3";
 import { computed, ref } from "vue";
 import LogoMeditating from "@/Components/svg/logo/Meditating.vue";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/24/outline";
 import moment from "moment";
 
 const props = defineProps({
     User: Object,
 });
 
-const user = computed(() => usePage().props.value.auth.user);
-const role = computed(() => usePage().props.value.auth.role);
-const permissions = computed(() => usePage().props.value.auth.permissions);
+const auth = computed(() => usePage().props.value.auth);
 
 moment.locale("de-ch");
 const joined = moment(String(props.User.created_at)).format("DD. MMM YY");
@@ -22,7 +21,7 @@ const NavClasses = computed(() =>
         : "inline-flex items-center px-6 h-16 text-base  o-md:text-sm border-b-2 border-white font-medium leading-5 text-black hover:text-gray-700 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
 );
 
-let NavSelector = ref("");
+let NavSelector = ref("posts");
 
 function NavSelectorChange(click) {
     return (this.NavSelector = click);
@@ -33,7 +32,27 @@ function NavSelectorChange(click) {
     <Head :title="User.username + 's Profil'" />
 
     <DefaultLayout>
-        <div class="mx-auto mt-8 mb-8 h-full w-5/6 shadow-lg">
+        <div class="relative mx-auto mt-8 mb-8 h-full w-5/6 shadow-lg">
+            <span class="absolute right-0 m-6 flex flex-row">
+                <Link
+                    v-if="
+                        auth.permissions.userprofile_edit_self &&
+                        auth.user.username == User.username
+                    "
+                    :href="`/user/edit/${User.username}`"
+                    title="Mein Profil bearbeiten"
+                >
+                    <PencilSquareIcon class="shyk-blue mr-2 h-5 w-5" />
+                </Link>
+
+                <Link
+                    v-if="auth.permissions.userprofile_edit_all"
+                    :href="`/user/edit/${User.username}`"
+                    title="Nutzer bearbeiten"
+                >
+                    <PencilSquareIcon class="mr-2 h-5 w-5 text-yellow-300" />
+                </Link>
+            </span>
             <div class="flex items-center divide-x">
                 <div class="mt-8 mb-8 basis-1/3">
                     <LogoMeditating
