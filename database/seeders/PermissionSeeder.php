@@ -64,5 +64,13 @@ class PermissionSeeder extends Seeder
             'name' => 'admin_update_role',
             'explanation' => 'Nutzerrollen bearbeiten',
         ]);
+        DB::table('permissions')->insert([
+            'name' => 'userprofile_edit_self',
+            'explanation' => 'Eigenes Nutzer Profil editieren',
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'userprofile_edit_all',
+            'explanation' => 'Alle Nutzer Profil editieren',
+        ]);
     }
 }
