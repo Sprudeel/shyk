@@ -5,6 +5,8 @@ import StarterKit from "@tiptap/starter-kit";
 import CharacterCount from "@tiptap/extension-character-count";
 import { mergeAttributes } from "@tiptap/core";
 import Heading from "@tiptap/extension-heading";
+import OrderedList from "@tiptap/extension-ordered-list";
+import BulletList from "@tiptap/extension-bullet-list";
 import Bold from "@/Components/forms/tiptap/Bold.vue";
 import Italic from "@/Components/forms/tiptap/Italic.vue";
 import Strike from "@/Components/forms/tiptap/Strike.vue";
@@ -12,8 +14,8 @@ import Heading1 from "@/Components/forms/tiptap/H1.vue";
 import Heading2 from "@/Components/forms/tiptap/H2.vue";
 import Heading3 from "@/Components/forms/tiptap/H3.vue";
 import Paragraph from "@/Components/forms/tiptap/Paragraph.vue";
-import BulletList from "@/Components/forms/tiptap/BulletList.vue";
-import OrderedList from "@/Components/forms/tiptap/OrderedList.vue";
+import BulletListIcon from "@/Components/forms/tiptap/BulletList.vue";
+import OrderedListIcon from "@/Components/forms/tiptap/OrderedList.vue";
 
 const props = defineProps({
     content: String,
@@ -28,6 +30,8 @@ let editor = useEditor({
     extensions: [
         StarterKit.configure({
             heading: false,
+            OrderedList: false,
+            BulletList: false,
         }),
         CharacterCount.configure({
             limit: maxCharacters,
@@ -54,6 +58,16 @@ let editor = useEditor({
                     ),
                     0,
                 ];
+            },
+        }),
+        OrderedList.configure({
+            HTMLAttributes: {
+                class: "list-decimal ml-6",
+            },
+        }),
+        BulletList.configure({
+            HTMLAttributes: {
+                class: "list-disc ml-6",
             },
         }),
     ],
@@ -117,12 +131,12 @@ let editor = useEditor({
             </div>
 
             <div class="flex flex-row space-x-2">
-                <BulletList
+                <BulletListIcon
                     @click="editor.chain().focus().toggleBulletList().run()"
                     :active="editor.isActive('bulletList')"
                 />
 
-                <OrderedList
+                <OrderedListIcon
                     @click="editor.chain().focus().toggleOrderedList().run()"
                     :active="editor.isActive('orderedList')"
                 />
