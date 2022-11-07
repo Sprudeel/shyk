@@ -30,6 +30,8 @@
         "@tiptap/extension-heading": "^2.0.0-beta.202",
         "@tiptap/extension-list-item": "^2.0.0-beta.202",
         "@tiptap/extension-ordered-list": "^2.0.0-beta.202",
+        "@tiptap/extension-task-item": "^2.0.0-beta.202",
+        "@tiptap/extension-task-list": "^2.0.0-beta.202",
         "@tiptap/starter-kit": "^2.0.0-beta.202",
         "@tiptap/vue-3": "^2.0.0-beta.202",
         "moment": "^2.29.4"
