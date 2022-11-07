@@ -1,6 +1,5 @@
 <script setup>
 import { useEditor, EditorContent } from "@tiptap/vue-3";
-import { inject } from "vue";
 import StarterKit from "@tiptap/starter-kit";
 import CharacterCount from "@tiptap/extension-character-count";
 import { mergeAttributes } from "@tiptap/core";
@@ -16,6 +15,9 @@ import Heading3 from "@/Components/forms/tiptap/H3.vue";
 import Paragraph from "@/Components/forms/tiptap/Paragraph.vue";
 import BulletListIcon from "@/Components/forms/tiptap/BulletList.vue";
 import OrderedListIcon from "@/Components/forms/tiptap/OrderedList.vue";
+import HorizontalRule from "@/Components/forms/tiptap/HorizontalRule.vue";
+import Undo from "@/Components/forms/tiptap/Undo.vue";
+import Redo from "@/Components/forms/tiptap/Redo.vue";
 
 const props = defineProps({
     content: String,
@@ -141,10 +143,23 @@ let editor = useEditor({
                     :active="editor.isActive('orderedList')"
                 />
             </div>
+            <div class="flex flex-row space-x-2">
+                <HorizontalRule
+                    @click="editor.chain().focus().setHorizontalRule().run()"
+                />
+                <Undo
+                    @click="editor.chain().focus().undo().run()"
+                    :disabled="!editor.can().chain().focus().undo().run()"
+                />
+                <Redo
+                    @click="editor.chain().focus().redo().run()"
+                    :disabled="!editor.can().chain().focus().redo().run()"
+                />
+            </div>
         </div>
         <hr />
         <editor-content :editor="editor" :v-model="props.model" />
-        <div class="float-right p-2 text-sm text-gray-500" v-if="editor">
+        <div class="float-right mt-2 p-2 text-sm text-gray-500" v-if="editor">
             {{ editor.storage.characterCount.characters() }} /
             {{ maxCharacters }} Zeichen,
 
