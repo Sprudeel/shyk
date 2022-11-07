@@ -46,7 +46,10 @@ function NavSelectorChange(click) {
                 </Link>
 
                 <Link
-                    v-if="auth.permissions.userprofile_edit_all"
+                    v-if="
+                        auth.permissions.userprofile_edit_all &&
+                        auth.user.username != User.username
+                    "
                     :href="`/user/edit/${User.username}`"
                     title="Nutzer bearbeiten"
                 >
