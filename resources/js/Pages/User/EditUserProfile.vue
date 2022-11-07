@@ -1,7 +1,7 @@
 <script setup>
 import DefaultLayout from "@/Layouts/Default.vue";
 import { Head, usePage, useForm } from "@inertiajs/inertia-vue3";
-import { computed, provide, ref } from "vue";
+import { computed, ref } from "vue";
 import LogoMeditating from "@/Components/svg/logo/Meditating.vue";
 import Button from "@/Components/forms/Button.vue";
 import Input from "@/Components/forms/Input.vue";
@@ -18,12 +18,21 @@ const auth = computed(() => usePage().props.value.auth);
 let form = useForm({
     id: props.User.id,
     username: props.User.username,
+    email: props.User.email,
     name: props.User.name,
+    avatar: props.User.avatar,
     about: ref(props.User.about),
 });
 
 function handleContent(s) {
     form.about = s;
+}
+
+let url = ref(null);
+
+function previewImage(e) {
+    const file = form.avatar;
+    url = URL.createObjectURL(file);
 }
 
 const submit = () => {
@@ -39,9 +48,19 @@ const submit = () => {
             <form @submit.prevent="submit">
                 <div class="flex items-center divide-x">
                     <div class="mt-8 mb-8 basis-1/3">
-                        <LogoMeditating
-                            class="mx-auto mb-8 h-56 w-56 rounded-lg p-4"
-                        />
+                        <div class="max-height-48 h-48">
+                            <input
+                                type="file"
+                                accept=".png, .jpg, .jpeg"
+                                @input="form.avatar = $event.target.files[0]"
+                                @change="previewImage"
+                            />
+                            <img
+                                :src="url"
+                                class="mx-autos mt-4 h-fit w-full"
+                            />
+                            {{ url }}
+                        </div>
                         <div class="ml-10">
                             <span class="items-center">
                                 <Label for="username" value="Benutzername" />
@@ -71,7 +90,21 @@ const submit = () => {
                                 class="mt-2"
                                 :message="form.errors.name"
                             />
-                            <br />
+                            <Label for="email" value="E-Mail" />
+                            <Input
+                                id="email"
+                                type="email"
+                                class="mt-1 mb-4 block w-5/6"
+                                v-model="form.email"
+                                disabled
+                                required
+                                autofocus
+                                title="Deine Email kann nicht geändert werden!"
+                            />
+                            <InputError
+                                class="mt-2"
+                                :message="form.errors.email"
+                            />
                         </div>
                     </div>
 
@@ -83,9 +116,16 @@ const submit = () => {
                             v-model="form.about"
                         />
                     </div>
+                    <progress
+                        v-if="form.progress"
+                        :value="form.progress.percentage"
+                        max="100"
+                    >
+                        {{ form.progress.percentage }}%
+                    </progress>
                 </div>
             </form>
-            <div v-html="form.about"></div>
+            {{ form }}
         </div>
     </DefaultLayout>
 </template>
