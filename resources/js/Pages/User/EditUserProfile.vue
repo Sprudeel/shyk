@@ -1,13 +1,14 @@
 <script setup>
 import DefaultLayout from "@/Layouts/Default.vue";
 import { Head, usePage, useForm } from "@inertiajs/inertia-vue3";
-import { computed, ref } from "vue";
+import { computed, ref, getCurrentInstance } from "vue";
 import LogoMeditating from "@/Components/svg/logo/Meditating.vue";
 import Button from "@/Components/forms/Button.vue";
 import Input from "@/Components/forms/Input.vue";
 import InputError from "@/Components/forms/InputError.vue";
 import Label from "@/Components/forms/Label.vue";
 import TipTap from "@/Components/forms/TipTapEditor.vue";
+import { ArrowUpTrayIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps({
     User: Object,
@@ -28,11 +29,18 @@ function handleContent(s) {
     form.about = s;
 }
 
-let url = ref(null);
+let imageURL = [null];
+let loading = ref(false);
 
-function previewImage(e) {
+function previewImage() {
+    imageURL.splice(0);
     const file = form.avatar;
-    url = URL.createObjectURL(file);
+    imageURL.push(URL.createObjectURL(file));
+    console.log(imageURL);
+    setTimeout(() => {
+        const instance = getCurrentInstance();
+        instance?.proxy?.$forceUpdate();
+    }, 2000);
 }
 
 const submit = () => {
@@ -44,23 +52,47 @@ const submit = () => {
     <Head :title="User.username + 's Profil'" />
 
     <DefaultLayout>
-        <div class="relative mx-auto mt-8 mb-8 h-full w-5/6 shadow-lg">
+        <div class="mx-auto mt-8 mb-8 h-full w-5/6 shadow-lg">
             <form @submit.prevent="submit">
                 <div class="flex items-center divide-x">
                     <div class="mt-8 mb-8 basis-1/3">
-                        <div class="max-height-48 h-48">
-                            <input
-                                type="file"
-                                accept=".png, .jpg, .jpeg"
-                                @input="form.avatar = $event.target.files[0]"
-                                @change="previewImage"
-                            />
-                            <img
-                                :src="url"
-                                class="mx-autos mt-4 h-fit w-full"
-                            />
-                            {{ url }}
-                        </div>
+                        <label for="imageInput">
+                            <Label class="ml-10">Avatar</Label>
+
+                            <div
+                                class="group relative mb-4 h-52 max-h-64 cursor-pointer overflow-hidden"
+                            >
+                                <input
+                                    type="file"
+                                    id="imageInput"
+                                    accept=".png, .jpg, .jpeg"
+                                    class="hidden"
+                                    @input="
+                                        form.avatar = $event.target.files[0];
+                                        previewImage();
+                                        loading = false;
+                                    "
+                                />
+
+                                <img
+                                    id="previewAvatar"
+                                    v-if="imageURL[0]"
+                                    :src="imageURL[0]"
+                                    class="mx-auto mt-2 mb-2 h-48 w-48 rounded-full object-cover"
+                                />
+                                <span
+                                    class="group absolute top-0 bottom-0 h-full w-full bg-transparent"
+                                >
+                                    <span
+                                        class="group flex h-full items-center justify-center bg-transparent"
+                                    >
+                                        <span
+                                            class="group hidden h-12 w-12 rounded-full p-24 group-hover:block group-hover:bg-gray-400/50"
+                                        ></span
+                                    ></span>
+                                </span>
+                            </div>
+                        </label>
                         <div class="ml-10">
                             <span class="items-center">
                                 <Label for="username" value="Benutzername" />
