@@ -1,17 +1,17 @@
 <script setup>
 import DefaultLayout from "@/Layouts/Default.vue";
 import { Head, usePage, useForm } from "@inertiajs/inertia-vue3";
-import { computed, ref, getCurrentInstance } from "vue";
-import LogoMeditating from "@/Components/svg/logo/Meditating.vue";
+import { Inertia } from "@inertiajs/inertia";
+import { computed, ref } from "vue";
 import Button from "@/Components/forms/Button.vue";
 import Input from "@/Components/forms/Input.vue";
 import InputError from "@/Components/forms/InputError.vue";
 import Label from "@/Components/forms/Label.vue";
 import TipTap from "@/Components/forms/TipTapEditor.vue";
-import { ArrowUpTrayIcon } from "@heroicons/vue/24/solid";
 
 const props = defineProps({
     User: Object,
+    avatar_path: String,
 });
 
 const auth = computed(() => usePage().props.value.auth);
@@ -30,21 +30,16 @@ function handleContent(s) {
 }
 
 let imageURL = [null];
-let loading = ref(false);
+let imageKey = ref(0);
 
 function previewImage() {
     imageURL.splice(0);
     const file = form.avatar;
     imageURL.push(URL.createObjectURL(file));
-    console.log(imageURL);
-    setTimeout(() => {
-        const instance = getCurrentInstance();
-        instance?.proxy?.$forceUpdate();
-    }, 2000);
 }
 
 const submit = () => {
-    Inertia.post(route("admin.role.user.edit"), form);
+    Inertia.post(route("userprofile.update"), form);
 };
 </script>
 
@@ -54,7 +49,7 @@ const submit = () => {
     <DefaultLayout>
         <div class="mx-auto mt-8 mb-8 h-full w-5/6 shadow-lg">
             <form @submit.prevent="submit">
-                <div class="flex items-center divide-x">
+                <div class="relative flex items-center divide-x">
                     <div class="mt-8 mb-8 basis-1/3">
                         <label for="imageInput">
                             <Label class="ml-10">Avatar</Label>
@@ -70,16 +65,32 @@ const submit = () => {
                                     @input="
                                         form.avatar = $event.target.files[0];
                                         previewImage();
-                                        loading = false;
+                                        imageKey++;
                                     "
                                 />
-
                                 <img
                                     id="previewAvatar"
                                     v-if="imageURL[0]"
                                     :src="imageURL[0]"
+                                    :key="imageKey"
                                     class="mx-auto mt-2 mb-2 h-48 w-48 rounded-full object-cover"
                                 />
+
+                                <img
+                                    v-else
+                                    :src="
+                                        Inertia.page.props.ziggy.url +
+                                        '/avatars/' +
+                                        form.avatar
+                                    "
+                                    class="mx-auto mt-2 mb-2 h-48 w-48 rounded-full object-cover"
+                                />
+
+                                <InputError
+                                    class="mt-2"
+                                    :message="form.errors.avatar"
+                                />
+                                <span class="hidden">{{ imageKey }}</span>
                                 <span
                                     class="group absolute top-0 bottom-0 h-full w-full bg-transparent"
                                 >
@@ -155,6 +166,15 @@ const submit = () => {
                     >
                         {{ form.progress.percentage }}%
                     </progress>
+                    <Button
+                        class="bg-shyk-blue absolute bottom-0 right-0 m-8 ml-8 hover:bg-blue-500 hover:font-bold hover:shadow-lg"
+                        :class="{
+                            'opacity-25': form.processing,
+                        }"
+                        :disabled="form.processing"
+                    >
+                        Upload
+                    </Button>
                 </div>
             </form>
             {{ form }}
