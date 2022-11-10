@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UsersController extends Controller
 {
@@ -25,6 +27,32 @@ class UsersController extends Controller
         $this->authorize('update', [User::class, User::where('username', $request->username)->firstOrFail()]);
 
         return Inertia::render('User/EditUserProfile', ['User' => User::where('username', $request->username)->with('role')->firstOrFail()]);
+    }
+
+    public function update(Request $request) {
+        // $this->authorize('update', [User::class, User::where('username', $request->username)->firstOrFail()]);
+
+        $request->validate([
+            'id' => 'required',
+            'username' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'about' => 'required',
+            'avatar' => 'required|mimes:png,jpg,jpeg|max:2048',
+        ]);
+
+        $filename = "avatar_".$request->id.".".$request->avatar->extension();
+        $request->avatar->move(public_path('avatars'),$filename);
+
+        $user = User::find($request->id);
+
+        $user->username = $request->username;
+        $user->name = $request->name;
+        $user->about = $request->about;
+        $user->avatar = $filename;
+
+        $user->save();
+
+        return Inertia::render('User/UserProfile', ['User' => User::where('username', $user->username)->with('role')->firstOrFail()]);
     }
 
     public function datatable() {
