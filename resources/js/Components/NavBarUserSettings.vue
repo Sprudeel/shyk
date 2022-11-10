@@ -1,3 +1,17 @@
+<script setup>
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+import { computed } from "vue";
+import { Link, usePage } from "@inertiajs/inertia-vue3";
+import {
+    ChevronDownIcon,
+    CommandLineIcon,
+    UserIcon,
+} from "@heroicons/vue/24/solid";
+import { ArrowLeftOnRectangleIcon } from "@heroicons/vue/24/outline";
+
+const user = computed(() => usePage().props.value.auth.user);
+</script>
+
 <template>
     <div class="">
         <Menu as="div" class="relative inline-block text-left">
@@ -29,6 +43,23 @@
                             <button
                                 :class="[
                                     active
+                                        ? 'bg-blue-300 font-semibold text-white'
+                                        : 'text-gray-900',
+                                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                ]"
+                            >
+                                <UserIcon
+                                    :active="active"
+                                    class="shyk-blue mr-2 h-5 w-5"
+                                    aria-hidden="true"
+                                />
+                                Mein Profil
+                            </button>
+                        </MenuItem>
+                        <MenuItem v-slot="{ active }">
+                            <button
+                                :class="[
+                                    active
                                         ? 'shyk-blue text-white'
                                         : 'text-gray-900',
                                     'group flex w-full items-center rounded-md px-2 py-2 text-sm',
@@ -49,7 +80,7 @@
                                 <button
                                     :class="[
                                         active
-                                            ? 'bg-violet-500 text-white'
+                                            ? 'bg-blue-300 font-semibold text-white'
                                             : 'text-gray-900',
                                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
                                     ]"
@@ -69,13 +100,3 @@
         </Menu>
     </div>
 </template>
-
-<script setup>
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
-import { computed } from "vue";
-import { Link, usePage } from "@inertiajs/inertia-vue3";
-import { ChevronDownIcon, CommandLineIcon } from "@heroicons/vue/24/solid";
-import { ArrowLeftOnRectangleIcon } from "@heroicons/vue/24/outline";
-
-const user = computed(() => usePage().props.value.auth.user);
-</script>
