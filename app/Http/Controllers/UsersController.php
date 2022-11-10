@@ -30,29 +30,31 @@ class UsersController extends Controller
     }
 
     public function update(Request $request) {
-        // $this->authorize('update', [User::class, User::where('username', $request->username)->firstOrFail()]);
+        $this->authorize('update', [User::class, User::where('username', $request->username)->firstOrFail()]);
 
         $request->validate([
             'id' => 'required',
             'username' => 'required|string|max:255',
             'name' => 'required|string|max:255',
             'about' => 'required',
-            'avatar' => 'required|mimes:png,jpg,jpeg|max:2048',
+            'avatar' => 'required|max:2048',
         ]);
 
-        $filename = "avatar_".$request->id.".".$request->avatar->extension();
-        $request->avatar->move(public_path('avatars'),$filename);
+        if($request->hasFile('avatar')) {
+            $filename = "avatar_".$request->id.".".$request->avatar->extension();
+            $request->avatar->move(public_path('avatars'),$filename);
+        }
 
         $user = User::find($request->id);
 
         $user->username = $request->username;
         $user->name = $request->name;
         $user->about = $request->about;
-        $user->avatar = $filename;
+        $user->avatar = isset($filename) ? $filename : $request->avatar;
 
         $user->save();
 
-        return Inertia::render('User/UserProfile', ['User' => User::where('username', $user->username)->with('role')->firstOrFail()]);
+        return redirect(route('userprofile.view', ['username' => $request->username]));
     }
 
     public function datatable() {
