@@ -177,7 +177,6 @@ const submit = () => {
                     </Button>
                 </div>
             </form>
-            {{ form }}
         </div>
     </DefaultLayout>
 </template>
