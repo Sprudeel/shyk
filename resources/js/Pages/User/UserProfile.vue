@@ -2,9 +2,9 @@
 import DefaultLayout from "@/Layouts/Default.vue";
 import { Head, usePage, Link } from "@inertiajs/inertia-vue3";
 import { computed, ref } from "vue";
-import LogoMeditating from "@/Components/svg/logo/Meditating.vue";
-import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/24/outline";
+import { PencilSquareIcon } from "@heroicons/vue/24/outline";
 import moment from "moment";
+import { Inertia } from "@inertiajs/inertia";
 
 const props = defineProps({
     User: Object,
@@ -58,8 +58,13 @@ function NavSelectorChange(click) {
             </span>
             <div class="flex items-center divide-x">
                 <div class="mt-8 mb-8 basis-1/3">
-                    <LogoMeditating
-                        class="mx-auto mb-8 h-56 w-56 rounded-lg p-4"
+                    <img
+                        :src="
+                            Inertia.page.props.ziggy.url +
+                            '/avatars/' +
+                            User.avatar
+                        "
+                        class="mx-auto mt-2 mb-8 h-48 w-48 rounded-full object-cover"
                     />
                     <div class="ml-10">
                         <span class="flex items-center">
@@ -88,7 +93,7 @@ function NavSelectorChange(click) {
 
                 <div class="basis-2/3 p-8">
                     <h2 class="text-lg font-bold">Über mich</h2>
-                    <span class=""> {{ User.about }}</span>
+                    <span v-html="User.about"></span>
                     <h2 class="mt-12 text-lg font-bold">Erfahrung</h2>
                     <span class="italic text-violet-500">
                         Hier ensteht ein Nutzer Erfahrungs System!</span
