@@ -46,7 +46,7 @@ function NavSelectorChange(click) {
                 </Link>
 
                 <Link
-                    v-if="
+                    v-else-if="
                         auth.permissions.userprofile_edit_all &&
                         auth.user.username != User.username
                     "
