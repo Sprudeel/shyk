@@ -63,7 +63,7 @@ class UserProfileTest extends TestCase
     }
 
      /**
-     * Test if Edit User Post can be made viewed by User
+     * Test if Edit User Post can be made by User
      *
      * @return void
      */
@@ -74,16 +74,18 @@ class UserProfileTest extends TestCase
         $response = $this->actingAs($user)->post('/user/edit', [
             'id' => $user->id,
             'username' => $user->username,
-            'name' => 'Test Tester',
+            'email' => $user->email,
+            'name' => 'Tester Test',
             'about' => 'This is an about text!',
             'avatar' => 'defaults/5.png',
         ]);
+
 
         $response->assertRedirect('/user/'.$user->username);
     }
 
      /**
-     * Test if Edit User Post can be made viewed by Admin
+     * Test if Edit User Post can be made by Admin
      *
      * @return void
      */
@@ -98,6 +100,7 @@ class UserProfileTest extends TestCase
         $response = $this->actingAs($admin)->post('/user/edit', [
             'id' => $user->id,
             'username' => $user->username,
+            'email' => $user->email,
             'name' => 'Test Tester',
             'about' => 'This is an about text!',
             'avatar' => 'defaults/5.png',
