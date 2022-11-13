@@ -39,7 +39,7 @@ function previewImage() {
 }
 
 const submit = () => {
-    Inertia.post(route("userprofile.update"), form);
+    form.post(route("userprofile.update"));
 };
 </script>
 
@@ -86,10 +86,6 @@ const submit = () => {
                                     class="mx-auto mt-2 mb-2 h-48 w-48 rounded-full object-cover"
                                 />
 
-                                <InputError
-                                    class="mt-2"
-                                    :message="form.errors.avatar"
-                                />
                                 <span class="hidden">{{ imageKey }}</span>
                                 <span
                                     class="group absolute top-0 bottom-0 h-full w-full bg-transparent"
@@ -104,6 +100,10 @@ const submit = () => {
                                 </span>
                             </div>
                         </label>
+                        <InputError
+                            class="mb-2"
+                            :message="form.errors.avatar"
+                        />
                         <div class="ml-10">
                             <span class="items-center">
                                 <Label for="username" value="Benutzername" />
@@ -116,7 +116,7 @@ const submit = () => {
                                     autofocus
                                 />
                                 <InputError
-                                    class="mt-2"
+                                    class="mb-2"
                                     :message="form.errors.username"
                                 />
                             </span>
@@ -130,7 +130,7 @@ const submit = () => {
                                 autofocus
                             />
                             <InputError
-                                class="mt-2"
+                                class="mb-2"
                                 :message="form.errors.name"
                             />
                             <Label for="email" value="E-Mail" />
@@ -145,7 +145,7 @@ const submit = () => {
                                 title="Deine Email kann nicht geändert werden!"
                             />
                             <InputError
-                                class="mt-2"
+                                class="mb-2"
                                 :message="form.errors.email"
                             />
                         </div>
@@ -160,6 +160,7 @@ const submit = () => {
                         />
                     </div>
                     <progress
+                        class="absolute"
                         v-if="form.progress"
                         :value="form.progress.percentage"
                         max="100"
