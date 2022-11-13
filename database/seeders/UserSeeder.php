@@ -17,11 +17,15 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
-            'name' => 'sprudeel',
+            'username' => 'sprudeel',
+            'name' => 'Léonard Schafer',
             'email' => 'sprudeel@example.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
-            'role_id' => '2'
+            'role_id' => '2',
+            'avatar' => 'defaults/'.rand(1, 9).'.png',
+            'about' => 'Hallo mein Name ist sprudel. Ich habe shyk im Rahmen meiner Maturaarbeit geschrieben. Mein Ziel war es einen Ort des Austausches für Schüler:innen zu schaffen. Ich hoffe meine Arbeit gefällt euch. Viel Spass beim Entdecken! Bei Fragen gerne kontaktieren via sprudel@shyk.ch.',
+            'created_at' => now(),
         ]);
     }
 }

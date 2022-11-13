@@ -53,7 +53,7 @@ let form = useForm({
 console.log(form);
 
 const submit = () => {
-    Inertia.post(route("admin.role.edit"), form);
+    form.post(route("admin.role.edit"));
 };
 </script>
 

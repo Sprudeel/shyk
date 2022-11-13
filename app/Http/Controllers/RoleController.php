@@ -58,10 +58,12 @@ class RoleController extends Controller
 
         $request->validate([
                 'name' => 'required',
+                'color' => 'required',
         ]);
 
         Role::create([
-            'name' => $request->name
+            'name' => $request->name,
+            'color' => $request->color,
         ]);
 
         return redirect("admin/roles-permissions/roles");

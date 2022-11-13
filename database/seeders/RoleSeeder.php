@@ -17,12 +17,14 @@ class RoleSeeder extends Seeder
     {
         DB::table('roles')->insert([
             'id' => 1,
-            'name' => 'User'
+            'name' => 'User',
+            'color' => '#14A7DB',
         ]);
 
         DB::table('roles')->insert([
             'id' => 2,
-            'name' => 'Admin'
+            'name' => 'Admin',
+            'color' => '#D12B2B',
         ]);
     }
 }
