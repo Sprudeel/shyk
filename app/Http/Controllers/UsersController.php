@@ -30,13 +30,13 @@ class UsersController extends Controller
     }
 
     public function update(Request $request) {
-        $this->authorize('update', [User::class, User::where('username', $request->username)->firstOrFail()]);
+        $this->authorize('update', [User::class, User::where('email', $request->email)->firstOrFail()]);
 
         $request->validate([
             'id' => 'required',
-            'username' => 'required|string|max:255',
-            'name' => 'required|string|max:255',
-            'about' => 'required',
+            'username' => 'required|string|max:255|min:3',
+            'name' => 'required|string|max:255|min:7',
+            'about' => 'required|max:500',
             'avatar' => 'required|max:2048',
         ]);
 
