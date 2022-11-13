@@ -14,7 +14,7 @@ let form = useForm({
 });
 
 let submit = () => {
-    Inertia.post(route("admin.role.create"), form);
+    form.post(route("admin.role.create"));
 };
 </script>
 
