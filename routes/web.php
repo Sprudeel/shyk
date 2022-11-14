@@ -44,6 +44,13 @@ Route::get('/dashboard', function () {
 
 
 /**
+ * User Profile
+ */
+Route::get('/user/{username}', [UsersController::class, 'index'])->name('userprofile.view');
+Route::get('/user/edit/{username}', [UsersController::class, 'edit'])->middleware(['auth', 'verified'])->name('useprofile.edit');
+Route::post('/user/edit', [UsersController::class, 'update'])->middleware(['auth', 'verified'])->name('userprofile.update');
+
+/**
  * AUTH MIDDLEWARE
  */
 

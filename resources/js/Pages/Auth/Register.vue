@@ -7,7 +7,7 @@ import Label from "@/Components/forms/Label.vue";
 import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
 
 const form = useForm({
-    name: "",
+    username: "",
     email: "",
     password: "",
     password_confirmation: "",
@@ -27,17 +27,17 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <Label for="name" value="Name" />
+                <Label for="username" value="Name" />
                 <Input
-                    id="name"
+                    id="username"
                     type="text"
                     class="mt-1 block w-full"
-                    v-model="form.name"
+                    v-model="form.username"
                     required
                     autofocus
-                    autocomplete="name"
+                    autocomplete="username"
                 />
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-2" :message="form.errors.username" />
             </div>
 
             <div class="mt-4">

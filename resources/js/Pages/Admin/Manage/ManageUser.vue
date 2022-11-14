@@ -22,7 +22,7 @@ let form = useForm({
 });
 
 const submit = () => {
-    Inertia.post(route("admin.role.user.edit"), form);
+    form.post(route("admin.role.user.edit"));
 };
 </script>
 
