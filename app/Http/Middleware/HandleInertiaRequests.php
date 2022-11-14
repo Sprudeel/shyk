@@ -46,7 +46,8 @@ class HandleInertiaRequests extends Middleware
                 ]);
             },
             'information' => [
-                'shykVersion' => 'Alpha 0.1',
+                'shyk_stage' => env('APP_STAGE', ''),
+                'shyk_version' => env('APP_VERSION', 'v6.6.6'),
             ]
         ]);
     }

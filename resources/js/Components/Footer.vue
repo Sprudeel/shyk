@@ -7,7 +7,9 @@
             <span class="ml-4 text-lg font-semibold italic o-ph:text-sm"
                 >Testumbegung</span
             >
-            <p class="mt-2 o-ph:text-sm">v0.0.1 alpha</p>
+            <p class="mt-2 o-ph:text-sm">
+                {{ information.shyk_stage }} {{ information.shyk_version }}
+            </p>
             <p class="o-ph:text-sm">Entwickelt von Léonard Schafer</p>
             <p class="o-ph:text-sm">Unterstützt durch Hermelin@PfadiPatria</p>
         </div>
@@ -18,4 +20,8 @@
 
 <script setup>
 import LogoMeditating from "@/Components/svg/logo/Meditating.vue";
+import { computed } from "vue";
+import { usePage } from "@inertiajs/inertia-vue3";
+
+const information = computed(() => usePage().props.value.information);
 </script>
