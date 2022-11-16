@@ -8,7 +8,7 @@
         "php": "^8.0.2",
         "guzzlehttp/guzzle": "7.5.0",
         "inertiajs/inertia-laravel": "0.6.4",
-        "laravel/framework": "9.39.0",
+        "laravel/framework": "9.40.1",
         "laravel/sanctum": "3.0.1",
         "laravel/tinker": "2.7.3",
         "protonemedia/inertiajs-tables-laravel-query-builder": "2.0.0",
