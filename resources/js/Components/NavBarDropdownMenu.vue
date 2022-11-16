@@ -1,3 +1,15 @@
+<script setup>
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+import {
+    ChevronDownIcon,
+    GlobeEuropeAfricaIcon,
+    MagnifyingGlassIcon,
+} from "@heroicons/vue/24/solid";
+import {
+    InformationCircleIcon,
+    QuestionMarkCircleIcon,
+} from "@heroicons/vue/24/outline";
+</script>
 <template>
     <div class="">
         <Menu as="div" class="relative inline-block text-left">
@@ -101,16 +113,3 @@
         </Menu>
     </div>
 </template>
-
-<script setup>
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
-import {
-    ChevronDownIcon,
-    GlobeEuropeAfricaIcon,
-    MagnifyingGlassIcon,
-} from "@heroicons/vue/24/solid";
-import {
-    InformationCircleIcon,
-    QuestionMarkCircleIcon,
-} from "@heroicons/vue/24/outline";
-</script>
