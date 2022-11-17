@@ -66,7 +66,7 @@ class RoleController extends Controller
             'color' => $request->color,
         ]);
 
-        return redirect("admin/roles-permissions/roles");
+        return redirect("admin/roles-permissions/roles")->with('success', 'Rolle erfolgreicht erstellt!');
     }
 
     /**
@@ -79,7 +79,7 @@ class RoleController extends Controller
 
         $role->delete();
 
-        return redirect(route('admin.role.roles'));
+        return redirect(route('admin.role.roles'))->with('success', 'Rolle erfolgreicht gelöscht!');
     }
 
     /**
@@ -112,7 +112,7 @@ class RoleController extends Controller
             }
         }
 
-        return redirect(route('admin.role.roles'));
+        return redirect(route('admin.role.roles'))->with('success', 'Rolle erfolgreicht bearbeitet!');
     }
 
 }

@@ -54,7 +54,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect(route('userprofile.view', ['username' => $request->username]));
+        return redirect(route('userprofile.view', ['username' => $request->username]))->with('success', 'Profil erfolgreicht bearbeitet!');
     }
 
     public function datatable() {
@@ -103,6 +103,6 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect(route('admin.role.users'));
+        return redirect(route('admin.role.users'))->with('success', 'Nutzrolle erfolgreich bearbeitet!');
     }
 }
