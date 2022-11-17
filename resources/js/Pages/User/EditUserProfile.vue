@@ -161,23 +161,27 @@ const submit = () => {
                             v-model="form.about"
                         />
                     </div>
-                    <progress
-                        class="absolute"
-                        v-if="form.progress"
-                        :value="form.progress.percentage"
-                        max="100"
-                    >
-                        {{ form.progress.percentage }}%
-                    </progress>
-                    <Button
-                        class="bg-shyk-blue absolute bottom-0 right-0 ml-8 hover:bg-blue-500 hover:font-bold hover:shadow-lg"
-                        :class="{
-                            'opacity-25': form.processing,
-                        }"
-                        :disabled="form.processing"
-                    >
-                        Upload
-                    </Button>
+                    <div class="absolute bottom-10 right-10">
+                        <progress
+                            v-if="form.progress"
+                            :value="form.progress.percentage"
+                            max="100"
+                        >
+                            {{ form.progress.percentage }}%
+                        </progress>
+                        <span v-if="form.progress" class="ml-2">
+                            {{ form.progress.percentage }} %
+                        </span>
+                        <Button
+                            class="bg-shyk-blue ml-8 hover:bg-blue-500 hover:font-bold hover:shadow-lg"
+                            :class="{
+                                'opacity-25': form.processing,
+                            }"
+                            :disabled="form.processing"
+                        >
+                            Upload
+                        </Button>
+                    </div>
                 </div>
             </form>
         </div>
