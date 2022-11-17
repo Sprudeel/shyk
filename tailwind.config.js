@@ -15,6 +15,17 @@ module.exports = {
             fontFamily: {
                 sans: ["Poppins", ...defaultTheme.fontFamily.sans],
             },
+            animation: {
+                flash: "flash 1s forwards 3s",
+            },
+            keyframes: (theme) => ({
+                flash: {
+                    "20%": { transform: "translateX(-10%)" },
+                    "60%": { transform: "translateX(200%)" },
+                    "90%": { opacity: 0 },
+                    "100%": { transform: "translateX(0%)", opacity: 0 },
+                },
+            }),
         },
         screens: {
             ph: "320px",
