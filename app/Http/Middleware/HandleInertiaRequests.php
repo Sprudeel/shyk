@@ -48,6 +48,11 @@ class HandleInertiaRequests extends Middleware
             'information' => [
                 'shyk_stage' => env('APP_STAGE', ''),
                 'shyk_version' => env('APP_VERSION', 'v6.6.6'),
+            ],
+            'flash' => [
+                'error' => fn () => $request->session()->get('error'),
+                'success' => fn () => $request->session()->get('success'),
+                'notification' => fn () => $request->session()->get('notification'),
             ]
         ]);
     }
