@@ -40,7 +40,7 @@ class UsersController extends Controller
             'avatar' => 'required|max:2048',
         ]);
 
-        if($request->hasFile('avatar')) {
+        if($request->hasFile('avatar') && $request->validate(['avatar' => 'mimes:png,jpg,jpeg'])) {
             $filename = "avatar_".$request->id.".".$request->avatar->extension();
             $request->avatar->move(public_path('avatars'),$filename);
         }
