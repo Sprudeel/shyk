@@ -11,6 +11,8 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class UserProfileTest extends TestCase
 {
@@ -105,6 +107,58 @@ class UserProfileTest extends TestCase
             'about' => 'This is an about text!',
             'avatar' => 'defaults/5.png',
         ]);
+
+        $response->assertRedirect('/user/'.$user->username);
+    }
+
+
+     /**
+     * Test if Edit User Post cannot be made by User on other profile
+     *
+     * @return void
+     */
+    public function test_userprofile_edit_post_by_user_on_other_profile()
+    {
+        $user = User::factory()->create();
+
+        $admin = User::factory()->create([
+            'role_id' => 1,
+        ]);
+
+        $response = $this->actingAs($admin)->post('/user/edit', [
+            'id' => $user->id,
+            'username' => $user->username,
+            'email' => $user->email,
+            'name' => 'Test Tester',
+            'about' => 'This is an about text!',
+            'avatar' => 'defaults/5.png',
+        ]);
+
+        $response->assertStatus(403);
+    }
+
+
+    /**
+     * Test if User Avatar Upload works
+     *
+     * @return void
+     */
+    public function test_userprofile_avatar_upload()
+    {
+        $user = User::factory()->create();
+
+        Storage::fake('local');
+        $file = UploadedFile::fake()->create('file.png', 1024);
+
+        $response = $this->actingAs($user)->post('/user/edit', [
+            'id' => $user->id,
+            'username' => $user->username,
+            'email' => $user->email,
+            'name' => 'Tester Test',
+            'about' => 'This is an about text!',
+            'avatar' => $file,
+        ]);
+
 
         $response->assertRedirect('/user/'.$user->username);
     }
