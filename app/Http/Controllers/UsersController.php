@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Report;
 use Illuminate\Support\Collection;
 use Inertia\Inertia;
 use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
@@ -27,6 +28,28 @@ class UsersController extends Controller
         $this->authorize('update', [User::class, User::where('username', $request->username)->firstOrFail()]);
 
         return Inertia::render('User/EditUserProfile', ['User' => User::where('username', $request->username)->with('role')->firstOrFail()]);
+    }
+
+    public function report(Request $request) {
+        $this->authorize('report', User::class);
+
+        $request->validate([
+            'reported_user' => 'required',
+            'reported_user_name' => 'required',
+            'reason' => 'required|max:255',
+        ]);
+
+        $reporting_user = Auth::user()->id;
+
+
+        $report = Report::create([
+            'report_on' => 'userprofile',
+            'reporting_user' => $reporting_user,
+            'reported_user' => $request->reported_user,
+            'reason' => $request->reason,
+        ]);
+
+    return back()->with('success', 'Nutzer wurde erfolgreich gemeldet!');
     }
 
     public function update(Request $request) {
