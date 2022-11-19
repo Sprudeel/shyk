@@ -36,3 +36,4 @@ Permissions are grouped to blocks (ex. Roles), each Permission of a Role starts 
 ## Special _900_
 
 -   **view_admin_section** _901_ <br> Kann die Admin Sektion anschauen
+-   **log_viewer** _920_ <br> Kann den Log Viewer benutzen
