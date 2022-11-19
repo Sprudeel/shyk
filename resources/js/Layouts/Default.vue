@@ -9,7 +9,9 @@ import FlashMessages from "@/Components/FlashMessages.vue";
 
     <FlashMessages />
 
-    <slot />
+    <div class="min-h-screen">
+        <slot />
+    </div>
 
     <Footer />
 </template>
