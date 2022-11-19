@@ -163,5 +163,29 @@ class UserProfileTest extends TestCase
         $response->assertRedirect('/user/'.$user->username);
     }
 
+    /**
+     * Test that only images can be uploaded
+     *
+     * @return void
+     */
+    public function test_userprofile_avatar_upload_only_images() {
+        $user = User::factory()->create();
+
+        Storage::fake('local');
+        $file = UploadedFile::fake()->create('file.pdf', 1024);
+
+        $response = $this->actingAs($user)->post('/user/edit', [
+            'id' => $user->id,
+            'username' => $user->username,
+            'email' => $user->email,
+            'name' => 'Tester Test',
+            'about' => 'This is an about text!',
+            'avatar' => $file,
+        ]);
+
+
+        $response->assertStatus(302);
+    }
+
 
 }
