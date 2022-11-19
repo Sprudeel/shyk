@@ -85,5 +85,10 @@ class PermissionSeeder extends Seeder
             'name' => 'view_admin_section',
             'explanation' => 'Kann die Admin Sektion anschauen',
         ]);
+        DB::table('permissions')->insert([
+            'id' => 920,
+            'name' => 'log_viewer',
+            'explanation' => 'Kann den Log Viewer benutzen',
+        ]);
     }
 }

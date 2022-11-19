@@ -74,5 +74,9 @@ class RolePermissionSeeder extends Seeder
             'role_id' => 2,
             'permission_id' => 901,
         ]);
+        DB::table('role_permissions')->insert([
+            'role_id' => 2,
+            'permission_id' => 920,
+        ]);
     }
 }
