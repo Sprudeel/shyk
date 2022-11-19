@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('icon');
             $table->string('gradient_from');
-            $table->string('gradient_to')
+            $table->string('gradient_to');
             $table->timestamps();
         });
     }
