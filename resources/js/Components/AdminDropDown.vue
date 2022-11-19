@@ -1,3 +1,13 @@
+<script setup>
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+import { computed } from "vue";
+import { Link, usePage } from "@inertiajs/inertia-vue3";
+import { ChevronDownIcon } from "@heroicons/vue/24/solid";
+import { FingerPrintIcon, NewspaperIcon } from "@heroicons/vue/24/outline";
+
+const user = computed(() => usePage().props.value.auth.user);
+</script>
+
 <template>
     <div class="">
         <Menu as="div" class="relative inline-block text-left">
@@ -44,22 +54,28 @@
                                 </button>
                             </MenuItem>
                         </Link>
+                        <Link href="/admin/log-viewer">
+                            <MenuItem v-slot="{ active }">
+                                <button
+                                    :class="[
+                                        active
+                                            ? 'bg-blue-300 text-white'
+                                            : 'text-gray-900',
+                                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                    ]"
+                                >
+                                    <NewspaperIcon
+                                        :active="active"
+                                        class="shyk-blue mr-2 h-5 w-5"
+                                        aria-hidden="true"
+                                    />
+                                    Logs
+                                </button>
+                            </MenuItem>
+                        </Link>
                     </div>
                 </MenuItems>
             </transition>
         </Menu>
     </div>
 </template>
-
-<script setup>
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
-import { computed } from "vue";
-import { Link, usePage } from "@inertiajs/inertia-vue3";
-import { ChevronDownIcon, CommandLineIcon } from "@heroicons/vue/24/solid";
-import {
-    ArrowLeftOnRectangleIcon,
-    FingerPrintIcon,
-} from "@heroicons/vue/24/outline";
-
-const user = computed(() => usePage().props.value.auth.user);
-</script>
