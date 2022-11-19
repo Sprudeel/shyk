@@ -50,7 +50,7 @@ const auth = computed(() => usePage().props.value.auth);
         <NavBarDropdownMenu class="ph:block md:hidden" />
 
         <AdminDropDown
-            v-if="auth.role.name == 'Admin'"
+            v-if="auth.permissions.view_admin_section"
             class="ph:hidden lph:flex"
         />
         <!-- Login Logout -->
