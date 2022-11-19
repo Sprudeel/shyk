@@ -15,6 +15,10 @@ return new class extends Migration
     {
         Schema::create('topics', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('icon');
+            $table->string('gradient_from');
+            $table->string('gradient_to')
             $table->timestamps();
         });
     }
