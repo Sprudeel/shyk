@@ -8,6 +8,7 @@ use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\TopicController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,13 @@ Route::get('/user/{username}', [UsersController::class, 'index'])->name('userpro
 Route::get('/user/edit/{username}', [UsersController::class, 'edit'])->middleware(['auth', 'verified'])->name('useprofile.edit');
 Route::post('/user/edit', [UsersController::class, 'update'])->middleware(['auth', 'verified'])->name('userprofile.update');
 Route::post('/user/report', [UsersController::class, 'report'])->middleware(['auth', 'verified'])->name('user.report');
+
+
+/**
+ * Forum
+ */
+Route::get('/discover/{topic?}', [TopicController::class, 'index'])->name('discover');
+
 
 /**
  * AUTH MIDDLEWARE
