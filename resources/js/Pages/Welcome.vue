@@ -3,9 +3,9 @@
 
     <DefaultLayout>
         <div
-            class="mt-6 grid grid-flow-row grid-cols-1 grid-rows-4 items-center md:grid-cols-2 md:grid-rows-2 md:gap-y-4 xl:mx-32"
+            class="mt-2 grid grid-flow-row grid-cols-1 grid-rows-4 items-center sm:grid-cols-2 sm:grid-rows-2 md:gap-y-4 xl:mx-32"
         >
-            <div class="w-8/12 justify-self-center">
+            <div class="justify-self-center ph:w-6/12 sm:w-8/12 lg:w-6/12">
                 <HeroLogo1 class="overflow-x-hidden" />
             </div>
 
@@ -29,7 +29,7 @@
                 >
             </div>
 
-            <div class="w-11/12 justify-self-center md:hidden">
+            <div class="justify-self-center ph:w-6/12 sm:hidden md:w-11/12">
                 <HeroLogo2 class="overflow-x-hidden" />
             </div>
 
@@ -46,7 +46,7 @@
                 </p>
             </div>
 
-            <div class="w-11/12 justify-self-center ph:hidden md:block">
+            <div class="w-11/12 justify-self-center ph:hidden sm:block">
                 <HeroLogo2 class="overflow-x-hidden" />
             </div>
         </div>

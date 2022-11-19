@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Report;
 use Illuminate\Support\Collection;
 use Inertia\Inertia;
 use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
@@ -29,6 +30,28 @@ class UsersController extends Controller
         return Inertia::render('User/EditUserProfile', ['User' => User::where('username', $request->username)->with('role')->firstOrFail()]);
     }
 
+    public function report(Request $request) {
+        $this->authorize('report', User::class);
+
+        $request->validate([
+            'reported_user' => 'required',
+            'reported_user_name' => 'required',
+            'reason' => 'required|max:255',
+        ]);
+
+        $reporting_user = Auth::user()->id;
+
+
+        $report = Report::create([
+            'report_on' => 'userprofile',
+            'reporting_user' => $reporting_user,
+            'reported_user' => $request->reported_user,
+            'reason' => $request->reason,
+        ]);
+
+    return back()->with('success', 'Nutzer wurde erfolgreich gemeldet!');
+    }
+
     public function update(Request $request) {
         $this->authorize('update', [User::class, User::where('email', $request->email)->firstOrFail()]);
 
@@ -40,7 +63,7 @@ class UsersController extends Controller
             'avatar' => 'required|max:2048',
         ]);
 
-        if($request->hasFile('avatar')) {
+        if($request->hasFile('avatar') && $request->validate(['avatar' => 'mimes:png,jpg,jpeg'])) {
             $filename = "avatar_".$request->id.".".$request->avatar->extension();
             $request->avatar->move(public_path('avatars'),$filename);
         }
@@ -54,7 +77,7 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect(route('userprofile.view', ['username' => $request->username]));
+        return redirect(route('userprofile.view', ['username' => $request->username]))->with('success', 'Profil erfolgreicht bearbeitet!');
     }
 
     public function datatable() {
@@ -103,6 +126,6 @@ class UsersController extends Controller
 
         $user->save();
 
-        return redirect(route('admin.role.users'));
+        return redirect(route('admin.role.users'))->with('success', 'Nutzrolle erfolgreich bearbeitet!');
     }
 }

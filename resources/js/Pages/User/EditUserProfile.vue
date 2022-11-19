@@ -47,9 +47,11 @@ const submit = () => {
     <Head :title="User.username + 's Profil'" />
 
     <DefaultLayout>
-        <div class="mx-auto mt-8 mb-8 h-full w-5/6 shadow-lg">
+        <div class="mx-auto mt-4 mb-8 h-full w-5/6">
             <form @submit.prevent="submit">
-                <div class="relative flex items-center divide-x">
+                <div
+                    class="relative flex ph:flex-col md:flex-row md:items-center md:divide-x"
+                >
                     <div class="mt-8 mb-8 basis-1/3">
                         <label for="imageInput">
                             <Label class="ml-10">Avatar</Label>
@@ -104,7 +106,7 @@ const submit = () => {
                             class="mb-2"
                             :message="form.errors.avatar"
                         />
-                        <div class="ml-10">
+                        <div class="ml-0">
                             <span class="items-center">
                                 <Label for="username" value="Benutzername" />
                                 <Input
@@ -159,23 +161,27 @@ const submit = () => {
                             v-model="form.about"
                         />
                     </div>
-                    <progress
-                        class="absolute"
-                        v-if="form.progress"
-                        :value="form.progress.percentage"
-                        max="100"
-                    >
-                        {{ form.progress.percentage }}%
-                    </progress>
-                    <Button
-                        class="bg-shyk-blue absolute bottom-0 right-0 m-8 ml-8 hover:bg-blue-500 hover:font-bold hover:shadow-lg"
-                        :class="{
-                            'opacity-25': form.processing,
-                        }"
-                        :disabled="form.processing"
-                    >
-                        Upload
-                    </Button>
+                    <div class="absolute bottom-10 right-10">
+                        <progress
+                            v-if="form.progress"
+                            :value="form.progress.percentage"
+                            max="100"
+                        >
+                            {{ form.progress.percentage }}%
+                        </progress>
+                        <span v-if="form.progress" class="ml-2">
+                            {{ form.progress.percentage }} %
+                        </span>
+                        <Button
+                            class="bg-shyk-blue ml-8 hover:bg-blue-500 hover:font-bold hover:shadow-lg"
+                            :class="{
+                                'opacity-25': form.processing,
+                            }"
+                            :disabled="form.processing"
+                        >
+                            Upload
+                        </Button>
+                    </div>
                 </div>
             </form>
         </div>
