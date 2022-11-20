@@ -10,7 +10,7 @@ const props = defineProps({
     <div v-if="props.topic === null">
         <div class="mx-auto flex w-full flex-row items-center bg-slate-200">
             <span class="m-4 basis-1/3">
-                <SmartLogo class="mx-auto h-48" />
+                <SmartLogo class="mx-auto h-36" />
             </span>
             <div class="mr-12 basis-2/3">
                 <h2 class="text-4xl font-extrabold">Willkommen im Forum</h2>
