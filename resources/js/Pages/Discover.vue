@@ -1,16 +1,12 @@
 <script setup>
 import DefaultLayout from "@/Layouts/Default.vue";
-import { Head, usePage } from "@inertiajs/inertia-vue3";
-import { computed } from "vue";
+import { Head } from "@inertiajs/inertia-vue3";
 import Banner from "@/Components/topic/Banner.vue";
+import ForumMenu from "@/Components/topic/ForumMenu.vue";
 
 const props = defineProps({
     topic: Object,
 });
-
-const user = computed(() => usePage().props.value.auth.user);
-const role = computed(() => usePage().props.value.auth.role);
-const permissions = computed(() => usePage().props.value.auth.permissions);
 </script>
 
 <template>
@@ -19,9 +15,11 @@ const permissions = computed(() => usePage().props.value.auth.permissions);
     <DefaultLayout>
         <Banner :topic="props.topic" />
 
-        <div class="grid h-screen grid-cols-3">
-            <div class="col-span-1 h-full w-full">
-                <Button>Post erstellen</Button>
+        <div class="mt-8 grid h-screen grid-cols-3 gap-16">
+            <div class="col-span-1 h-full justify-self-end">
+                <div>
+                    <ForumMenu />
+                </div>
             </div>
             <div class="col-span-2 h-full w-full bg-red-600">s</div>
         </div>
