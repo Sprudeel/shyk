@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('name');
             $table->text('icon');
+            $table->text('symbol');
             $table->string('color');
             $table->string('gradient_to');
             $table->timestamps();
