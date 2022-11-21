@@ -32,6 +32,8 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'email',
+        'email_verified_at',
         'remember_token',
     ];
 
@@ -44,13 +46,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public $timestamps = true;
 
+    public $timestamps = true;
     /**
      * Get the Role associated with the User
      */
     public function role() {
         return $this->belongsTo(Role::class);
+    }
+
+    public function posts() {
+        return $this->hasMany(Post::class);
     }
 
 
