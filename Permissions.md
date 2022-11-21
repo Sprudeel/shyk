@@ -33,6 +33,16 @@ Permissions are grouped to blocks (ex. Roles), each Permission of a Role starts 
 -   **admin_view_users** _491_ <br> Nutzertabelle in Admin Sektion anzeigen
 -   **admin_update_role** _493_ <br> Nutzerrollen bearbeiten
 
+## Post _500_
+
+-   **post_view_all** _511_ <br> Alle Posts anschauen
+-   **post_create** _520_ <br> Kann Posts erstellen
+-   **post_update_self** _530_ <br> Eigene Posts bearbeiten
+-   **post_update_all** _531_ <br> Alle Posts bearbeiten
+-   **post_delete_self** _540_ <br> Eigene Posts löschen
+-   **post_delete_all** _541_ <br> Alle Posts löschen
+-   **post_report** _550_ <br> Posts melden
+
 ## Special _900_
 
 -   **view_admin_section** _901_ <br> Kann die Admin Sektion anschauen

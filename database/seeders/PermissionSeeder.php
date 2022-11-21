@@ -78,6 +78,45 @@ class PermissionSeeder extends Seeder
         ]);
 
         /**
+         * Posts 500
+         */
+        DB::table('permissions')->insert([
+            'id' => 511,
+            'name' => 'post_view_all',
+            'explanation' => 'Alle Posts anschauen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 520,
+            'name' => 'post_create',
+            'explanation' => 'Kann Posts erstellen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 530,
+            'name' => 'post_update_self',
+            'explanation' => 'Eigene Posts bearbeiten',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 531,
+            'name' => 'post_update_all',
+            'explanation' => 'Alle Posts bearbeiten',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 540,
+            'name' => 'post_delete_self',
+            'explanation' => 'Eigene Posts löschen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 541,
+            'name' => 'post_delete_all',
+            'explanation' => 'Alle Posts löschen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 550,
+            'name' => 'post_report',
+            'explanation' => 'Posts melden',
+        ]);
+
+        /**
          * Special 900
          */
         DB::table('permissions')->insert([
