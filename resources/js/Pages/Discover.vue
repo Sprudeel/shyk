@@ -6,6 +6,8 @@ import ForumMenu from "@/Components/topic/ForumMenu.vue";
 
 const props = defineProps({
     topic: Object,
+    topics: Object,
+    categories: Object,
 });
 </script>
 
@@ -18,10 +20,15 @@ const props = defineProps({
         <div class="mt-8 grid h-screen grid-cols-3 gap-16">
             <div class="col-span-1 h-full justify-self-end">
                 <div>
-                    <ForumMenu />
+                    <ForumMenu
+                        :topics="props.topics"
+                        :categories="props.categories"
+                    />
                 </div>
             </div>
-            <div class="col-span-2 h-full w-full bg-red-600">s</div>
+            <div class="col-span-2 h-full w-full bg-slate-200">
+                {{ route().params.topic }}
+            </div>
         </div>
     </DefaultLayout>
 </template>
