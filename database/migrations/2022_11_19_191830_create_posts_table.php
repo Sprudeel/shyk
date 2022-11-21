@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('author');
-            $table->string('subject');
+            $table->string('topic');
+            $table->string('category');
             $table->string('status');
             $table->text('content');
             $table->timestamps();
