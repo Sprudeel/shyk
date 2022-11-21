@@ -158,6 +158,7 @@ const submit = () => {
                         <TipTap
                             @content="handleContent"
                             :content="form.about"
+                            :maxChar="500"
                             v-model="form.about"
                         />
                     </div>
