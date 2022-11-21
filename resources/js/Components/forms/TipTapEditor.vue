@@ -22,8 +22,9 @@ import Redo from "@/Components/forms/tiptap/Redo.vue";
 const props = defineProps({
     content: String,
     model: String,
+    maxChar: Number,
 });
-const maxCharacters = 500;
+const maxCharacters = props.maxChar;
 
 const emit = defineEmits(["content"]);
 
