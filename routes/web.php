@@ -9,6 +9,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,14 @@ Route::post('/user/report', [UsersController::class, 'report'])->middleware(['au
  * Forum
  */
 Route::get('/discover/{topic?}', [TopicController::class, 'index'])->name('discover');
+
+
+/**
+ * Posts
+ */
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('post/create', [PostController::class, 'create'])->name('post.create');
+});
 
 
 /**
