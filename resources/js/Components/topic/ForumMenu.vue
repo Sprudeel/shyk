@@ -13,7 +13,7 @@ const auth = computed(() => usePage().props.value.auth);
 
 <template>
     <Button
-        class="bg-shyk-blue w-full px-12 text-base font-bold normal-case hover:bg-blue-500 hover:font-bold hover:shadow-lg"
+        class="bg-shyk-blue w-full px-12 text-base font-bold normal-case hover:bg-blue-600 hover:shadow-lg"
     >
         Post erstellen
     </Button>
