@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['title', 'topic', 'status', 'category', 'content', 'author'];
+
+
+    public function topic() {
+        return $this->hasOne(Topic::class);
+    }
+
+    public function category() {
+        return $this->hasOne(Category::class);
+    }
+
+    public function author() {
+        return $this->belongsTo(User::class, 'author', 'id');
+    }
 }
