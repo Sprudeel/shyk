@@ -12,11 +12,13 @@ const auth = computed(() => usePage().props.value.auth);
 </script>
 
 <template>
-    <Button
-        class="bg-shyk-blue w-full px-12 text-base font-bold normal-case hover:bg-blue-600 hover:shadow-lg"
-    >
-        Post erstellen
-    </Button>
+    <Link :href="route('post.create')">
+        <Button
+            class="bg-shyk-blue w-full px-12 text-base font-bold normal-case hover:bg-blue-600 hover:shadow-lg"
+        >
+            Post erstellen
+        </Button>
+    </Link>
     <div class="mt-4 mb-4">
         <Link
             :href="route('discover')"
