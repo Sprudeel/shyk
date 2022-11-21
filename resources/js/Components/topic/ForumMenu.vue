@@ -1,19 +1,27 @@
 <script setup>
 import Button from "@/Components/forms/Button.vue";
 import { computed } from "vue";
-import { usePage } from "@inertiajs/inertia-vue3";
+import { usePage, Link } from "@inertiajs/inertia-vue3";
+
+const props = defineProps({
+    topics: Object,
+    categories: Object,
+});
 
 const auth = computed(() => usePage().props.value.auth);
 </script>
 
 <template>
     <Button
-        class="bg-shyk-blue ml-8 px-8 text-base font-bold normal-case hover:bg-blue-500 hover:font-bold hover:shadow-lg"
+        class="bg-shyk-blue w-full px-12 text-base font-bold normal-case hover:bg-blue-500 hover:font-bold hover:shadow-lg"
     >
         Post erstellen
     </Button>
     <div class="mt-4 mb-4">
-        <a class="group/all flex cursor-pointer flex-row space-x-4">
+        <Link
+            :href="route('discover')"
+            class="group/all flex cursor-pointer flex-row space-x-4"
+        >
             <span
                 ><svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -29,10 +37,14 @@ const auth = computed(() => usePage().props.value.auth);
             </span>
             <span
                 class="group-hover/all:font-bold"
-                :class="route().current('discover') ? 'font-bold' : ''"
+                :class="
+                    route().current('discover', { topic: '' })
+                        ? 'font-bold'
+                        : ''
+                "
                 >Alle Posts</span
             >
-        </a>
+        </Link>
         <span
             v-if="auth.user"
             class="group/my flex cursor-pointer flex-row space-x-4"
@@ -58,8 +70,80 @@ const auth = computed(() => usePage().props.value.auth);
         </span>
     </div>
 
-    <span class="relative">
-        <hr class="border-black" />
-        <span class="uppercase">Subforen</span>
-    </span>
+    <div class="w-full">
+        <div class="flex items-center">
+            <div class="h-px flex-grow bg-black"></div>
+            <span
+                class="flex-shrink px-4 text-sm font-light uppercase text-black"
+                >Kategorien</span
+            >
+            <div class="h-px flex-grow bg-black"></div>
+        </div>
+    </div>
+
+    <div class="mt-2 mb-4">
+        <Link
+            :href="
+                route('discover', {
+                    topic: route().params.topic,
+                    category: category.slug,
+                })
+            "
+            class="group/all mb-1 flex cursor-pointer flex-row space-x-4"
+            v-for="category in props.categories"
+            :key="category.id"
+        >
+            <span v-html="category.symbol"></span>
+            <span
+                class="group-hover/all:font-bold"
+                :class="
+                    route().current('discover', { category: category.slug })
+                        ? 'font-bold'
+                        : ''
+                "
+                :style="'color:' + category.color + ';'"
+                >{{ category.name }}</span
+            >
+        </Link>
+    </div>
+    <div class="w-full">
+        <div class="flex items-center">
+            <div class="h-px flex-grow bg-black"></div>
+            <span
+                class="flex-shrink px-4 text-sm font-light uppercase text-black"
+                >Subforen</span
+            >
+            <div class="h-px flex-grow bg-black"></div>
+        </div>
+    </div>
+
+    <div class="mt-2 mb-4">
+        <Link
+            :href="
+                route('discover', {
+                    topic: topic.slug,
+                    category: route().params.category,
+                })
+            "
+            class="group/all mb-1 flex cursor-pointer flex-row space-x-4"
+            v-for="topic in topics"
+            :key="topic.id"
+        >
+            <span v-html="topic.symbol"></span>
+            <span
+                class="group-hover/all:font-bold"
+                :class="
+                    route().current('discover', { topic: topic.slug })
+                        ? 'font-bold'
+                        : ''
+                "
+                :style="'color:' + topic.color + ';'"
+                >{{ topic.name }}</span
+            >
+        </Link>
+    </div>
+
+    <div class="w-full">
+        <div class="h-[2px] flex-grow bg-black"></div>
+    </div>
 </template>
