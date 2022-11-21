@@ -7,6 +7,7 @@ import Input from "@/Components/forms/Input.vue";
 import InputError from "@/Components/forms/InputError.vue";
 import Label from "@/Components/forms/Label.vue";
 import TipTap from "@/Components/forms/TipTapEditor.vue";
+import { QuestionMarkCircleIcon } from "@heroicons/vue/24/outline";
 
 const props = defineProps({
     topics: Object,
@@ -18,20 +19,21 @@ function handleContent(s) {
 }
 
 const form = useForm({
-    title: "",
-    topic: "",
-    status: "",
-    category: "",
+    title: null,
+    topic: null,
+    status: null,
+    category: null,
     content: "Hier darfst du deinen Post schreiben. Viel Spass!",
+    file: "",
 });
 
 const submit = () => {
-    form.post(route("post.store"));
+    form.post(route("post.store"), { forceFormData: true });
 };
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="Post erstellen" />
 
     <DefaultLayout>
         <div class="py-12">
@@ -111,7 +113,7 @@ const submit = () => {
                             />
                         </div>
                     </div>
-                    <div class="mt-8 mb-8">
+                    <div class="mt-8 mb-2">
                         <TipTap
                             @content="handleContent"
                             :content="form.content"
@@ -123,6 +125,29 @@ const submit = () => {
                             :message="form.errors.content"
                         />
                     </div>
+
+                    <div class="mb-8">
+                        <Label
+                            class="mb-2 flex flex-row"
+                            title="Zurzeit können nur PDFs und Bilder als Anhang angefügt werden!"
+                        >
+                            Anhang
+                        </Label>
+                        <input
+                            type="file"
+                            id="file"
+                            accept=".pdf, .png, .jpeg, .jpg"
+                            @input="form.file = $event.target.files[0]"
+                        />
+                        <InputError class="mt-2" :message="form.errors.file" />
+                    </div>
+                    <progress
+                        v-if="form.progress"
+                        :value="form.progress.percentage"
+                        max="100"
+                    >
+                        {{ form.progress.percentage }}%
+                    </progress>
 
                     <Button
                         class="bg-shyk-blue float-right ml-8 hover:bg-blue-500 hover:font-bold hover:shadow-lg"
