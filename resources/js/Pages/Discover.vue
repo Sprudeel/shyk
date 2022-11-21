@@ -3,11 +3,13 @@ import DefaultLayout from "@/Layouts/Default.vue";
 import { Head } from "@inertiajs/inertia-vue3";
 import Banner from "@/Components/topic/Banner.vue";
 import ForumMenu from "@/Components/topic/ForumMenu.vue";
+import Post from "@/Components/topic/Post.vue";
 
 const props = defineProps({
     topic: Object,
     topics: Object,
     categories: Object,
+    posts: Object,
 });
 </script>
 
@@ -27,7 +29,7 @@ const props = defineProps({
                 </div>
             </div>
             <div class="col-span-2 h-full w-full bg-slate-200">
-                {{ route().params.topic }}
+                <Post v-for="post in props.posts" :data="post" />
             </div>
         </div>
     </DefaultLayout>
