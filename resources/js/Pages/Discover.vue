@@ -19,7 +19,7 @@ const props = defineProps({
     <DefaultLayout>
         <Banner :topic="props.topic" />
 
-        <div class="mt-8 grid h-screen grid-cols-3 gap-16">
+        <div class="mt-8 grid grid-cols-3 gap-16">
             <div class="col-span-1 h-full justify-self-end">
                 <div>
                     <ForumMenu
@@ -28,7 +28,7 @@ const props = defineProps({
                     />
                 </div>
             </div>
-            <div class="col-span-2 h-full w-full bg-slate-200">
+            <div class="col-span-2 mb-8 w-full">
                 <Post v-for="post in props.posts" :data="post" />
             </div>
         </div>
