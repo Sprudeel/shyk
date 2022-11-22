@@ -14,7 +14,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <Head title="Entdecke" />
+    <Head title="Entdecke!" />
 
     <DefaultLayout>
         <Banner :topic="props.topic" />
