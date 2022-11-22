@@ -20,7 +20,7 @@ class TopicController extends Controller
             'topic' => $request->topic ? Topic::where('slug', $request->topic)->firstOrFail() : null ,
             'topics' => Topic::all(),
             'categories' => Category::all(),
-            'posts' => $request->topic && $request->category ? Post::where(['status' => 'public', 'topic' => $request->topic, 'category' => $request->category])->with('author', 'topic', 'category')->get() : ( $request->topic ? Post::where(['status' => 'public', 'topic' => $request->topic])->with('author', 'topic', 'category')->get() : ( $request->category ? Post::where(['status' => 'public', 'category' => $request->category])->with('author', 'topic', 'category')->get() : Post::where('status', 'public')->with('author', 'topic', 'category')->get() ) ),
+            'posts' => $request->topic && $request->category ? Post::where(['status' => 'public', 'topic' => $request->topic, 'category' => $request->category])->with('author.role', 'topic', 'category')->get() : ( $request->topic ? Post::where(['status' => 'public', 'topic' => $request->topic])->with('author.role', 'topic', 'category')->get() : ( $request->category ? Post::where(['status' => 'public', 'category' => $request->category])->with('author.role', 'topic', 'category')->get() : Post::where('status', 'public')->with('author.role', 'topic', 'category')->get() ) ),
         ]);
     }
 }
