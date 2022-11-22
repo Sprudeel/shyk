@@ -107,13 +107,41 @@ const auth = computed(() => usePage().props.value.auth);
                 >{{ category.name }}</span
             >
         </Link>
+        <Link
+            v-if="route().params.category"
+            :href="
+                route('discover', {
+                    topic: route().params.topic,
+                    category: null,
+                })
+            "
+            class="group/all mb-1 flex cursor-pointer flex-row space-x-4"
+        >
+            <span
+                ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                >
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path
+                        fill="#64748B"
+                        d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"
+                    />
+                </svg>
+            </span>
+            <span class="text-sm text-slate-500 group-hover/all:font-bold"
+                >filter lösen</span
+            >
+        </Link>
     </div>
     <div class="w-full">
         <div class="flex items-center">
             <div class="h-px flex-grow bg-black"></div>
             <span
                 class="flex-shrink px-4 text-sm font-light uppercase text-black"
-                >Subforen</span
+                >Themen</span
             >
             <div class="h-px flex-grow bg-black"></div>
         </div>
@@ -141,6 +169,34 @@ const auth = computed(() => usePage().props.value.auth);
                 "
                 :style="'color:' + topic.color + ';'"
                 >{{ topic.name }}</span
+            >
+        </Link>
+        <Link
+            v-if="route().params.topic"
+            :href="
+                route('discover', {
+                    topic: null,
+                    category: route().params.category,
+                })
+            "
+            class="group/all mb-1 flex cursor-pointer flex-row space-x-4"
+        >
+            <span
+                ><svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="20"
+                    height="20"
+                >
+                    <path fill="none" d="M0 0h24v24H0z" />
+                    <path
+                        fill="#64748B"
+                        d="M12 10.586l4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414-4.95-4.95-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.636z"
+                    />
+                </svg>
+            </span>
+            <span class="text-sm text-slate-500 group-hover/all:font-bold"
+                >filter lösen</span
             >
         </Link>
     </div>
