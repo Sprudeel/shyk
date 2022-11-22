@@ -13,11 +13,11 @@ class Post extends Model
 
 
     public function topic() {
-        return $this->hasOne(Topic::class);
+        return $this->hasOne(Topic::class, 'slug', 'topic');
     }
 
     public function category() {
-        return $this->hasOne(Category::class);
+        return $this->hasOne(Category::class, 'slug', 'category');
     }
 
     public function author() {
