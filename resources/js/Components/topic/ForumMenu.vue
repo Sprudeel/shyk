@@ -14,6 +14,7 @@ const auth = computed(() => usePage().props.value.auth);
 <template>
     <Link :href="route('post.create')">
         <Button
+            v-if="auth.user"
             class="bg-shyk-blue w-full px-12 text-base font-bold normal-case hover:bg-blue-600 hover:shadow-lg"
         >
             Post erstellen
