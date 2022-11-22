@@ -14,9 +14,9 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 
+
 class PostController extends Controller
 {
-    protected $fillable = ['title', 'author', 'subject', 'status', 'content'];
 
 
     public function create() {
@@ -25,6 +25,14 @@ class PostController extends Controller
         return Inertia::render('Post/Create', [
             'topics' => Topic::all(),
             'categories' => Category::all(),
+        ]);
+    }
+
+    public function show(Request $request) {
+        $post = Post::where(['slug' => $request->slug, 'status' => 'public'])->with('author.role', 'category', 'topic')->firstOrFail();
+
+        return Inertia::render('Post/Show', [
+            'post' => $post,
         ]);
     }
 
