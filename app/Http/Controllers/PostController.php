@@ -33,7 +33,7 @@ class PostController extends Controller
 
 
         $request->validate([
-            'title' => 'required|unique:App\Models\Post,title',
+            'title' => 'required|unique:App\Models\Post,title|max:30',
             'topic' => 'required|exists:topics,slug',
             'status' => 'required',
             'category' => 'required|exists:categories,slug',
