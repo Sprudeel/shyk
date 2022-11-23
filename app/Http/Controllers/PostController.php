@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Collection;
 use Inertia\Inertia;
-use ProtoneMedia\LaravelQueryBuilderInertiaJs\InertiaTable;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -12,6 +11,8 @@ use Illuminate\Http\RedirectResponse;
 use App\Models\Topic;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Like;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -29,11 +30,63 @@ class PostController extends Controller
     }
 
     public function show(Request $request) {
-        $post = Post::where(['slug' => $request->slug, 'status' => 'public'])->with('author.role', 'category', 'topic')->firstOrFail();
+        $post = Post::where(['slug' => $request->slug, 'status' => 'public'])->with('author.role', 'category', 'topic', 'likes')->firstOrFail();
+        $likes = Like::where(['on' => 'post', 'on_id' => $post->id])->get();
+        $liked = Auth::user() ? Like::where(['on' => 'post', 'on_id' => $post->id, 'from' => Auth::user()->id])->exists() : false;
 
         return Inertia::render('Post/Show', [
             'post' => $post,
+            'likes' => $likes,
+            'liked' => $liked,
         ]);
+    }
+
+    public function edit(Request $request) {
+        $this->authorize('update', [User::class, User::where('id', Post::where('slug', $request->slug)->firstOrFail()->author)->firstOrFail()]);
+        $post = Post::where(['slug' => $request->slug, 'status' => 'public'])->firstOrFail();
+
+        return Inertia::render('Post/Edit', [
+            'post' => $post,
+            'topics' => Topic::all(),
+            'categories' => Category::all(),
+        ]);
+    }
+
+    public function update(Request $request) {
+        $this->authorize('update', [User::class, User::where('id', Post::where('id', $request->id)->firstOrFail()->author)->firstOrFail()]);
+
+        // FIND BETTER SOLUTION PLS
+        $post = Post::where('id', $request->id)->update([
+            'title' => '',
+        ]);
+
+        $request->validate([
+            'id' => 'required',
+            'title' => 'required|unique:App\Models\Post,title|max:30',
+            'topic' => 'required|exists:topics,slug',
+            'status' => 'required',
+            'category' => 'required|exists:categories,slug',
+            'content' => 'required',
+            'file' => 'max:2048',
+        ]);
+
+
+
+        $post = Post::where('id', $request->id)->update([
+            'title' => $request->title,
+            'topic' => $request->topic,
+            'status' => $request->status,
+            'category' => $request->category,
+            'content' => $request->content,
+        ]);
+
+        if($request->hasFile('file') && $request->validate(['file' => 'mimes:png,jpg,jpeg,pdf'])) {
+            $file = $request->file->storeAs($post->id, $request->file->getClientOriginalName());
+        }
+
+        $slug = Post::where('id', $request->id)->firstOrFail()->slug;
+
+        return redirect(route('post.show', ['slug' => $slug]))->with('success', 'Post wurde erfolgreich bearbeitet!');
     }
 
     public function store(Request $request) {
