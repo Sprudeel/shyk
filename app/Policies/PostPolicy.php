@@ -4,7 +4,10 @@ namespace App\Policies;
 
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
+use Illuminate\Http\Request;
 
 class PostPolicy
 {
@@ -48,12 +51,16 @@ class PostPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Post $post)
+    public function update(User $user, User $author)
     {
-        //
+        if($user->id === $author->id) {
+            return $user->permissions()['post_update_self'];
+        } else if ($user->permissions()['post_update_all']) {
+            return $user->permissions()['post_update_all'];
+        }
     }
 
     /**
