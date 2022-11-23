@@ -10,6 +10,7 @@ const props = defineProps({
     topics: Object,
     categories: Object,
     posts: Object,
+    myposts: Object,
 });
 </script>
 
@@ -30,6 +31,11 @@ const props = defineProps({
             </div>
             <div class="col-span-2 mb-8 w-full">
                 <Post v-for="post in props.posts" :data="post" />
+                <Post
+                    v-if="route().params.topic === 'my'"
+                    v-for="post in props.myposts"
+                    :data="post"
+                />
             </div>
         </div>
     </DefaultLayout>
