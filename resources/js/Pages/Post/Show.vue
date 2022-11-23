@@ -3,15 +3,22 @@ import { computed } from "vue";
 import moment from "moment";
 import { Inertia } from "@inertiajs/inertia";
 import DefaultLayout from "@/Layouts/Default.vue";
-import { Head, usePage } from "@inertiajs/inertia-vue3";
+import { Head, usePage, Link } from "@inertiajs/inertia-vue3";
+import { PencilSquareIcon } from "@heroicons/vue/24/outline";
 
 const props = defineProps({
     post: Object,
+    likes: Object,
+    liked: Number,
 });
 
 moment.locale("de-ch");
-const created = moment(String(props.post.created_at)).format("DD. MMM YY");
-const updated = moment(String(props.post.updated_at)).format("DD. MMM YY");
+const created = moment(String(props.post.created_at)).format(
+    "DD. MMM YY HH:MM"
+);
+const updated = moment(String(props.post.updated_at)).format(
+    "DD. MMM YY HH:MM"
+);
 
 const auth = computed(() => usePage().props.value.auth);
 </script>
@@ -24,36 +31,50 @@ const auth = computed(() => usePage().props.value.auth);
             <div class="col-span-3">
                 <div class="grid-rows-7 grid grid-cols-6 items-center">
                     <div class="">
-                        <span
-                            class="relative row-span-2 flex flex-row items-center space-x-4"
+                        <Link
+                            :href="
+                                route('userprofile.view', {
+                                    username: props.post.author.username,
+                                })
+                            "
                         >
-                            <img
-                                :src="
-                                    Inertia.page.props.ziggy.url +
-                                    '/avatars/' +
-                                    props.post.author.avatar
-                                "
-                                class="ml-auto h-32 w-32 rounded-full object-cover"
-                            />
                             <span
-                                v-if="props.post.author.role.name !== 'User'"
-                                class="absolute top-2 right-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500"
+                                class="relative row-span-2 flex flex-row items-center space-x-4 transition-all hover:scale-105"
                             >
-                                <span v-html="props.post.author.role.symbol">
-                                </span
-                            ></span>
-                        </span>
+                                <img
+                                    :src="
+                                        Inertia.page.props.ziggy.url +
+                                        '/avatars/' +
+                                        props.post.author.avatar
+                                    "
+                                    class="ml-auto h-24 w-24 rounded-full object-cover"
+                                />
+                                <span
+                                    v-if="
+                                        props.post.author.role.name !== 'User'
+                                    "
+                                    class="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-red-500"
+                                >
+                                    <span
+                                        v-html="props.post.author.role.symbol"
+                                    >
+                                    </span
+                                ></span>
+                            </span>
+                        </Link>
                     </div>
                     <div class="col-span-5">
                         <div
                             class="ml-4 grid grid-cols-1 grid-rows-3 items-end"
                         >
-                            <div class="flex flex-row space-x-8">
+                            <div class="flex flex-row items-end space-x-8">
                                 <span class="font-bold">{{
                                     props.post.author.username
                                 }}</span>
-                                <span>{{ created }}</span>
-                                <span>Bearbeitet am {{ updated }}</span>
+                                <span class="text-sm">{{ created }}</span>
+                                <span class="text-sm" v-if="created !== updated"
+                                    >Bearbeitet am {{ updated }}</span
+                                >
                             </div>
                             <div class="row-span-2 text-3xl font-extrabold">
                                 {{ props.post.title }}
@@ -62,10 +83,80 @@ const auth = computed(() => usePage().props.value.auth);
                         </div>
                     </div>
                     <span></span>
-                    <div class="col-span-5 row-span-5">
-                        {{ props.post.content }}
-                    </div>
+                    <div
+                        v-html="props.post.content"
+                        class="col-span-5 row-span-5 ml-4 mr-8"
+                    ></div>
                 </div>
+            </div>
+            <div class="mt-8 ml-4">
+                <span class="mb-4 flex flex-row">
+                    <Link
+                        v-if="
+                            auth.permissions.userprofile_edit_self &&
+                            auth.user.username == props.post.author.username
+                        "
+                        :href="`/post/edit/${props.post.slug}`"
+                        title="Post bearbeiten"
+                    >
+                        <PencilSquareIcon
+                            class="shyk-blue mr-2 h-8 w-8 rounded-lg p-1 hover:bg-blue-500 hover:text-white"
+                        />
+                    </Link>
+
+                    <Link
+                        v-else-if="
+                            auth.permissions.userprofile_edit_all &&
+                            auth.user.username != props.post.author.username
+                        "
+                        :href="`/post/edit/${props.post.slug}`"
+                        title="Post bearbeiten"
+                    >
+                        <PencilSquareIcon
+                            class="mr-2 h-8 w-8 rounded-lg p-1 text-yellow-300 hover:bg-yellow-300 hover:text-white"
+                        />
+                    </Link>
+                </span>
+                <Link
+                    :href="route('post.like', { slug: props.post.slug })"
+                    method="post"
+                >
+                    <span
+                        class="flex w-fit cursor-pointer flex-row space-x-2 rounded-lg bg-slate-200 py-2 px-4 hover:bg-slate-300"
+                        v-if="!liked && auth.user"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                        >
+                            <path fill="none" d="M0 0H24V24H0z" />
+                            <path
+                                d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228zm6.826 1.641c-1.5-1.502-3.92-1.563-5.49-.153l-1.335 1.198-1.336-1.197c-1.575-1.412-3.99-1.35-5.494.154-1.49 1.49-1.565 3.875-.192 5.451L12 18.654l7.02-7.03c1.374-1.577 1.299-3.959-.193-5.454z"
+                            />
+                        </svg>
+                        <span>Gefällt mir</span>
+                    </span>
+                    <span
+                        class="flex w-fit cursor-pointer flex-row space-x-2 rounded-lg bg-red-200 py-2 px-4 hover:bg-red-300 hover:line-through"
+                        v-if="liked && auth.user"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            height="24"
+                        >
+                            <path fill="none" d="M0 0H24V24H0z" />
+                            <path
+                                fill="#f47379"
+                                d="M12.001 4.529c2.349-2.109 5.979-2.039 8.242.228 2.262 2.268 2.34 5.88.236 8.236l-8.48 8.492-8.478-8.492c-2.104-2.356-2.025-5.974.236-8.236 2.265-2.264 5.888-2.34 8.244-.228z"
+                            />
+                        </svg>
+                        <span>Gefällt mir</span>
+                    </span>
+                </Link>
             </div>
         </div>
     </DefaultLayout>
