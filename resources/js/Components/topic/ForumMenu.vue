@@ -1,7 +1,7 @@
 <script setup>
-import Button from "@/Components/forms/Button.vue";
 import { computed } from "vue";
 import { usePage, Link } from "@inertiajs/inertia-vue3";
+import Button from "@/Components/forms/Button.vue";
 
 const props = defineProps({
     topics: Object,
@@ -48,29 +48,43 @@ const auth = computed(() => usePage().props.value.auth);
                 >Alle Posts</span
             >
         </Link>
-        <span
-            v-if="auth.user"
-            class="group/my flex cursor-pointer flex-row space-x-4"
+        <Link
+            :href="
+                route('discover', {
+                    topic: 'my',
+                    category: route().params.category,
+                })
+            "
+            class="group/all flex cursor-pointer flex-row space-x-4"
         >
             <span
-                ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                >
-                    <path fill="none" d="M0 0h24v24H0z" />
-                    <path
-                        d="M4 22a8 8 0 1 1 16 0H4zm8-9c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6z"
-                    />
-                </svg>
-            </span>
-            <span
-                class="group-hover/my:font-bold"
-                :class="route().current('user.report') ? 'font-bold' : ''"
-                >Meine Posts</span
+                v-if="auth.user"
+                class="group/my flex cursor-pointer flex-row space-x-4"
             >
-        </span>
+                <span
+                    ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        height="24"
+                    >
+                        <path fill="none" d="M0 0h24v24H0z" />
+                        <path
+                            d="M4 22a8 8 0 1 1 16 0H4zm8-9c-3.315 0-6-2.685-6-6s2.685-6 6-6 6 2.685 6 6-2.685 6-6 6z"
+                        />
+                    </svg>
+                </span>
+                <span
+                    class="group-hover/my:font-bold"
+                    :class="
+                        route().current('discover', { topic: 'my' })
+                            ? 'font-bold'
+                            : ''
+                    "
+                    >Meine Posts</span
+                >
+            </span>
+        </Link>
     </div>
 
     <div class="w-full">
@@ -203,6 +217,6 @@ const auth = computed(() => usePage().props.value.auth);
     </div>
 
     <div class="w-full">
-        <div class="h-[2px] flex-grow bg-black"></div>
+        <div class="h-[1px] flex-grow bg-black"></div>
     </div>
 </template>
