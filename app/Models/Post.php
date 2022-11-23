@@ -32,4 +32,8 @@ class Post extends Model
     public function author() {
         return $this->belongsTo(User::class, 'author', 'id');
     }
+
+    public function likes() {
+        return $this->hasMany(Like::class, 'on_id', 'id');
+    }
 }
