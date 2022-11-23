@@ -10,6 +10,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,9 @@ Route::get('/discover/{topic?}', [TopicController::class, 'index'])->name('disco
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('post/create', [PostController::class, 'create'])->name('post.create');
     Route::post('post/store', [PostController::class, 'store'])->name('post.store');
+    Route::post('post/like/{slug}', [LikeController::class, 'post'])->name('post.like');
+    Route::get('post/edit/{slug}', [PostController::class, 'edit'])->name('post.edit');
+    Route::post('post/edit', [PostController::class, 'update'])->name('post.update');
 });
 Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
 
