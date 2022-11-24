@@ -70,6 +70,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('post/like/{slug}', [LikeController::class, 'post'])->name('post.like');
     Route::get('post/edit/{slug}', [PostController::class, 'edit'])->name('post.edit');
     Route::post('post/edit', [PostController::class, 'update'])->name('post.update');
+    Route::post('post/report', [PostController::class, 'report'])->name('post.report');
+    Route::post('post/verify/{slug}', [PostController::class, 'verify'])->name('post.verify');
 });
 Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
 
