@@ -13,6 +13,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Like;
 use App\Models\User;
+use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -52,6 +53,29 @@ class PostController extends Controller
         ]);
     }
 
+    public function report(Request $request) {
+        $this->authorize('report', Post::class);
+
+        $request->validate([
+            'reported_post' => 'required',
+            'reported_post_title' => 'required',
+            'reason' => 'required|max:255',
+        ]);
+
+        $reporting_user = Auth::user()->id;
+
+
+        $report = Report::create([
+            'report_on' => 'post',
+            'reporting_user' => $reporting_user,
+            'reported_id' => $request->reported_post,
+            'reason' => $request->reason,
+        ]);
+
+        return back()->with('success', 'Post wurde erfolgreich gemeldet!');
+    }
+
+
     public function update(Request $request) {
         $this->authorize('update', [User::class, User::where('id', Post::where('id', $request->id)->firstOrFail()->author)->firstOrFail()]);
 
@@ -78,6 +102,7 @@ class PostController extends Controller
             'status' => $request->status,
             'category' => $request->category,
             'content' => $request->content,
+            'verified' => false,
         ]);
 
         if($request->hasFile('file') && $request->validate(['file' => 'mimes:png,jpg,jpeg,pdf'])) {
@@ -87,6 +112,21 @@ class PostController extends Controller
         $slug = Post::where('id', $request->id)->firstOrFail()->slug;
 
         return redirect(route('post.show', ['slug' => $slug]))->with('success', 'Post wurde erfolgreich bearbeitet!');
+    }
+
+    public function verify(Request $request) {
+        $post = Post::where(['slug' => $request->slug])->firstOrFail();
+
+        if($post->verified) {
+            Post::where(['slug' => $request->slug])->update([
+                'verified' => false,
+            ]);
+        } else {
+            Post::where(['slug' => $request->slug])->update([
+                'verified' => true,
+            ]);
+        }
+
     }
 
     public function store(Request $request) {
