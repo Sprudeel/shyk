@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('report_on');
             $table->string('reporting_user');
-            $table->string('reported_user');
+            $table->string('reported_id');
             $table->text('reason');
             $table->timestamps();
         });
