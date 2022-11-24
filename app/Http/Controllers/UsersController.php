@@ -48,7 +48,7 @@ class UsersController extends Controller
         $report = Report::create([
             'report_on' => 'userprofile',
             'reporting_user' => $reporting_user,
-            'reported_user' => $request->reported_user,
+            'reported_id' => $request->reported_user,
             'reason' => $request->reason,
         ]);
 
