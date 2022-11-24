@@ -74,6 +74,16 @@ class PostPolicy
     }
 
     /**
+     * Determine whether the user can verify a Post.
+     *
+     * @param  \App\Models\User  $user
+     */
+    public function report(User $user)
+    {
+        return $user->permissions()['post_verify'];
+    }
+
+    /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user

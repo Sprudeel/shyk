@@ -115,6 +115,8 @@ class PostController extends Controller
     }
 
     public function verify(Request $request) {
+        $this->authorize('verify', Post::class);
+
         $post = Post::where(['slug' => $request->slug])->firstOrFail();
 
         if($post->verified) {
