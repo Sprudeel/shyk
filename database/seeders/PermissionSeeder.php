@@ -115,6 +115,31 @@ class PermissionSeeder extends Seeder
             'name' => 'post_report',
             'explanation' => 'Posts melden',
         ]);
+        DB::table('permissions')->insert([
+            'id' => 560,
+            'name' => 'post_comment',
+            'explanation' => 'Posts kommentieren',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 570,
+            'name' => 'post_comment_delete_self',
+            'explanation' => 'Eigene Kommentare löschen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 571,
+            'name' => 'post_comment_delete_all',
+            'explanation' => 'Alle Kommentare löschen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 580,
+            'name' => 'post_comment_report',
+            'explanation' => 'Kommentare melden',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 590,
+            'name' => 'post_verify',
+            'explanation' => 'Posts verifizieren',
+        ]);
 
         /**
          * Special 900

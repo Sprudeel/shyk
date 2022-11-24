@@ -42,6 +42,11 @@ Permissions are grouped to blocks (ex. Roles), each Permission of a Role starts 
 -   **post_delete_self** _540_ <br> Eigene Posts löschen
 -   **post_delete_all** _541_ <br> Alle Posts löschen
 -   **post_report** _550_ <br> Posts melden
+-   **post_comment** _560_ <br> Kommentare erstellen
+-   **post_comment_delete_self** _570_ <br> Eigene Kommentare löschen
+-   **post_comment_delete_all** _571_ <br> Alle Kommentare löschen
+-   **post_comment_report** _580_ <br> Kommentare melden
+-   **post_verify** _590_ <br> Posts verifizieren
 
 ## Special _900_
 
