@@ -4,7 +4,8 @@ import moment from "moment";
 import { Inertia } from "@inertiajs/inertia";
 import DefaultLayout from "@/Layouts/Default.vue";
 import { Head, usePage, Link } from "@inertiajs/inertia-vue3";
-import { PencilSquareIcon } from "@heroicons/vue/24/outline";
+import { PencilSquareIcon, CheckBadgeIcon } from "@heroicons/vue/24/outline";
+import repurtPostModal from "@/Components/modals/reportPost.vue";
 
 const props = defineProps({
     post: Object,
@@ -68,16 +69,46 @@ const auth = computed(() => usePage().props.value.auth);
                             class="ml-4 grid grid-cols-1 grid-rows-3 items-end"
                         >
                             <div class="flex flex-row items-end space-x-8">
-                                <span class="font-bold">{{
-                                    props.post.author.username
-                                }}</span>
+                                <Link
+                                    :href="
+                                        route('userprofile.view', {
+                                            username:
+                                                props.post.author.username,
+                                        })
+                                    "
+                                >
+                                    <span class="font-bold">{{
+                                        props.post.author.username
+                                    }}</span>
+                                </Link>
                                 <span class="text-sm">{{ created }}</span>
                                 <span class="text-sm" v-if="created !== updated"
                                     >Bearbeitet am {{ updated }}</span
                                 >
                             </div>
-                            <div class="row-span-2 text-3xl font-extrabold">
+                            <div
+                                class="row-span-2 flex flex-row text-3xl font-extrabold"
+                            >
                                 {{ props.post.title }}
+                                <span
+                                    v-if="props.post.verified"
+                                    title="Dieser Post wurde verifiziert!"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="shyk-blue ml-4 h-8 w-8"
+                                    >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                                        />
+                                    </svg>
+                                </span>
                             </div>
                             <hr />
                         </div>
@@ -116,13 +147,18 @@ const auth = computed(() => usePage().props.value.auth);
                             class="mr-2 h-8 w-8 rounded-lg p-1 text-yellow-300 hover:bg-yellow-300 hover:text-white"
                         />
                     </Link>
+
+                    <repurtPostModal
+                        v-if="props.post.author.id != auth.user.id"
+                        :data="props.post"
+                    />
                 </span>
                 <Link
                     :href="route('post.like', { slug: props.post.slug })"
                     method="post"
                 >
                     <span
-                        class="flex w-fit cursor-pointer flex-row space-x-2 rounded-lg bg-slate-200 py-2 px-4 hover:bg-slate-300"
+                        class="mb-8 flex w-fit cursor-pointer flex-row space-x-2 rounded-lg bg-slate-200 py-2 px-4 hover:bg-slate-300"
                         v-if="!liked && auth.user"
                     >
                         <svg
@@ -139,7 +175,7 @@ const auth = computed(() => usePage().props.value.auth);
                         <span>Gefällt mir</span>
                     </span>
                     <span
-                        class="flex w-fit cursor-pointer flex-row space-x-2 rounded-lg bg-red-200 py-2 px-4 hover:bg-red-300 hover:line-through"
+                        class="mb-8 flex w-fit cursor-pointer flex-row space-x-2 rounded-lg bg-red-200 py-2 px-4 hover:bg-red-300"
                         v-if="liked && auth.user"
                     >
                         <svg
@@ -155,6 +191,58 @@ const auth = computed(() => usePage().props.value.auth);
                             />
                         </svg>
                         <span>Gefällt mir</span>
+                    </span>
+                </Link>
+
+                <Link
+                    :href="route('post.verify', { slug: props.post.slug })"
+                    method="post"
+                >
+                    <span
+                        class="flex w-fit cursor-pointer flex-row space-x-2 rounded-lg bg-green-200 py-2 px-4 hover:bg-green-300"
+                        v-if="
+                            auth.permissions.post_verify && !props.post.verified
+                        "
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="h-6 w-6 text-green-700"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                            />
+                        </svg>
+
+                        <span class="text-green-700">Verifizieren</span>
+                    </span>
+                    <span
+                        class="flex w-fit cursor-pointer flex-row space-x-2 rounded-lg bg-red-200 py-2 px-4 hover:bg-red-300"
+                        v-if="
+                            auth.permissions.post_verify && props.post.verified
+                        "
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="h-6 w-6 text-red-700"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
+                            />
+                        </svg>
+
+                        <span class="text-red-700">Entverifizieren</span>
                     </span>
                 </Link>
             </div>
