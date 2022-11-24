@@ -142,6 +142,11 @@ const submit = () => {
                         />
                         <InputError class="mt-2" :message="form.errors.file" />
                     </div>
+
+                    <span class="font-bold"
+                        >Wichtig: Wurde dein Post verifiziert, so verlierst du
+                        diese Verifizierung nach der Bearbeitung!</span
+                    >
                     <progress
                         v-if="form.progress"
                         :value="form.progress.percentage"
