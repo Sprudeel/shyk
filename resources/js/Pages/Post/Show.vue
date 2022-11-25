@@ -5,12 +5,14 @@ import { Inertia } from "@inertiajs/inertia";
 import DefaultLayout from "@/Layouts/Default.vue";
 import { Head, usePage, Link } from "@inertiajs/inertia-vue3";
 import { PencilSquareIcon, CheckBadgeIcon } from "@heroicons/vue/24/outline";
-import repurtPostModal from "@/Components/modals/reportPost.vue";
+import reportPostModal from "@/Components/modals/reportPost.vue";
+
+const auth = computed(() => usePage().props.value.auth);
 
 const props = defineProps({
     post: Object,
     likes: Object,
-    liked: Number,
+    liked: Boolean,
 });
 
 moment.locale("de-ch");
@@ -20,8 +22,6 @@ const created = moment(String(props.post.created_at)).format(
 const updated = moment(String(props.post.updated_at)).format(
     "DD. MMM YY HH:MM"
 );
-
-const auth = computed(() => usePage().props.value.auth);
 </script>
 
 <template>
@@ -121,7 +121,7 @@ const auth = computed(() => usePage().props.value.auth);
                 </div>
             </div>
             <div class="mt-8 ml-4">
-                <span class="mb-4 flex flex-row">
+                <span class="mb-4 flex flex-row" v-if="auth.user">
                     <Link
                         v-if="
                             auth.permissions.userprofile_edit_self &&
@@ -148,7 +148,7 @@ const auth = computed(() => usePage().props.value.auth);
                         />
                     </Link>
 
-                    <repurtPostModal
+                    <reportPostModal
                         v-if="props.post.author.id != auth.user.id"
                         :data="props.post"
                     />
