@@ -78,7 +78,7 @@ class PostPolicy
      *
      * @param  \App\Models\User  $user
      */
-    public function report(User $user)
+    public function verify(User $user)
     {
         return $user->permissions()['post_verify'];
     }
