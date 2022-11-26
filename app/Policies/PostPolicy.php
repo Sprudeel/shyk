@@ -87,12 +87,15 @@ class PostPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param  \App\Models\User  $user
      */
-    public function delete(User $user, Post $post)
+    public function delete(User $user, User $author)
     {
-        //
+        if($user->id === $author->id) {
+            return $user->permissions()['post_delete_self'];
+        } else if ($user->permissions()['post_delete_all']) {
+            return $user->permissions()['post_delete_all'];
+        }
     }
 
     /**
