@@ -143,7 +143,7 @@ const submit = () => {
                         <InputError class="mt-2" :message="form.errors.file" />
                     </div>
 
-                    <span class="font-bold"
+                    <span class="font-bold" v-if="post.verified"
                         >Wichtig: Wurde dein Post verifiziert, so verlierst du
                         diese Verifizierung nach der Bearbeitung!</span
                     >
