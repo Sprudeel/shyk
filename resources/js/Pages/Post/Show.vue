@@ -4,7 +4,7 @@ import moment from "moment";
 import { Inertia } from "@inertiajs/inertia";
 import DefaultLayout from "@/Layouts/Default.vue";
 import { Head, usePage, Link } from "@inertiajs/inertia-vue3";
-import { PencilSquareIcon, CheckBadgeIcon } from "@heroicons/vue/24/outline";
+import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/24/outline";
 import reportPostModal from "@/Components/modals/reportPost.vue";
 
 const auth = computed(() => usePage().props.value.auth);
@@ -87,8 +87,25 @@ const updated = moment(String(props.post.updated_at)).format(
                                 >
                             </div>
                             <div
-                                class="row-span-2 flex flex-row text-3xl font-extrabold"
+                                class="row-span-2 flex flex-row items-center text-3xl font-extrabold"
                             >
+                                <span
+                                    v-if="props.post.status == 'private'"
+                                    title="Post ist privat!"
+                                >
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        height="24"
+                                        class="mr-4"
+                                    >
+                                        <path fill="none" d="M0 0h24v24H0z" />
+                                        <path
+                                            d="M18 8h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h2V7a6 6 0 1 1 12 0v1zm-7 7.732V18h2v-2.268a2 2 0 1 0-2 0zM16 8V7a4 4 0 1 0-8 0v1h8z"
+                                        />
+                                    </svg>
+                                </span>
                                 {{ props.post.title }}
                                 <span
                                     v-if="props.post.verified"
@@ -148,6 +165,22 @@ const updated = moment(String(props.post.updated_at)).format(
                         />
                     </Link>
 
+                    <Link
+                        v-if="
+                            auth.permissions.post_delete_all ||
+                            (auth.permissions.post_delete_self &&
+                                auth.user.username ==
+                                    props.post.author.username)
+                        "
+                        :href="`/post/delete/${props.post.slug}`"
+                        title="Post löschen"
+                        method="post"
+                    >
+                        <TrashIcon
+                            class="mr-2 h-8 w-8 rounded-lg p-1 text-red-500 hover:bg-red-500 hover:text-white"
+                        />
+                    </Link>
+
                     <reportPostModal
                         v-if="props.post.author.id != auth.user.id"
                         :data="props.post"
@@ -159,7 +192,9 @@ const updated = moment(String(props.post.updated_at)).format(
                 >
                     <span
                         class="mb-8 flex w-fit cursor-pointer flex-row space-x-2 rounded-lg bg-slate-200 py-2 px-4 hover:bg-slate-300"
-                        v-if="!liked && auth.user"
+                        v-if="
+                            !liked && auth.user && props.post.status == 'public'
+                        "
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +211,9 @@ const updated = moment(String(props.post.updated_at)).format(
                     </span>
                     <span
                         class="mb-8 flex w-fit cursor-pointer flex-row space-x-2 rounded-lg bg-red-200 py-2 px-4 hover:bg-red-300"
-                        v-if="liked && auth.user"
+                        v-if="
+                            liked && auth.user && props.post.status == 'public'
+                        "
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
