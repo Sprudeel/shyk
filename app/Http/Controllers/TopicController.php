@@ -19,14 +19,14 @@ class TopicController extends Controller
         $myposts = [];
 
         if($request->topic == 'my') {
-            $myposts = Auth::user() && $request->category ? Post::where(['status' => 'public', 'author' => Auth::user()->id, 'category' => $request->category])->with('author.role', 'topic', 'category', 'likes')->get() : ( Auth::user() ? Post::where(['status' => 'public', 'author' => Auth::user()->id])->with('author.role', 'topic', 'category', 'likes')->get() : null );
+            $myposts = Auth::user() && $request->category ? Post::where(['author' => Auth::user()->id, 'category' => $request->category])->with('author.role', 'topic', 'category', 'likes')->paginate(6) : ( Auth::user() ? Post::where(['author' => Auth::user()->id])->with('author.role', 'topic', 'category', 'likes')->paginate(6) : null );
         }
 
         return Inertia::render('Discover', [
             'topic' => $request->topic ? Topic::where('slug', $request->topic)->first() : null,
             'topics' => Topic::all(),
             'categories' => Category::all(),
-            'posts' => $request->topic && $request->category ? Post::where(['status' => 'public', 'topic' => $request->topic, 'category' => $request->category])->with('author.role', 'topic', 'category', 'likes')->get() : ( $request->topic ? Post::where(['status' => 'public', 'topic' => $request->topic])->with('author.role', 'topic', 'category', 'likes')->get() : ( $request->category ? Post::where(['status' => 'public', 'category' => $request->category])->with('author.role', 'topic', 'category', 'likes')->get() : Post::where('status', 'public')->with('author.role', 'topic', 'category', 'likes')->get() ) ),
+            'posts' => $request->topic && $request->category ? Post::where(['status' => 'public', 'topic' => $request->topic, 'category' => $request->category])->with('author.role', 'topic', 'category', 'likes')->paginate(6) : ( $request->topic ? Post::where(['status' => 'public', 'topic' => $request->topic])->with('author.role', 'topic', 'category', 'likes')->paginate(6) : ( $request->category ? Post::where(['status' => 'public', 'category' => $request->category])->with('author.role', 'topic', 'category', 'likes')->paginate(6) : Post::where('status', 'public')->with('author.role', 'topic', 'category', 'likes')->paginate(6) ) ),
             'myposts' => $myposts,
         ]);
     }
