@@ -34,7 +34,11 @@
         "@tiptap/extension-task-list": "^2.0.0-beta.202",
         "@tiptap/starter-kit": "^2.0.0-beta.202",
         "@tiptap/vue-3": "^2.0.0-beta.202",
+        "filepond": "^4.30.4",
+        "filepond-plugin-file-validate-type": "^1.2.8",
+        "filepond-plugin-image-preview": "^4.6.11",
         "moment": "^2.29.4",
+        "vue-filepond": "^7.0.3",
         "vue-final-modal": "^3.4.11"
     }
 }
