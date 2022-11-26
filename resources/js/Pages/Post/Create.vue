@@ -2,17 +2,42 @@
 import DefaultLayout from "@/Layouts/Default.vue";
 import { Head, usePage, useForm } from "@inertiajs/inertia-vue3";
 import Button from "@/Components/forms/Button.vue";
-import Checkbox from "@/Components/forms/Checkbox.vue";
 import Input from "@/Components/forms/Input.vue";
 import InputError from "@/Components/forms/InputError.vue";
 import Label from "@/Components/forms/Label.vue";
 import TipTap from "@/Components/forms/TipTapEditor.vue";
-import { QuestionMarkCircleIcon } from "@heroicons/vue/24/outline";
+import { computed, ref } from "vue";
+
+// Import Vue FilePond
+import vueFilePond, { setOptions } from "vue-filepond";
+import "filepond/dist/filepond.min.css";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+
+const FilePond = vueFilePond(
+    FilePondPluginFileValidateType,
+    FilePondPluginImagePreview
+);
 
 const props = defineProps({
     topics: Object,
     categories: Object,
+    csrf_token: String,
 });
+
+const handleFilePondInit = () => {
+    setOptions({
+        credits: false,
+        server: {
+            url: "/tmpupload",
+            headers: {
+                "X-CSRF-TOKEN": props.csrf_token,
+            },
+        },
+    });
+};
+const filepondInput = ref(null);
 
 function handleContent(s) {
     form.about = s;
@@ -38,7 +63,9 @@ const submit = () => {
     <DefaultLayout>
         <div class="py-12">
             <div class="mx-auto max-w-6xl sm:px-6 lg:px-8">
-                <h2 class="mb-2 text-2xl font-bold">Post erstellen</h2>
+                <h2 class="mb-2 text-2xl font-bold">
+                    Post erstellen {{ csrf }}
+                </h2>
                 <form @submit.prevent="submit">
                     <div>
                         <Label for="title" value="Titel" />
@@ -133,11 +160,15 @@ const submit = () => {
                         >
                             Anhang
                         </Label>
-                        <input
-                            type="file"
+                        <file-pond
+                            name="file"
                             id="file"
-                            accept=".pdf, .png, .jpeg, .jpg"
-                            @input="form.file = $event.target.files[0]"
+                            ref="filepondInput"
+                            label-idle="Drop files here..."
+                            allow-multiple="true"
+                            accepted-file-types="audio/*, video/*, image/*, application/pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .odt, .ods, .odp, .txt, .rtf, .csv, .zip, .rar, .tar, .7z"
+                            v-model="form.file"
+                            @init="handleFilePondInit"
                         />
                         <InputError class="mt-2" :message="form.errors.file" />
                     </div>
