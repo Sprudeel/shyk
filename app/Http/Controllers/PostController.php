@@ -31,9 +31,16 @@ class PostController extends Controller
     }
 
     public function show(Request $request) {
-        $post = Post::where(['slug' => $request->slug, 'status' => 'public'])->with('author.role', 'category', 'topic', 'likes')->firstOrFail();
+        if(Post::where(['slug' => $request->slug])->firstOrFail()->author == Auth::user()->id) {
+            $post = Post::where(['slug' => $request->slug])->with('author.role', 'category', 'topic', 'likes')->firstOrFail();
+        } else {
+            $post = Post::where(['slug' => $request->slug, 'status' => 'public'])->with('author.role', 'category', 'topic', 'likes')->firstOrFail();
+        }
+
         $likes = Like::where(['on' => 'post', 'on_id' => $post->id])->get();
         $liked = Auth::user() ? Like::where(['on' => 'post', 'on_id' => $post->id, 'from' => Auth::user()->id])->exists() : false;
+
+
 
         return Inertia::render('Post/Show', [
             'post' => $post,
@@ -43,7 +50,7 @@ class PostController extends Controller
     }
 
     public function edit(Request $request) {
-        $this->authorize('update', [User::class, User::where('id', Post::where('slug', $request->slug)->firstOrFail()->author)->firstOrFail()]);
+        $this->authorize('update', [Post::class, User::where('id', Post::where('slug', $request->slug)->firstOrFail()->author)->firstOrFail()]);
         $post = Post::where(['slug' => $request->slug, 'status' => 'public'])->firstOrFail();
 
         return Inertia::render('Post/Edit', [
@@ -51,6 +58,15 @@ class PostController extends Controller
             'topics' => Topic::all(),
             'categories' => Category::all(),
         ]);
+    }
+
+    public function destroy(Request $request) {
+        $this->authorize('delete', [Post::class, User::where('id', Post::where('slug', $request->slug)->firstOrFail()->author)->firstOrFail()]);
+        $post = Post::where(['slug' => $request->slug])->firstOrFail();
+
+        $post->delete();
+
+        return redirect(route('discover'))->with('success', 'Post wurde erfolgreich gelöscht!');
     }
 
     public function report(Request $request) {
@@ -77,7 +93,7 @@ class PostController extends Controller
 
 
     public function update(Request $request) {
-        $this->authorize('update', [User::class, User::where('id', Post::where('id', $request->id)->firstOrFail()->author)->firstOrFail()]);
+        $this->authorize('update', [Post::class, User::where('id', Post::where('id', $request->id)->firstOrFail()->author)->firstOrFail()]);
 
         // FIND BETTER SOLUTION PLS
         $post = Post::where('id', $request->id)->update([
@@ -105,9 +121,9 @@ class PostController extends Controller
             'verified' => false,
         ]);
 
-        if($request->hasFile('file') && $request->validate(['file' => 'mimes:png,jpg,jpeg,pdf'])) {
-            $file = $request->file->storeAs($post->id, $request->file->getClientOriginalName());
-        }
+        // if($request->hasFile('file') && $request->validate(['file' => 'mimes:png,jpg,jpeg,pdf'])) {
+        //     $file = $request->file->storeAs($post->id, $request->file->getClientOriginalName());
+        // }
 
         $slug = Post::where('id', $request->id)->firstOrFail()->slug;
 
