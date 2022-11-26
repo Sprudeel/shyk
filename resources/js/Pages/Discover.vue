@@ -4,6 +4,7 @@ import { Head } from "@inertiajs/inertia-vue3";
 import Banner from "@/Components/topic/Banner.vue";
 import ForumMenu from "@/Components/topic/ForumMenu.vue";
 import Post from "@/Components/topic/Post.vue";
+import Pagination from "@/Components/Pagination.vue";
 
 const props = defineProps({
     topic: Object,
@@ -30,12 +31,18 @@ const props = defineProps({
                 </div>
             </div>
             <div class="col-span-2 mb-8 w-full">
-                <Post v-for="post in props.posts" :data="post" />
                 <Post
-                    v-if="route().params.topic === 'my'"
-                    v-for="post in props.myposts"
+                    v-for="post in props.posts.data"
+                    :key="post.id"
                     :data="post"
                 />
+                <Post
+                    v-if="route().params.topic === 'my'"
+                    v-for="post in props.myposts.data"
+                    :key="post.id"
+                    :data="post"
+                />
+                <Pagination class="mt-6" :links="props.posts.links" />
             </div>
         </div>
     </DefaultLayout>
