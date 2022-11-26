@@ -11,6 +11,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\UploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,8 @@ Route::post('/user/report', [UsersController::class, 'report'])->middleware(['au
  * Forum
  */
 Route::get('/discover/{topic?}', [TopicController::class, 'index'])->name('discover');
+
+Route::post('/tmpupload', [UploadController::class, 'store'])->middleware(['auth', 'verified'])->name('tmpupload');
 
 
 /**
