@@ -32,7 +32,8 @@ class PostController extends Controller
     }
 
     public function show(Request $request) {
-        if(Post::where(['slug' => $request->slug])->firstOrFail()->author == Auth::user()->id) {
+        $author = Auth::user() ? Auth::user()->id : null;
+        if(Post::where(['slug' => $request->slug])->firstOrFail()->author == $author) {
             $post = Post::where(['slug' => $request->slug])->with('author.role', 'category', 'topic', 'likes')->firstOrFail();
         } else {
             $post = Post::where(['slug' => $request->slug, 'status' => 'public'])->with('author.role', 'category', 'topic', 'likes')->firstOrFail();
@@ -41,12 +42,30 @@ class PostController extends Controller
         $likes = Like::where(['on' => 'post', 'on_id' => $post->id])->get();
         $liked = Auth::user() ? Like::where(['on' => 'post', 'on_id' => $post->id, 'from' => Auth::user()->id])->exists() : false;
 
+        $foldercontent = Storage::allFiles('posts/' . $post->folder);
+
+
+        foreach ($foldercontent as $file) {
+            // push temp array to $files
+            $files[] = [
+                'name' => basename($file),
+                'url' => Storage::temporaryURL(
+                $file,
+                now()->addMinutes(15)
+            ),
+                'size' => Storage::size($file),
+                'type' => Storage::mimeType($file),
+
+            ];
+
+        }
 
 
         return Inertia::render('Post/Show', [
             'post' => $post,
             'likes' => $likes,
             'liked' => $liked,
+            'attachements' => $files,
         ]);
     }
 
@@ -179,10 +198,13 @@ class PostController extends Controller
            Storage::move('tmp/'.$var->folder.'/'.$var->filename, 'posts/'.$author.'_'.$post->id.'/'.$var->filename);
         };
 
+        Post::where(['title' => $request->title])->update([
+            'folder' => $author.'_'.$post->id,
+        ]);
 
-        if($request->hasFile('file') && $request->validate(['file' => 'mimes:png,jpg,jpeg,pdf'])) {
-            $file = $request->file->storeAs($post->id, $request->file->getClientOriginalName());
-        }
+        return redirect(route('post.show', ['slug' => $post->slug]))->with('success', 'Post wurde erfolgreich erstellt!');
+
+
 
         return redirect(route('discover'))->with('success', 'Post wurde erstellt!');
     }
