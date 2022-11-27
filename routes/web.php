@@ -62,6 +62,7 @@ Route::post('/user/report', [UsersController::class, 'report'])->middleware(['au
 Route::get('/discover/{topic?}', [TopicController::class, 'index'])->name('discover');
 
 Route::post('/tmpupload', [UploadController::class, 'store'])->middleware(['auth', 'verified'])->name('tmpupload');
+Route::delete('/tmpdelete', [UploadController::class, 'destroy'])->middleware(['auth', 'verified'])->name('tmpdelete');
 
 
 /**
