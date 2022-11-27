@@ -6,6 +6,7 @@ import DefaultLayout from "@/Layouts/Default.vue";
 import { Head, usePage, Link } from "@inertiajs/inertia-vue3";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/24/outline";
 import reportPostModal from "@/Components/modals/reportPost.vue";
+import Label from "@/Components/forms/Label.vue";
 
 const auth = computed(() => usePage().props.value.auth);
 
@@ -13,6 +14,7 @@ const props = defineProps({
     post: Object,
     likes: Object,
     liked: Boolean,
+    attachements: Object,
 });
 
 moment.locale("de-ch");
@@ -22,6 +24,13 @@ const created = moment(String(props.post.created_at)).format(
 const updated = moment(String(props.post.updated_at)).format(
     "DD. MMM YY HH:MM"
 );
+
+function convert(value) {
+    let sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+    if (value == 0) return "0 Byte";
+    let i = parseInt(Math.floor(Math.log(value) / Math.log(1024)));
+    return Math.round(value / Math.pow(1024, i), 2) + " " + sizes[i];
+}
 </script>
 
 <template>
@@ -131,10 +140,34 @@ const updated = moment(String(props.post.updated_at)).format(
                         </div>
                     </div>
                     <span></span>
-                    <div
-                        v-html="props.post.content"
-                        class="col-span-5 row-span-5 ml-4 mr-8"
-                    ></div>
+                    <div class="col-span-5 row-span-5 ml-4 mr-8">
+                        <div v-html="props.post.content"></div>
+                        <div class="mt-8 p-4">
+                            <Label for="title" value="Anhänge" class="mb-1" />
+                            <a
+                                :href="file.url"
+                                target="_blank"
+                                v-for="file in props.attachements"
+                                class="mb-1 flex flex-row space-x-4 hover:font-bold"
+                            >
+                                <span
+                                    ><svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        height="24"
+                                    >
+                                        <path fill="none" d="M0 0h24v24H0z" />
+                                        <path
+                                            d="M9 2.003V2h10.998C20.55 2 21 2.455 21 2.992v18.016a.993.993 0 0 1-.993.992H3.993A1 1 0 0 1 3 20.993V8l6-5.997zM5.83 8H9V4.83L5.83 8zM11 4v5a1 1 0 0 1-1 1H5v10h14V4h-8z"
+                                        />
+                                    </svg>
+                                </span>
+                                <span>{{ file.name }}</span>
+                                <span>{{ convert(file.size) }}</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="mt-8 ml-4">
