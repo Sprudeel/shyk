@@ -127,7 +127,6 @@ class PostController extends Controller
             'status' => 'required',
             'category' => 'required|exists:categories,slug',
             'content' => 'required',
-            'file' => 'max:2048',
         ]);
 
 
@@ -191,12 +190,15 @@ class PostController extends Controller
             'author' => $author,
         ]);
 
-        foreach ($request->attachements as $file) {
-           $var = $file['serverId'];
-           $var = html_entity_decode($var);
-           $var = json_decode($var);
-           Storage::move('tmp/'.$var->folder.'/'.$var->filename, 'posts/'.$author.'_'.$post->id.'/'.$var->filename);
-        };
+        if($request->attachements !== null) {
+            foreach ($request->attachements as $file) {
+                $var = $file['serverId'];
+                $var = html_entity_decode($var);
+                $var = json_decode($var);
+                Storage::move('tmp/'.$var->folder.'/'.$var->filename, 'posts/'.$author.'_'.$post->id.'/'.$var->filename);
+            };
+        }
+
 
         Post::where(['title' => $request->title])->update([
             'folder' => $author.'_'.$post->id,
