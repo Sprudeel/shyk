@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('category');
             $table->string('status');
             $table->text('content');
+            $table->string('folder')->nullable();
             $table->boolean('verified')->default(false);
             $table->timestamps();
         });
