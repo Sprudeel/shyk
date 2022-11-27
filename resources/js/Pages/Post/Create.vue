@@ -14,10 +14,12 @@ import "filepond/dist/filepond.min.css";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginFileMetadata from "filepond-plugin-file-metadata";
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,
-    FilePondPluginImagePreview
+    FilePondPluginImagePreview,
+    FilePondPluginFileMetadata
 );
 
 const props = defineProps({
@@ -26,18 +28,25 @@ const props = defineProps({
     csrf_token: String,
 });
 
+let forceUpdate = ref(0);
+
+const auth = computed(() => usePage().props.value.auth);
+
 const handleFilePondInit = () => {
     setOptions({
         credits: false,
         server: {
-            url: "/tmpupload",
+            process: "/tmpupload",
+            revert: "/tmpdelete",
             headers: {
                 "X-CSRF-TOKEN": props.csrf_token,
             },
         },
+        fileMetadataObject: {
+            folder: (Math.random() + 1).toString(36).substring(7),
+        },
     });
 };
-const filepondInput = ref(null);
 
 function handleContent(s) {
     form.about = s;
@@ -49,11 +58,18 @@ const form = useForm({
     status: null,
     category: null,
     content: "Hier darfst du deinen Post schreiben. Viel Spass!",
-    file: "",
+    attachements: [],
 });
 
 const submit = () => {
     form.post(route("post.store"), { forceFormData: true });
+};
+
+const handleFilePondProcess = (error, file) => {
+    form.attachements.push({ id: file.id, serverId: file.serverId });
+};
+const handleFilePondRemoveFile = (error, file) => {
+    form.attachements = form.attachements.filter((item) => item.id !== file.id);
 };
 </script>
 
@@ -63,9 +79,7 @@ const submit = () => {
     <DefaultLayout>
         <div class="py-12">
             <div class="mx-auto max-w-6xl sm:px-6 lg:px-8">
-                <h2 class="mb-2 text-2xl font-bold">
-                    Post erstellen {{ csrf }}
-                </h2>
+                <h2 class="mb-2 text-2xl font-bold">Post erstellen</h2>
                 <form @submit.prevent="submit">
                     <div>
                         <Label for="title" value="Titel" />
@@ -166,9 +180,14 @@ const submit = () => {
                             ref="filepondInput"
                             label-idle="Drop files here..."
                             allow-multiple="true"
+                            :data-file-metadata-folder="
+                                (Math.random() + 1).toString(36).substring(7)
+                            "
                             accepted-file-types="audio/*, video/*, image/*, application/pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .odt, .ods, .odp, .txt, .rtf, .csv, .zip, .rar, .tar, .7z"
-                            v-model="form.file"
+                            v-bind:files="form.file"
                             @init="handleFilePondInit"
+                            @processfile="handleFilePondProcess"
+                            @removefile="handleFilePondRemoveFile"
                         />
                         <InputError class="mt-2" :message="form.errors.file" />
                     </div>
