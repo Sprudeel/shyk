@@ -10,7 +10,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'topic', 'status', 'category', 'content', 'author', 'verified'];
+    protected $fillable = ['title', 'topic', 'status', 'category', 'content', 'author', 'verified', 'folder'];
 
     protected static function boot() {
         parent::boot();
