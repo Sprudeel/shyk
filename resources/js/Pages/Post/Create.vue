@@ -196,7 +196,10 @@ const handleFilePondRemoveFile = (error, file) => {
                             @processfile="handleFilePondProcess"
                             @removefile="handleFilePondRemoveFile"
                         />
-                        <InputError class="mt-2" :message="form.errors.file" />
+                        <InputError
+                            class="mt-2"
+                            :message="form.errors.attachements"
+                        />
                     </div>
                     <progress
                         v-if="form.progress"
