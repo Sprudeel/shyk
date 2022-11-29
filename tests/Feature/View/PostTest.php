@@ -107,21 +107,24 @@ class PostTest extends TestCase
      * Test post.update
      *
      * @return void
-      */
-    // public function test_post_can_be_updated()
-    // {
-    //     $user = User::factory()->create();
+    */
+    public function test_post_can_be_updated()
+    {
+        $user = User::factory()->create([
+            'role_id' => 2,
+        ]);
 
-    //     $response = $this->actingAs($user)->post('/post/edit', [
-    //         'title' => 'Test Edited Post',
-    //         'topic' => 'shyk',
-    //         'status' => 'public',
-    //         'category' => 'summaries',
-    //         'content' => 'This is a test post, but EDITED!',
-    //     ]);
+        $response = $this->actingAs($user)->post('/post/edit', [
+            'id' => 1,
+            'title' => 'Test Edited Post',
+            'topic' => 'shyk',
+            'status' => 'public',
+            'category' => 'summaries',
+            'content' => 'This is a test post, but EDITED!',
+        ]);
 
-    //     $response->assertRedirect('/post/test-edited-post');
-    // }
+        $response->assertRedirect('/post/test-edited-post');
+    }
 
     /**
      * Test post.report
