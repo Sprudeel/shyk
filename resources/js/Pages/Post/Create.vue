@@ -15,11 +15,13 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css
 import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import FilePondPluginFileMetadata from "filepond-plugin-file-metadata";
+import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
 
 const FilePond = vueFilePond(
     FilePondPluginFileValidateType,
     FilePondPluginImagePreview,
-    FilePondPluginFileMetadata
+    FilePondPluginFileMetadata,
+    FilePondPluginFileValidateSize
 );
 
 const props = defineProps({
@@ -45,6 +47,10 @@ const handleFilePondInit = () => {
         fileMetadataObject: {
             folder: (Math.random() + 1).toString(36).substring(7),
         },
+        maxFiles: 3,
+        maxFileSize: "20MB",
+        labelMaxFileSizeExceeded: "File is too large",
+        labelMaxFileSize: "Maximum file size is {filesize}",
     });
 };
 
@@ -172,7 +178,7 @@ const handleFilePondRemoveFile = (error, file) => {
                             class="mb-2 flex flex-row"
                             title="Zurzeit können nur PDFs und Bilder als Anhang angefügt werden!"
                         >
-                            Anhang
+                            Anhang (maximal 3 Dateien, maximal 20MB pro Datei)
                         </Label>
                         <file-pond
                             name="file"
@@ -185,6 +191,7 @@ const handleFilePondRemoveFile = (error, file) => {
                             "
                             accepted-file-types="audio/*, video/*, image/*, application/pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .odt, .ods, .odp, .txt, .rtf, .csv, .zip, .rar, .tar, .7z"
                             v-bind:files="form.file"
+                            maxFiles="3"
                             @init="handleFilePondInit"
                             @processfile="handleFilePondProcess"
                             @removefile="handleFilePondRemoveFile"
