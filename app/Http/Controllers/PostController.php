@@ -176,7 +176,7 @@ class PostController extends Controller
             'status' => 'required',
             'category' => 'required|exists:categories,slug',
             'content' => 'required',
-            'attachements' => '',
+            'attachements' => 'max:3',
         ]);
 
         $author = Auth::user()->id;
