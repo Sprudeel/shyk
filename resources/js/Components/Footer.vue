@@ -1,3 +1,11 @@
+<script setup>
+import LogoMeditating from "@/Components/svg/logo/Meditating.vue";
+import { computed } from "vue";
+import { usePage, Link } from "@inertiajs/inertia-vue3";
+
+const information = computed(() => usePage().props.value.information);
+</script>
+
 <template>
     <footer class="flex items-center bg-gray-800 p-8 text-white o-ph:gap-4">
         <LogoMeditating class="h-40 w-40 flex-1 justify-end" />
@@ -97,11 +105,3 @@
         </div>
     </footer>
 </template>
-
-<script setup>
-import LogoMeditating from "@/Components/svg/logo/Meditating.vue";
-import { computed } from "vue";
-import { usePage } from "@inertiajs/inertia-vue3";
-
-const information = computed(() => usePage().props.value.information);
-</script>

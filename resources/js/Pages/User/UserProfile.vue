@@ -5,7 +5,7 @@ import { computed, ref } from "vue";
 import { PencilSquareIcon } from "@heroicons/vue/24/outline";
 import moment from "moment";
 import { Inertia } from "@inertiajs/inertia";
-import repurtUserModal from "@/Components/modals/reportUser.vue";
+import reportUserModal from "@/Components/modals/reportUser.vue";
 
 const props = defineProps({
     User: Object,
@@ -61,7 +61,7 @@ function NavSelectorChange(click) {
                     />
                 </Link>
 
-                <repurtUserModal v-if="User.id != auth.user.id" :user="User" />
+                <reportUserModal v-if="User.id != auth.user.id" :user="User" />
             </span>
 
             <div

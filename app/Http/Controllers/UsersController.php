@@ -27,7 +27,10 @@ class UsersController extends Controller
     public function edit(Request $request) {
         $this->authorize('update', [User::class, User::where('username', $request->username)->firstOrFail()]);
 
-        return Inertia::render('User/EditUserProfile', ['User' => User::where('username', $request->username)->with('role')->firstOrFail()]);
+        $user = User::where('username', $request->username)->with('role')->firstOrFail();
+        $user = $user->makeVisible(['email']);
+
+        return Inertia::render('User/EditUserProfile', ['User' => $user]);
     }
 
     public function report(Request $request) {
@@ -45,11 +48,11 @@ class UsersController extends Controller
         $report = Report::create([
             'report_on' => 'userprofile',
             'reporting_user' => $reporting_user,
-            'reported_user' => $request->reported_user,
+            'reported_id' => $request->reported_user,
             'reason' => $request->reason,
         ]);
 
-    return back()->with('success', 'Nutzer wurde erfolgreich gemeldet!');
+        return back()->with('success', 'Nutzer wurde erfolgreich gemeldet!');
     }
 
     public function update(Request $request) {
@@ -90,6 +93,8 @@ class UsersController extends Controller
         ->allowedFilters(['username', 'name', 'email'])
         ->paginate(8)
         ->withQueryString();
+
+        $users = $users->makeVisible(['email']);
 
         return Inertia::render('Admin/Manage/ManageUsers', ['users' => $users])->table(function (InertiaTable $table) {
             $table->column('id', 'ID', searchable: false, sortable: true);

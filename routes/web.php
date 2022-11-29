@@ -8,6 +8,10 @@ use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\TopicController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\UploadController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +54,37 @@ Route::get('/user/{username}', [UsersController::class, 'index'])->name('userpro
 Route::get('/user/edit/{username}', [UsersController::class, 'edit'])->middleware(['auth', 'verified'])->name('useprofile.edit');
 Route::post('/user/edit', [UsersController::class, 'update'])->middleware(['auth', 'verified'])->name('userprofile.update');
 Route::post('/user/report', [UsersController::class, 'report'])->middleware(['auth', 'verified'])->name('user.report');
+
+
+/**
+ * Forum
+ */
+Route::get('/discover/{topic?}', [TopicController::class, 'index'])->name('discover');
+
+Route::post('/tmpupload', [UploadController::class, 'store'])->middleware(['auth', 'verified'])->name('tmpupload');
+Route::delete('/tmpdelete', [UploadController::class, 'destroy'])->middleware(['auth', 'verified'])->name('tmpdelete');
+
+Route::pattern('path', '.*');
+Route::get('local/temp/{path}', function (string $path){
+    return Storage::download($path);
+})->middleware(['auth', 'verified'])->name('local.temp');
+
+/**
+ * Posts
+ */
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('post/create', [PostController::class, 'create'])->name('post.create');
+    Route::post('post/store', [PostController::class, 'store'])->name('post.store');
+    Route::post('post/like/{slug}', [LikeController::class, 'post'])->name('post.like');
+    Route::get('post/edit/{slug}', [PostController::class, 'edit'])->name('post.edit');
+    Route::post('post/edit', [PostController::class, 'update'])->name('post.update');
+    Route::post('post/report', [PostController::class, 'report'])->name('post.report');
+    Route::post('post/verify/{slug}', [PostController::class, 'verify'])->name('post.verify');
+    Route::post('post/delete/{slug}', [PostController::class, 'destroy'])->name('post.delete');
+    Route::delete('post/attachements/delete', [PostController::class, 'deleteAttachement'])->name('post.attachement.delete');
+});
+Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
+
 
 /**
  * AUTH MIDDLEWARE

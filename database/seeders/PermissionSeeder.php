@@ -78,6 +78,70 @@ class PermissionSeeder extends Seeder
         ]);
 
         /**
+         * Posts 500
+         */
+        DB::table('permissions')->insert([
+            'id' => 511,
+            'name' => 'post_view_all',
+            'explanation' => 'Alle Posts anschauen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 520,
+            'name' => 'post_create',
+            'explanation' => 'Kann Posts erstellen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 530,
+            'name' => 'post_update_self',
+            'explanation' => 'Eigene Posts bearbeiten',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 531,
+            'name' => 'post_update_all',
+            'explanation' => 'Alle Posts bearbeiten',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 540,
+            'name' => 'post_delete_self',
+            'explanation' => 'Eigene Posts löschen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 541,
+            'name' => 'post_delete_all',
+            'explanation' => 'Alle Posts löschen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 550,
+            'name' => 'post_report',
+            'explanation' => 'Posts melden',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 560,
+            'name' => 'post_comment',
+            'explanation' => 'Posts kommentieren',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 570,
+            'name' => 'post_comment_delete_self',
+            'explanation' => 'Eigene Kommentare löschen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 571,
+            'name' => 'post_comment_delete_all',
+            'explanation' => 'Alle Kommentare löschen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 580,
+            'name' => 'post_comment_report',
+            'explanation' => 'Kommentare melden',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 590,
+            'name' => 'post_verify',
+            'explanation' => 'Posts verifizieren',
+        ]);
+
+        /**
          * Special 900
          */
         DB::table('permissions')->insert([

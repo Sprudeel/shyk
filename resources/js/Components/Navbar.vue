@@ -30,8 +30,8 @@ const auth = computed(() => usePage().props.value.auth);
         <!-- Container for Link Elements -->
         <div class="flex items-center justify-center ph:hidden md:flex">
             <NavLink
-                :href="route('dashboard')"
-                :active="route().current('dashboard')"
+                :href="route('discover')"
+                :active="route().current('discover')"
                 >Entdecken!</NavLink
             >
             <NavLink :href="route('login')" :active="route().current('login')"
