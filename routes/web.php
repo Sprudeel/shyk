@@ -81,6 +81,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('post/report', [PostController::class, 'report'])->name('post.report');
     Route::post('post/verify/{slug}', [PostController::class, 'verify'])->name('post.verify');
     Route::post('post/delete/{slug}', [PostController::class, 'destroy'])->name('post.delete');
+    Route::delete('post/attachements/delete', [PostController::class, 'deleteAttachement'])->name('post.attachement.delete');
 });
 Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
 
