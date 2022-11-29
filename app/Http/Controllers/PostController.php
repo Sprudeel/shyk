@@ -16,6 +16,7 @@ use App\Models\User;
 use App\Models\Report;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 
 class PostController extends Controller
@@ -43,6 +44,7 @@ class PostController extends Controller
         $liked = Auth::user() ? Like::where(['on' => 'post', 'on_id' => $post->id, 'from' => Auth::user()->id])->exists() : false;
 
         $foldercontent = Storage::allFiles('posts/' . $post->folder);
+        $files = [];
 
 
         foreach ($foldercontent as $file) {
@@ -69,14 +71,36 @@ class PostController extends Controller
         ]);
     }
 
+    public function deleteAttachement(Request $request) {
+        $this->authorize('update', [Post::class, User::where('id', Post::where('folder', $request->folder)->firstOrFail()->author)->firstOrFail()]);
+
+        Storage::delete('posts/' . $request->folder . '/' . $request->name);
+
+        return redirect()->back()->with('success', 'Datei gelöscht');
+    }
+
     public function edit(Request $request) {
         $this->authorize('update', [Post::class, User::where('id', Post::where('slug', $request->slug)->firstOrFail()->author)->firstOrFail()]);
         $post = Post::where(['slug' => $request->slug, 'status' => 'public'])->firstOrFail();
+
+        $foldercontent = Storage::allFiles('posts/' . $post->folder);
+        $files = [];
+
+        foreach ($foldercontent as $file) {
+            // push temp array to $files
+            $files[] = [
+                'name' => basename($file),
+                'size' => Storage::size($file),
+                'type' => Storage::mimeType($file),
+                'folder' => $post->folder,
+            ];
+        }
 
         return Inertia::render('Post/Edit', [
             'post' => $post,
             'topics' => Topic::all(),
             'categories' => Category::all(),
+            'attachements' => $files,
         ]);
     }
 
@@ -129,10 +153,26 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
+        $existingFiles = Storage::allFiles('posts/' . $request->folder);
+        $maxNewFiles = 3 - count($existingFiles);
 
+        $request->validate([
+            'attachements' => 'max:' . $maxNewFiles,
+        ]);
+
+
+        if($request->attachements !== null) {
+            foreach ($request->attachements as $file) {
+                $var = $file['serverId'];
+                $var = html_entity_decode($var);
+                $var = json_decode($var);
+                Storage::move('tmp/'.$var->folder.'/'.$var->filename, 'posts/'.$request->folder.'/'.$var->filename);
+            };
+        }
 
         $post = Post::where('id', $request->id)->update([
             'title' => $request->title,
+            'slug' => Str::slug($request->title),
             'topic' => $request->topic,
             'status' => $request->status,
             'category' => $request->category,
@@ -140,13 +180,8 @@ class PostController extends Controller
             'verified' => false,
         ]);
 
-        // if($request->hasFile('file') && $request->validate(['file' => 'mimes:png,jpg,jpeg,pdf'])) {
-        //     $file = $request->file->storeAs($post->id, $request->file->getClientOriginalName());
-        // }
 
-        $slug = Post::where('id', $request->id)->firstOrFail()->slug;
-
-        return redirect(route('post.show', ['slug' => $slug]))->with('success', 'Post wurde erfolgreich bearbeitet!');
+        return redirect(route('post.show', ['slug' => Str::slug($request->title)]))->with('success', 'Post wurde erfolgreich bearbeitet!');
     }
 
     public function verify(Request $request) {
@@ -205,9 +240,5 @@ class PostController extends Controller
         ]);
 
         return redirect(route('post.show', ['slug' => $post->slug]))->with('success', 'Post wurde erfolgreich erstellt!');
-
-
-
-        return redirect(route('discover'))->with('success', 'Post wurde erstellt!');
     }
 }
