@@ -146,7 +146,7 @@ class PostController extends Controller
 
         $request->validate([
             'id' => 'required',
-            'title' => 'required|unique:App\Models\Post,title|max:30',
+            'title' => 'required|unique:App\Models\Post,title|max:30|min:5',
             'topic' => 'required|exists:topics,slug',
             'status' => 'required',
             'category' => 'required|exists:categories,slug',
