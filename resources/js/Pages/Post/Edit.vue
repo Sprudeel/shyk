@@ -7,16 +7,56 @@ import Input from "@/Components/forms/Input.vue";
 import InputError from "@/Components/forms/InputError.vue";
 import Label from "@/Components/forms/Label.vue";
 import TipTap from "@/Components/forms/TipTapEditor.vue";
+import { TrashIcon } from "@heroicons/vue/24/outline";
+import { Link } from "@inertiajs/inertia-vue3";
+
+// Import Vue FilePond
+import vueFilePond, { setOptions } from "vue-filepond";
+import "filepond/dist/filepond.min.css";
+import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css";
+import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
+import FilePondPluginImagePreview from "filepond-plugin-image-preview";
+import FilePondPluginFileMetadata from "filepond-plugin-file-metadata";
+import FilePondPluginFileValidateSize from "filepond-plugin-file-validate-size";
+
+const FilePond = vueFilePond(
+    FilePondPluginFileValidateType,
+    FilePondPluginImagePreview,
+    FilePondPluginFileMetadata,
+    FilePondPluginFileValidateSize
+);
 
 const props = defineProps({
     topics: Object,
     categories: Object,
     post: Object,
+    attachements: Object,
+    csrf_token: String,
 });
 
 function handleContent(s) {
     form.content = s;
 }
+
+const handleFilePondInit = () => {
+    setOptions({
+        credits: false,
+        server: {
+            process: "/tmpupload",
+            revert: "/tmpdelete",
+            headers: {
+                "X-CSRF-TOKEN": props.csrf_token,
+            },
+        },
+        fileMetadataObject: {
+            folder: (Math.random() + 1).toString(36).substring(7),
+        },
+        maxFiles: 3,
+        maxFileSize: "20MB",
+        labelMaxFileSizeExceeded: "File is too large",
+        labelMaxFileSize: "Maximum file size is {filesize}",
+    });
+};
 
 const form = useForm({
     id: props.post.id,
@@ -25,11 +65,26 @@ const form = useForm({
     status: props.post.status,
     category: props.post.category,
     content: ref(props.post.content),
-    file: props.post.file,
+    folder: props.post.folder,
+    attachements: [],
 });
 
 const submit = () => {
     form.post(route("post.update"));
+};
+
+function convert(value) {
+    let sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+    if (value == 0) return "0 Byte";
+    let i = parseInt(Math.floor(Math.log(value) / Math.log(1024)));
+    return Math.round(value / Math.pow(1024, i), 2) + " " + sizes[i];
+}
+
+const handleFilePondProcess = (error, file) => {
+    form.attachements.push({ id: file.id, serverId: file.serverId });
+};
+const handleFilePondRemoveFile = (error, file) => {
+    form.attachements = form.attachements.filter((item) => item.id !== file.id);
 };
 </script>
 
@@ -128,19 +183,72 @@ const submit = () => {
                     </div>
 
                     <div class="mb-8">
-                        <Label
-                            class="mb-2 flex flex-row"
-                            title="Zurzeit können nur PDFs und Bilder als Anhang angefügt werden!"
+                        <Label for="title" value="Anhänge" class="mb-1" />
+                        <span
+                            v-for="file in props.attachements"
+                            class="mb-1 flex flex-row space-x-4"
                         >
-                            Anhang
-                        </Label>
-                        <input
-                            type="file"
-                            id="file"
-                            accept=".pdf, .png, .jpeg, .jpg"
-                            @input="form.file = $event.target.files[0]"
-                        />
-                        <InputError class="mt-2" :message="form.errors.file" />
+                            <span
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    width="24"
+                                    height="24"
+                                >
+                                    <path fill="none" d="M0 0h24v24H0z" />
+                                    <path
+                                        d="M9 2.003V2h10.998C20.55 2 21 2.455 21 2.992v18.016a.993.993 0 0 1-.993.992H3.993A1 1 0 0 1 3 20.993V8l6-5.997zM5.83 8H9V4.83L5.83 8zM11 4v5a1 1 0 0 1-1 1H5v10h14V4h-8z"
+                                    />
+                                </svg>
+                            </span>
+                            <span>{{ file.name }}</span>
+                            <span>{{ convert(file.size) }}</span>
+                            <Link
+                                :href="
+                                    route('post.attachement.delete', {
+                                        folder: file.folder,
+                                        name: file.name,
+                                    })
+                                "
+                                method="delete"
+                                as="button"
+                            >
+                                <TrashIcon
+                                    class="mr-2 h-8 w-8 rounded-lg p-1 text-red-500 hover:bg-red-500 hover:text-white"
+                                />
+                            </Link>
+                        </span>
+                        <div class="mb-8">
+                            <Label
+                                class="mb-2 flex flex-row"
+                                title="Zurzeit können nur PDFs und Bilder als Anhang angefügt werden!"
+                            >
+                                Neue Anhänge (maximal 3 Dateien, maximal 20MB
+                                pro Datei)
+                            </Label>
+                            <file-pond
+                                name="file"
+                                id="file"
+                                ref="filepondInput"
+                                label-idle="Drop files here..."
+                                allow-multiple="true"
+                                :data-file-metadata-folder="
+                                    (Math.random() + 1)
+                                        .toString(36)
+                                        .substring(7)
+                                "
+                                accepted-file-types="audio/*, video/*, image/*, application/pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .odt, .ods, .odp, .txt, .rtf, .csv, .zip, .rar, .tar, .7z"
+                                v-bind:files="form.file"
+                                maxFiles="3"
+                                @init="handleFilePondInit"
+                                @processfile="handleFilePondProcess"
+                                @removefile="handleFilePondRemoveFile"
+                            />
+                            <InputError
+                                class="mt-2"
+                                :message="form.errors.attachements"
+                            />
+                        </div>
                     </div>
 
                     <span class="font-bold" v-if="post.verified"
