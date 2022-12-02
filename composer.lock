@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18dc24b7799ef57875e4ed9e670a52f5",
+    "content-hash": "0133ba9e49bc5ad3b3738c8c6de53dde",
     "packages": [
         {
             "name": "brick/math",
@@ -3174,16 +3174,16 @@
         },
         {
             "name": "spatie/laravel-query-builder",
-            "version": "5.1.0",
+            "version": "5.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-query-builder.git",
-                "reference": "31596ec40d26040918ae14e436c31ff330583190"
+                "reference": "14a6802cd513cfd2abf68044cca5fd7391eb543d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-query-builder/zipball/31596ec40d26040918ae14e436c31ff330583190",
-                "reference": "31596ec40d26040918ae14e436c31ff330583190",
+                "url": "https://api.github.com/repos/spatie/laravel-query-builder/zipball/14a6802cd513cfd2abf68044cca5fd7391eb543d",
+                "reference": "14a6802cd513cfd2abf68044cca5fd7391eb543d",
                 "shasum": ""
             },
             "require": {
@@ -3242,7 +3242,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2022-11-28T11:20:38+00:00"
+            "time": "2022-12-02T21:28:40+00:00"
         },
         {
             "name": "symfony/console",

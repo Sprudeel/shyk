@@ -13,7 +13,7 @@
         "laravel/tinker": "2.7.3",
         "opcodesio/log-viewer": "^1.7",
         "protonemedia/inertiajs-tables-laravel-query-builder": "2.0.0",
-        "spatie/laravel-query-builder": "5.1.0",
+        "spatie/laravel-query-builder": "5.1.1",
         "tightenco/ziggy": "1.5.0"
     },
     "require-dev": {
