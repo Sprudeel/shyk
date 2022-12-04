@@ -37,9 +37,9 @@ function convert(value) {
     <Head :title="props.post.title" />
 
     <DefaultLayout>
-        <div class="mx-48 mt-8 mb-8 grid grid-cols-4 grid-rows-1">
-            <div class="col-span-3">
-                <div class="grid-rows-7 grid grid-cols-6 items-center">
+        <div class="mx-4 mt-8 mb-8 w-full grid-cols-4 grid-rows-1 sm:grid">
+            <div class="col-span-3 mr-4">
+                <div class="grid-rows-7 grid w-full grid-cols-6 items-center">
                     <div class="">
                         <Link
                             :href="
@@ -75,7 +75,7 @@ function convert(value) {
                     </div>
                     <div class="col-span-5">
                         <div
-                            class="ml-4 grid grid-cols-1 grid-rows-3 items-end"
+                            class="ml-4 mr-4 grid grid-cols-1 grid-rows-2 items-end gap-2 truncate"
                         >
                             <div class="flex flex-row items-end space-x-8">
                                 <Link
@@ -95,9 +95,7 @@ function convert(value) {
                                     >Bearbeitet am {{ updated }}</span
                                 >
                             </div>
-                            <div
-                                class="row-span-2 flex flex-row items-center text-3xl font-extrabold"
-                            >
+                            <div class="font-extrabold">
                                 <span
                                     v-if="props.post.status == 'private'"
                                     title="Post ist privat!"
@@ -115,7 +113,11 @@ function convert(value) {
                                         />
                                     </svg>
                                 </span>
-                                {{ props.post.title }}
+                                <span
+                                    class="ph:text-base md:text-xl lg:text-2xl"
+                                >
+                                    {{ props.post.title }}
+                                </span>
                                 <span
                                     v-if="props.post.verified"
                                     title="Dieser Post wurde verifiziert!"
@@ -141,14 +143,17 @@ function convert(value) {
                     </div>
                     <span></span>
                     <div class="col-span-5 row-span-5 ml-4 mr-8">
-                        <div v-html="props.post.content"></div>
-                        <div class="mt-8 p-4">
+                        <div
+                            v-html="props.post.content"
+                            class="o-ph:text-sm"
+                        ></div>
+                        <div class="mt-8 w-full p-2 o-ph:text-xs">
                             <Label for="title" value="Anhänge" class="mb-1" />
                             <a
                                 :href="file.url"
                                 target="_blank"
                                 v-for="file in props.attachements"
-                                class="mb-1 flex flex-row space-x-4 hover:font-bold"
+                                class="mb-1 flex flex-row items-center space-x-4 hover:font-bold"
                             >
                                 <span
                                     ><svg
@@ -170,7 +175,7 @@ function convert(value) {
                     </div>
                 </div>
             </div>
-            <div class="mt-8 ml-4">
+            <div class="mt-8 ml-4 ph:flex ph:justify-around sm:block">
                 <span class="mb-4 flex flex-row" v-if="auth.user">
                     <Link
                         v-if="
