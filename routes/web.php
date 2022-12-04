@@ -63,6 +63,7 @@ Route::get('/discover/{topic?}', [TopicController::class, 'index'])->name('disco
 
 Route::post('/tmpupload', [UploadController::class, 'store'])->middleware(['auth', 'verified'])->name('tmpupload');
 Route::delete('/tmpdelete', [UploadController::class, 'destroy'])->middleware(['auth', 'verified'])->name('tmpdelete');
+Route::get('/search', [TopicController::class, 'search'])->middleware(['auth', 'verified'])->name('topic.search');
 
 Route::pattern('path', '.*');
 Route::get('local/temp/{path}', function (string $path){
