@@ -19,10 +19,10 @@ const props = defineProps({
 
 moment.locale("de-ch");
 const created = moment(String(props.post.created_at)).format(
-    "DD. MMM YY HH:MM"
+    "DD. MM YYYY, HH:MM"
 );
 const updated = moment(String(props.post.updated_at)).format(
-    "DD. MMM YY HH:MM"
+    "DD. MM YYYY, HH:MM"
 );
 
 function convert(value) {
@@ -65,10 +65,9 @@ function convert(value) {
                                     "
                                     class="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-red-500"
                                 >
-                                    <span
+                                    <div
                                         v-html="props.post.author.role.symbol"
-                                    >
-                                    </span
+                                    ></div
                                 ></span>
                             </span>
                         </Link>
@@ -175,7 +174,7 @@ function convert(value) {
                     </div>
                 </div>
             </div>
-            <div class="mt-8 ml-4 ph:flex ph:justify-around sm:block">
+            <div class="mt-2 ml-4 h-fit ph:flex ph:justify-around sm:flex-col">
                 <span class="mb-4 flex flex-row" v-if="auth.user">
                     <Link
                         v-if="
@@ -213,6 +212,7 @@ function convert(value) {
                         :href="`/post/delete/${props.post.slug}`"
                         title="Post löschen"
                         method="post"
+                        as="button"
                     >
                         <TrashIcon
                             class="mr-2 h-8 w-8 rounded-lg p-1 text-red-500 hover:bg-red-500 hover:text-white"
@@ -227,6 +227,7 @@ function convert(value) {
                 <Link
                     :href="route('post.like', { slug: props.post.slug })"
                     method="post"
+                    as="button"
                 >
                     <span
                         class="mb-8 flex w-fit cursor-pointer flex-row space-x-2 rounded-lg bg-slate-200 py-2 px-4 hover:bg-slate-300"
@@ -272,6 +273,7 @@ function convert(value) {
                 <Link
                     :href="route('post.verify', { slug: props.post.slug })"
                     method="post"
+                    as="button"
                 >
                     <span
                         class="flex w-fit cursor-pointer flex-row space-x-2 rounded-lg bg-green-200 py-2 px-4 hover:bg-green-300"

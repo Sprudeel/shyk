@@ -78,7 +78,11 @@ const user = computed(() => usePage().props.value.auth.user);
                     </div>
                     <div class="px-1 py-1">
                         <MenuItem v-slot="{ active }">
-                            <Link :href="route('logout')" method="post">
+                            <Link
+                                :href="route('logout')"
+                                method="post"
+                                as="button"
+                            >
                                 <button
                                     :class="[
                                         active
