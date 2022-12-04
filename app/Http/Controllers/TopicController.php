@@ -22,12 +22,21 @@ class TopicController extends Controller
             $myposts = Auth::user() && $request->category ? Post::where(['author' => Auth::user()->id, 'category' => $request->category])->with('author.role', 'topic', 'category', 'likes')->paginate(6) : ( Auth::user() ? Post::where(['author' => Auth::user()->id])->with('author.role', 'topic', 'category', 'likes')->paginate(6) : null );
         }
 
-        return Inertia::render('Discover', [
+        return Inertia::render('Topic/Discover', [
             'topic' => $request->topic ? Topic::where('slug', $request->topic)->first() : null,
             'topics' => Topic::all(),
             'categories' => Category::all(),
             'posts' => $request->topic && $request->category ? Post::where(['status' => 'public', 'topic' => $request->topic, 'category' => $request->category])->with('author.role', 'topic', 'category', 'likes')->paginate(6) : ( $request->topic ? Post::where(['status' => 'public', 'topic' => $request->topic])->with('author.role', 'topic', 'category', 'likes')->paginate(6) : ( $request->category ? Post::where(['status' => 'public', 'category' => $request->category])->with('author.role', 'topic', 'category', 'likes')->paginate(6) : Post::where('status', 'public')->with('author.role', 'topic', 'category', 'likes')->paginate(6) ) ),
             'myposts' => $myposts,
+        ]);
+    }
+
+    public function search(Request $request) {
+        $search = $request->search;
+        $posts = Post::where('status', 'public')->where('title', 'like', '%' . $search . '%')->orWhere('content', 'like', '%' . $search . '%')->with('author.role', 'topic', 'category', 'likes')->paginate(6);
+        return Inertia::render('Topic/Search', [
+            'search' => $search,
+            'posts' => $posts,
         ]);
     }
 }
