@@ -8,15 +8,19 @@ const props = defineProps({
 
 <template>
     <div v-if="props.topic === null">
-        <div class="mx-auto flex w-full flex-row items-center bg-slate-200">
+        <div
+            class="mx-auto flex w-full flex-row items-center bg-slate-200 py-4"
+        >
             <span class="m-4 basis-1/3">
                 <SmartLogo class="mx-auto h-28" />
             </span>
             <div class="mr-12 basis-2/3">
-                <h2 class="text-4xl font-extrabold">Willkommen im Forum</h2>
-                <p>
-                    Suche nach Titeln, filtere nach Kategorien, gehe in ein
-                    Subforum oder schau die aktuellen Trends an!
+                <h2 class="font-extrabold ph:text-lg lph:text-2xl md:text-4xl">
+                    Willkommen im Forum!
+                </h2>
+                <p class="ph:hidden lph:block lph:text-lg md:text-xl">
+                    Suche nach Titeln, filtere nach Kategorien, Themen oder
+                    anderem!
                 </p>
             </div>
         </div>
