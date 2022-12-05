@@ -29,6 +29,24 @@ class Post extends Model
         return $this->hasOne(Category::class, 'slug', 'category');
     }
 
+    public function comments() {
+        $unsorted = Comment::where('post_id', $this->id)->with('author.role')->get();
+        $sorted = [];
+
+        foreach ($unsorted as $comment) {
+            if($comment->comment_parent == 0) {
+                $sorted[] = $comment;
+                foreach ($unsorted as $subcomment) {
+                    if($subcomment->comment_parent == $comment->id) {
+                        $comment->subcomments = $subcomment;
+                    }
+                }
+            }
+        }
+
+        return $sorted;
+    }
+
     public function author() {
         return $this->belongsTo(User::class, 'author', 'id');
     }
