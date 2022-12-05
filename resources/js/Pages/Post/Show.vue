@@ -15,6 +15,7 @@ const props = defineProps({
     likes: Object,
     liked: Boolean,
     attachements: Object,
+    comments: Object,
 });
 
 moment.locale("de-ch");
@@ -24,6 +25,10 @@ const created = moment(String(props.post.created_at)).format(
 const updated = moment(String(props.post.updated_at)).format(
     "DD. MM YYYY, HH:MM"
 );
+
+function toDateFormat(date) {
+    return moment(String(date)).format("DD. MM YYYY, HH:MM");
+}
 
 function convert(value) {
     let sizes = ["Bytes", "KB", "MB", "GB", "TB"];
@@ -172,6 +177,94 @@ function convert(value) {
                                 <span>{{ file.name }}</span>
                                 <span>{{ convert(file.size) }}</span>
                             </a>
+                        </div>
+                        <div>
+                            <div class="mt-8 w-full p-2 o-ph:text-xs">
+                                <Label
+                                    for="title"
+                                    value="Kommentare"
+                                    class="mb-1"
+                                />
+                                <div v-for="comment in props.comments">
+                                    <div
+                                        class="grid w-fit grid-cols-7 grid-rows-1 items-center gap-4 p-2 shadow-lg"
+                                    >
+                                        <div class="w-fit">
+                                            <Link
+                                                :href="
+                                                    route('userprofile.view', {
+                                                        username:
+                                                            props.post.author
+                                                                .username,
+                                                    })
+                                                "
+                                            >
+                                                <span
+                                                    class="relative flex w-fit"
+                                                >
+                                                    <img
+                                                        :src="
+                                                            Inertia.page.props
+                                                                .ziggy.url +
+                                                            '/avatars/' +
+                                                            props.post.author
+                                                                .avatar
+                                                        "
+                                                        class="h-16 w-16 rounded-full object-cover"
+                                                    />
+                                                    <span
+                                                        v-if="
+                                                            props.post.author
+                                                                .role.name !==
+                                                            'User'
+                                                        "
+                                                        class="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-red-500"
+                                                    >
+                                                        <div
+                                                            v-html="
+                                                                props.post
+                                                                    .author.role
+                                                                    .symbol
+                                                            "
+                                                        ></div
+                                                    ></span>
+                                                </span>
+                                            </Link>
+                                            <span
+                                                class="text-sm font-semibold"
+                                                >{{
+                                                    comment.author.username
+                                                }}</span
+                                            >
+                                        </div>
+                                        <div class="col-span-6">
+                                            <div class="flex flex-col">
+                                                <div>
+                                                    <span class="text-xs">
+                                                        {{
+                                                            toDateFormat(
+                                                                comment.created_at
+                                                            )
+                                                        }}
+                                                    </span>
+                                                    <span
+                                                        class="text-xs"
+                                                        v-if="
+                                                            comment.created_at !==
+                                                            comment.updated_at
+                                                        "
+                                                    >
+                                                        Bearbeitet
+                                                    </span>
+                                                </div>
+                                                <span class="text-sm">{{
+                                                    comment.content
+                                                }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
