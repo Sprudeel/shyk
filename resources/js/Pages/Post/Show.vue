@@ -8,6 +8,8 @@ import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/24/outline";
 import reportPostModal from "@/Components/modals/reportPost.vue";
 import Label from "@/Components/forms/Label.vue";
 import Comments from "@/Components/post/Comments.vue";
+import NewComment from "@/Components/post/NewComment.vue";
+import Pagination from "@/Components/Pagination.vue";
 
 const auth = computed(() => usePage().props.value.auth);
 
@@ -189,6 +191,13 @@ function convert(value) {
                                 <Comments
                                     v-for="comment in props.comments"
                                     :comment="comment"
+                                />
+                                <!-- <Pagination
+                                    class="m-6"
+                                    :links="props.comments.links"
+                                /> -->
+                                <NewComment
+                                    v-if="auth.permissions.comment_create"
                                 />
                             </div>
                         </div>
