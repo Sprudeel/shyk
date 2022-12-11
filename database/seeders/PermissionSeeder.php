@@ -142,6 +142,15 @@ class PermissionSeeder extends Seeder
         ]);
 
         /**
+         * Kommentare 600
+         */
+        DB::table('permissions')->insert([
+            'id' => 620,
+            'name' => 'comment_create',
+            'explanation' => 'Kann Kommentare erstellen',
+        ]);
+
+        /**
          * Special 900
          */
         DB::table('permissions')->insert([
