@@ -12,6 +12,7 @@ use App\Http\Controllers\TopicController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,10 @@ Route::get('/user/edit/{username}', [UsersController::class, 'edit'])->middlewar
 Route::post('/user/edit', [UsersController::class, 'update'])->middleware(['auth', 'verified'])->name('userprofile.update');
 Route::post('/user/report', [UsersController::class, 'report'])->middleware(['auth', 'verified'])->name('user.report');
 
+/**
+ * Comments
+ */
+Route::post('/comment/store', [CommentController::class, 'store'])->middleware(['auth', 'verified'])->name('comment.store');
 
 /**
  * Forum
