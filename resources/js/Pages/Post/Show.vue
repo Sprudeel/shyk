@@ -7,6 +7,7 @@ import { Head, usePage, Link } from "@inertiajs/inertia-vue3";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/24/outline";
 import reportPostModal from "@/Components/modals/reportPost.vue";
 import Label from "@/Components/forms/Label.vue";
+import Comments from "@/Components/post/Comments.vue";
 
 const auth = computed(() => usePage().props.value.auth);
 
@@ -185,85 +186,10 @@ function convert(value) {
                                     value="Kommentare"
                                     class="mb-1"
                                 />
-                                <div v-for="comment in props.comments">
-                                    <div
-                                        class="grid w-fit grid-cols-7 grid-rows-1 items-center gap-4 p-2 shadow-lg"
-                                    >
-                                        <div class="w-fit">
-                                            <Link
-                                                :href="
-                                                    route('userprofile.view', {
-                                                        username:
-                                                            props.post.author
-                                                                .username,
-                                                    })
-                                                "
-                                            >
-                                                <span
-                                                    class="relative flex w-fit"
-                                                >
-                                                    <img
-                                                        :src="
-                                                            Inertia.page.props
-                                                                .ziggy.url +
-                                                            '/avatars/' +
-                                                            props.post.author
-                                                                .avatar
-                                                        "
-                                                        class="h-16 w-16 rounded-full object-cover"
-                                                    />
-                                                    <span
-                                                        v-if="
-                                                            props.post.author
-                                                                .role.name !==
-                                                            'User'
-                                                        "
-                                                        class="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-red-500"
-                                                    >
-                                                        <div
-                                                            v-html="
-                                                                props.post
-                                                                    .author.role
-                                                                    .symbol
-                                                            "
-                                                        ></div
-                                                    ></span>
-                                                </span>
-                                            </Link>
-                                            <span
-                                                class="text-sm font-semibold"
-                                                >{{
-                                                    comment.author.username
-                                                }}</span
-                                            >
-                                        </div>
-                                        <div class="col-span-6">
-                                            <div class="flex flex-col">
-                                                <div>
-                                                    <span class="text-xs">
-                                                        {{
-                                                            toDateFormat(
-                                                                comment.created_at
-                                                            )
-                                                        }}
-                                                    </span>
-                                                    <span
-                                                        class="text-xs"
-                                                        v-if="
-                                                            comment.created_at !==
-                                                            comment.updated_at
-                                                        "
-                                                    >
-                                                        Bearbeitet
-                                                    </span>
-                                                </div>
-                                                <span class="text-sm">{{
-                                                    comment.content
-                                                }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <Comments
+                                    v-for="comment in props.comments"
+                                    :comment="comment"
+                                />
                             </div>
                         </div>
                     </div>
