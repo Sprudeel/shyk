@@ -38,8 +38,12 @@ class Post extends Model
                 $sorted[] = $comment;
                 foreach ($unsorted as $subcomment) {
                     if($subcomment->comment_parent == $comment->id) {
-                        $comment->subcomments = $subcomment;
+                        $subcomments[] = $subcomment;
                     }
+                }
+                if(isset($subcomments)) {
+                    $comment->subcomments = $subcomments;
+                    unset($subcomments);
                 }
             }
         }
