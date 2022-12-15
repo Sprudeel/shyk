@@ -22,16 +22,13 @@ const props = defineProps({
 });
 
 moment.locale("de-ch");
-const created = moment(String(props.post.created_at)).format(
-    "DD. MM YYYY, HH:MM"
-);
-const updated = moment(String(props.post.updated_at)).format(
-    "DD. MM YYYY, HH:MM"
-);
 
 function toDateFormat(date) {
-    return moment(String(date)).format("DD. MM YYYY, HH:MM");
+    return moment(date).format("DD[.] MM YYYY[,] HH:mm");
 }
+
+const created = toDateFormat(props.post.created_at);
+const updated = toDateFormat(props.post.updated_at);
 
 function convert(value) {
     let sizes = ["Bytes", "KB", "MB", "GB", "TB"];
@@ -98,7 +95,12 @@ function convert(value) {
                                     }}</span>
                                 </Link>
                                 <span class="text-sm">{{ created }}</span>
-                                <span class="text-sm" v-if="created !== updated"
+                                <span
+                                    class="text-sm"
+                                    v-if="
+                                        props.post.created_at !=
+                                        props.post.updated_at
+                                    "
                                     >Bearbeitet am {{ updated }}</span
                                 >
                             </div>
@@ -210,7 +212,7 @@ function convert(value) {
                 <span class="mb-4 flex flex-row" v-if="auth.user">
                     <Link
                         v-if="
-                            auth.permissions.userprofile_edit_self &&
+                            auth.permissions.post_update_self &&
                             auth.user.username == props.post.author.username
                         "
                         :href="`/post/edit/${props.post.slug}`"
@@ -223,7 +225,7 @@ function convert(value) {
 
                     <Link
                         v-else-if="
-                            auth.permissions.userprofile_edit_all &&
+                            auth.permissions.post_update_all &&
                             auth.user.username != props.post.author.username
                         "
                         :href="`/post/edit/${props.post.slug}`"

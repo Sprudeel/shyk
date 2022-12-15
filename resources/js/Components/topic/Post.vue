@@ -9,7 +9,7 @@ const props = defineProps({
 });
 
 moment.locale("de-ch");
-const joined = moment(String(props.data.created_at)).format("DD. MMM YY");
+const joined = moment(props.data.created_at).format("DD[.] MM YYYY");
 
 const auth = computed(() => usePage().props.value.auth);
 </script>
