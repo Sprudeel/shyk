@@ -188,16 +188,18 @@ function convert(value) {
                                     value="Kommentare"
                                     class="mb-1"
                                 />
-                                <Comments
-                                    v-for="comment in props.comments"
-                                    :comment="comment"
-                                />
-                                <!-- <Pagination
-                                    class="m-6"
-                                    :links="props.comments.links"
-                                /> -->
                                 <NewComment
                                     v-if="auth.permissions.comment_create"
+                                />
+                                <Comments
+                                    v-for="comment in props.comments.data"
+                                    :key="comment.id"
+                                    :comment="comment"
+                                />
+
+                                <Pagination
+                                    class="m-6"
+                                    :links="props.comments.links"
                                 />
                             </div>
                         </div>
