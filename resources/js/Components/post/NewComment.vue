@@ -1,9 +1,7 @@
 <script setup>
-import { Head, usePage, useForm } from "@inertiajs/inertia-vue3";
+import { usePage, useForm } from "@inertiajs/inertia-vue3";
 import Button from "@/Components/forms/Button.vue";
-import Input from "@/Components/forms/Input.vue";
 import InputError from "@/Components/forms/InputError.vue";
-import Label from "@/Components/forms/Label.vue";
 import TipTap from "@/Components/forms/TipTapEditor.vue";
 import { computed, ref } from "vue";
 import { Inertia } from "@inertiajs/inertia";
@@ -12,14 +10,21 @@ const auth = computed(() => usePage().props.value.auth);
 
 const form = useForm({
     parent_id: usePage().props.value.post.id,
-    content: "Kommentiere etwas...",
+    content: "",
 });
+
+function handleContent(s) {
+    form.content = s;
+}
+let forceUpdate = ref(0);
 
 const submit = () => {
     form.post(route("comment.store"), {
         preserveScroll: true,
         onSuccess: () => {
             form.reset("content");
+            handleContent("Schreibe noch einen Kommentar...");
+            forceUpdate.value++;
         },
     });
 };
@@ -55,6 +60,7 @@ const submit = () => {
                             :maxChar="256"
                             v-model="form.content"
                             class="text-sm"
+                            :key="forceUpdate"
                         />
                         <InputError
                             class="mt-2"
