@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from "vue";
-import moment from "moment";
 import { Inertia } from "@inertiajs/inertia";
 import DefaultLayout from "@/Layouts/Default.vue";
 import { Head, usePage, Link } from "@inertiajs/inertia-vue3";
@@ -21,10 +20,12 @@ const props = defineProps({
     comments: Object,
 });
 
-moment.locale("de-ch");
-
 function toDateFormat(date) {
-    return moment(date).format("DD[.] MM YYYY[,] HH:mm");
+    var d = new Date(date);
+    return new Intl.DateTimeFormat("de-ch", {
+        dateStyle: "long",
+        timeStyle: "short",
+    }).format(d);
 }
 
 const created = toDateFormat(props.post.created_at);

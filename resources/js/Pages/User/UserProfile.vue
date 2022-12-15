@@ -3,7 +3,6 @@ import DefaultLayout from "@/Layouts/Default.vue";
 import { Head, usePage, Link } from "@inertiajs/inertia-vue3";
 import { computed, ref } from "vue";
 import { PencilSquareIcon } from "@heroicons/vue/24/outline";
-import moment from "moment";
 import { Inertia } from "@inertiajs/inertia";
 import reportUserModal from "@/Components/modals/reportUser.vue";
 
@@ -13,8 +12,14 @@ const props = defineProps({
 
 const auth = computed(() => usePage().props.value.auth);
 
-moment.locale("de-ch");
-const joined = moment(String(props.User.created_at)).format("DD. MMM YY");
+function toDateFormat(date) {
+    var d = new Date(date);
+    return new Intl.DateTimeFormat("de-ch", {
+        dateStyle: "long",
+    }).format(d);
+}
+
+const joined = toDateFormat(props.User.created_at);
 
 const NavClasses = computed(() =>
     props.active
@@ -34,7 +39,10 @@ function NavSelectorChange(click) {
 
     <DefaultLayout>
         <div class="relative z-0 mx-auto mb-8 h-full w-5/6">
-            <span class="absolute right-12 top-8 m-6 flex flex-row">
+            <span
+                class="absolute right-12 top-8 m-6 flex flex-row"
+                v-if="auth.user"
+            >
                 <Link
                     v-if="
                         auth.permissions.userprofile_edit_self &&

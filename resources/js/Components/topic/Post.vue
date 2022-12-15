@@ -1,15 +1,20 @@
 <script setup>
 import { computed } from "vue";
 import { Inertia } from "@inertiajs/inertia";
-import moment from "moment";
 import { usePage, Link } from "@inertiajs/inertia-vue3";
 
 const props = defineProps({
     data: Object,
 });
 
-moment.locale("de-ch");
-const joined = moment(props.data.created_at).format("DD[.] MM YYYY");
+function toDateFormat(date) {
+    var d = new Date(date);
+    return new Intl.DateTimeFormat("de-ch", {
+        dateStyle: "long",
+    }).format(d);
+}
+
+const joined = toDateFormat(props.data.created_at);
 
 const auth = computed(() => usePage().props.value.auth);
 </script>
