@@ -24,24 +24,30 @@ class CommentPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param  \App\Models\User  $user
      */
-    public function update(User $user, Permission $permission)
+    public function update(User $user, User $author)
     {
-        //
+        if($user->id === $author->id) {
+            return $user->permissions()['comment_update_self'];
+        } else if ($user->permissions()['comment_update_all']) {
+            return $user->permissions()['comment_update_all'];
+        }
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Permission  $permission
-     * @return \Illuminate\Auth\Access\Response|bool
+     * @param  \App\Models\User  $user
      */
-    public function delete(User $user, Permission $permission)
+    public function delete(User $user, User $author)
     {
-        //
+        if($user->id === $author->id) {
+            return $user->permissions()['comment_delete_self'];
+        } else if ($user->permissions()['comment_delete_all']) {
+            return $user->permissions()['comment_delete_all'];
+        }
     }
 
     /**
