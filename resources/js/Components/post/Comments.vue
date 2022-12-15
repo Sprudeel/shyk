@@ -62,7 +62,7 @@ function toDateFormat(date) {
                             Bearbeitet
                         </span>
                     </div>
-                    <span class="text-sm">{{ props.comment.content }}</span>
+                    <span class="text-sm" v-html="props.comment.content"></span>
                     <span
                         v-if="props.comment.subcomments"
                         class="m-4 text-xs font-semibold uppercase text-slate-400"
