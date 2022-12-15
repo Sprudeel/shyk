@@ -60,6 +60,9 @@ Route::post('/user/report', [UsersController::class, 'report'])->middleware(['au
  * Comments
  */
 Route::post('/comment/store', [CommentController::class, 'store'])->middleware(['auth', 'verified'])->name('comment.store');
+Route::post('/comment/delete/{id}', [CommentController::class, 'destroy'])->middleware(['auth', 'verified'])->name('comment.delete');
+Route::post('/comment/edit', [CommentController::class, 'update'])->middleware(['auth', 'verified'])->name('comment.update');
+
 
 /**
  * Forum
