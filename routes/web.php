@@ -13,6 +13,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SubcommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,12 @@ Route::post('/comment/store', [CommentController::class, 'store'])->middleware([
 Route::post('/comment/delete/{id}', [CommentController::class, 'destroy'])->middleware(['auth', 'verified'])->name('comment.delete');
 Route::post('/comment/edit', [CommentController::class, 'update'])->middleware(['auth', 'verified'])->name('comment.update');
 
+/**
+ * Subcomments
+ */
+Route::post('/subcomment/store', [SubcommentController::class, 'store'])->middleware(['auth', 'verified'])->name('subcomment.store');
+Route::post('/subcomment/delete/{id}', [SubcommentController::class, 'destroy'])->middleware(['auth', 'verified'])->name('subcomment.delete');
+Route::post('/subcomment/edit', [SubcommentController::class, 'update'])->middleware(['auth', 'verified'])->name('subcomment.update');
 
 /**
  * Forum
