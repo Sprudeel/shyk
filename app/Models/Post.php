@@ -30,7 +30,7 @@ class Post extends Model
     }
 
     public function comments() {
-        $sorted = Comment::where('parent_id', $this->id)->with('author.role')->paginate(6);
+        $sorted = Comment::where('parent_id', $this->id)->with('author.role')->orderBy('created_at')->paginate(6);
         // $sorted = [];
 
         // foreach ($unsorted as $comment) {
