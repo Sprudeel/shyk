@@ -13,18 +13,15 @@ class CommentController extends Controller
 
         $request->validate([
             'content' => 'required|max:256|min:5',
-            'comment_on' => 'required',
-            'post_id' => 'required|exists:posts,id',
+            'parent_id' => 'required|exists:posts,id',
         ]);
 
         $author = Auth::user()->id;
 
         $comment = Comment::create([
-            'post_id' => $request->post_id,
-            'comment_on' => $request->comment_on,
-            'commenter' => $author,
             'content' => $request->content,
-            'comment_parent' => $request->comment_parent,
+            'parent_id' => $request->parent_id,
+            'commenter' => $author,
         ]);
 
         return back()->with('success', 'Kommentar wurde erfolgreich erstellt!');
