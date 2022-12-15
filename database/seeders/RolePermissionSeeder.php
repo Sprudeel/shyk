@@ -52,11 +52,19 @@ class RolePermissionSeeder extends Seeder
         ]);
         DB::table('role_permissions')->insert([
             'role_id' => 1,
-            'permission_id' => 580,
+            'permission_id' => 620,
         ]);
         DB::table('role_permissions')->insert([
             'role_id' => 1,
-            'permission_id' => 620,
+            'permission_id' => 630,
+        ]);
+        DB::table('role_permissions')->insert([
+            'role_id' => 1,
+            'permission_id' => 640,
+        ]);
+        DB::table('role_permissions')->insert([
+            'role_id' => 1,
+            'permission_id' => 650,
         ]);
 
 
@@ -133,27 +141,31 @@ class RolePermissionSeeder extends Seeder
         ]);
         DB::table('role_permissions')->insert([
             'role_id' => 2,
-            'permission_id' => 560,
-        ]);
-        DB::table('role_permissions')->insert([
-            'role_id' => 2,
-            'permission_id' => 570,
-        ]);
-        DB::table('role_permissions')->insert([
-            'role_id' => 2,
-            'permission_id' => 571,
-        ]);
-        DB::table('role_permissions')->insert([
-            'role_id' => 2,
-            'permission_id' => 580,
-        ]);
-        DB::table('role_permissions')->insert([
-            'role_id' => 2,
             'permission_id' => 590,
         ]);
         DB::table('role_permissions')->insert([
             'role_id' => 2,
             'permission_id' => 620,
+        ]);
+        DB::table('role_permissions')->insert([
+            'role_id' => 2,
+            'permission_id' => 630,
+        ]);
+        DB::table('role_permissions')->insert([
+            'role_id' => 2,
+            'permission_id' => 631,
+        ]);
+        DB::table('role_permissions')->insert([
+            'role_id' => 2,
+            'permission_id' => 640,
+        ]);
+        DB::table('role_permissions')->insert([
+            'role_id' => 2,
+            'permission_id' => 641,
+        ]);
+        DB::table('role_permissions')->insert([
+            'role_id' => 2,
+            'permission_id' => 650,
         ]);
         DB::table('role_permissions')->insert([
             'role_id' => 2,
