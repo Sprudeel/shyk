@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    protected $fillable = ['post_id', 'comment_on', 'comment_parent', 'commenter', 'content'];
+    protected $fillable = ['parent_id', 'commenter', 'content'];
 
     public function post() {
         return $this->belongsTo(Post::class, 'id', 'post_id');
