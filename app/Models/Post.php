@@ -30,23 +30,23 @@ class Post extends Model
     }
 
     public function comments() {
-        $unsorted = Comment::where('post_id', $this->id)->with('author.role')->paginate(6);
-        $sorted = [];
+        $sorted = Comment::where('parent_id', $this->id)->with('author.role')->paginate(6);
+        // $sorted = [];
 
-        foreach ($unsorted as $comment) {
-            if($comment->comment_parent == 0) {
-                $sorted[] = $comment;
-                foreach ($unsorted as $subcomment) {
-                    if($subcomment->comment_parent == $comment->id) {
-                        $subcomments[] = $subcomment;
-                    }
-                }
-                if(isset($subcomments)) {
-                    $comment->subcomments = $subcomments;
-                    unset($subcomments);
-                }
-            }
-        }
+        // foreach ($unsorted as $comment) {
+        //     if($comment->comment_parent == 0) {
+        //         $sorted[] = $comment;
+        //         foreach ($unsorted as $subcomment) {
+        //             if($subcomment->comment_parent == $comment->id) {
+        //                 $subcomments[] = $subcomment;
+        //             }
+        //         }
+        //         if(isset($subcomments)) {
+        //             $comment->subcomments = $subcomments;
+        //             unset($subcomments);
+        //         }
+        //     }
+        // }
 
         return $sorted;
     }
