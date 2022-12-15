@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Models\Comment;
+use App\Models\Subcomment;
 
 class Post extends Model
 {
@@ -30,25 +32,10 @@ class Post extends Model
     }
 
     public function comments() {
-        $sorted = Comment::where('parent_id', $this->id)->with('author.role')->orderBy('created_at')->paginate(6);
-        // $sorted = [];
+        $comments = Comment::where('parent_id', $this->id)->with(['author.role', 'subcomments.author.role'])->orderBy('created_at')->paginate(6);
 
-        // foreach ($unsorted as $comment) {
-        //     if($comment->comment_parent == 0) {
-        //         $sorted[] = $comment;
-        //         foreach ($unsorted as $subcomment) {
-        //             if($subcomment->comment_parent == $comment->id) {
-        //                 $subcomments[] = $subcomment;
-        //             }
-        //         }
-        //         if(isset($subcomments)) {
-        //             $comment->subcomments = $subcomments;
-        //             unset($subcomments);
-        //         }
-        //     }
-        // }
 
-        return $sorted;
+        return $comments;
     }
 
     public function author() {
