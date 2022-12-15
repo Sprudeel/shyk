@@ -25,7 +25,7 @@ class CommentSeeder extends Seeder
 
         DB::table('comments')->insert([
             'parent_id' => 1,
-            'commenter' => 1,
+            'commenter' => 2,
             'content' => 'Das ist ein anderer Kommentar unter einem Post',
             'created_at' => now(),
             'updated_at' => now(),

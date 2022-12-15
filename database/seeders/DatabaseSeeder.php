@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             PostSeeder::class,
             TopicSeeder::class,
             CommentSeeder::class,
+            SubcommentsSeeder::class,
         ]);
 
         \App\Models\User::factory(10)->create();

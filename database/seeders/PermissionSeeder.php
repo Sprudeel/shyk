@@ -146,7 +146,7 @@ class PermissionSeeder extends Seeder
         ]);
         DB::table('permissions')->insert([
             'id' => 641,
-            'name' => 'comment_delete_self',
+            'name' => 'comment_delete_all',
             'explanation' => 'Kann alle Kommentare löschen',
         ]);
         DB::table('permissions')->insert([
