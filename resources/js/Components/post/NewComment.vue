@@ -11,14 +11,17 @@ import { Inertia } from "@inertiajs/inertia";
 const auth = computed(() => usePage().props.value.auth);
 
 const form = useForm({
+    parent_id: usePage().props.value.post.id,
     content: "Kommentiere etwas...",
-    comment_on: "post",
-    post_id: usePage().props.value.post.id,
-    comment_parent: 0,
 });
 
 const submit = () => {
-    form.post(route("comment.store"), { forceFormData: true });
+    form.post(route("comment.store"), {
+        preserveScroll: true,
+        onSuccess: () => {
+            form.reset("content");
+        },
+    });
 };
 </script>
 
@@ -51,6 +54,7 @@ const submit = () => {
                             :content="form.content"
                             :maxChar="256"
                             v-model="form.content"
+                            class="text-sm"
                         />
                         <InputError
                             class="mt-2"
