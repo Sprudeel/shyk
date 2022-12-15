@@ -1,10 +1,11 @@
 <script setup>
 import { computed } from "vue";
-import moment from "moment";
 import { Inertia } from "@inertiajs/inertia";
 import { usePage, Link, useForm } from "@inertiajs/inertia-vue3";
 import { PencilSquareIcon, TrashIcon } from "@heroicons/vue/24/outline";
 import { ref } from "vue";
+import Subcomment from "@/Components/post/Subcomments.vue";
+import NewSubComment from "@/Components/post/NewSubComment.vue";
 
 import Button from "@/Components/forms/Button.vue";
 import InputError from "@/Components/forms/InputError.vue";
@@ -17,6 +18,8 @@ const props = defineProps({
 });
 
 let editing = ref(false);
+let subcommentslice = ref(3);
+let newSubComment = ref(false);
 
 const form = useForm({
     id: props.comment.id,
@@ -24,7 +27,11 @@ const form = useForm({
 });
 
 function toDateFormat(date) {
-    return moment(date).format("DD[.] MM YYYY[,] HH:mm");
+    var d = new Date(date);
+    return new Intl.DateTimeFormat("de-ch", {
+        dateStyle: "long",
+        timeStyle: "short",
+    }).format(d);
 }
 
 function handleContent(s) {
@@ -140,7 +147,7 @@ const submit = () => {
 
                         <span
                             v-else-if="
-                                auth.permissions.comment_edit_all &&
+                                auth.permissions.comment_update_all &&
                                 auth.user.username !=
                                     props.comment.author.username
                             "
@@ -170,6 +177,48 @@ const submit = () => {
                             />
                         </Link>
                     </span>
+                </div>
+                <div v-if="props.comment.subcomments">
+                    <Subcomment
+                        v-for="subcomment in props.comment.subcomments.slice(
+                            0,
+                            subcommentslice
+                        )"
+                        :subcomment="subcomment"
+                    />
+                </div>
+                <div
+                    v-if="
+                        props.comment.subcomments.length > 3 &&
+                        subcommentslice == 3
+                    "
+                    class="flex cursor-pointer flex-row items-center p-1 text-xs text-slate-500 hover:underline"
+                    @click="subcommentslice = props.comment.subcomments.length"
+                >
+                    mehr anzeigen
+                </div>
+                <div
+                    v-if="
+                        subcommentslice == props.comment.subcomments.length &&
+                        subcommentslice > 3
+                    "
+                    class="flex cursor-pointer flex-row items-center p-1 text-xs text-slate-500 hover:underline"
+                    @click="subcommentslice = 3"
+                >
+                    weniger anzeigen
+                </div>
+                <div
+                    v-if="auth.permissions.comment_create"
+                    class="flex cursor-pointer flex-row items-center p-1 text-xs text-slate-500 hover:underline"
+                    @click="newSubComment = !newSubComment"
+                >
+                    antworten
+                </div>
+                <div>
+                    <NewSubComment
+                        v-if="newSubComment"
+                        :parent_id="props.comment.id"
+                    />
                 </div>
             </div>
         </div>
