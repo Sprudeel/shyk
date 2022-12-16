@@ -39,7 +39,7 @@ const props = defineProps({
                 <h2 class="font-extrabold ph:text-lg lph:text-2xl md:text-4xl">
                     " {{ props.search }} "
                 </h2>
-                <p class="ph:hidden lph:block lph:text-lg md:text-xl">
+                <p class="ph:text-xs lph:block lph:text-lg md:text-xl">
                     wurde gesucht...
                 </p>
             </div>

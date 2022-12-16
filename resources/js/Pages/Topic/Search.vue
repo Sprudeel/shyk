@@ -17,7 +17,7 @@ const props = defineProps({
     <DefaultLayout>
         <Banner topic="search" :search="props.search" />
 
-        <div class="mt-8 flex flex-col items-center">
+        <div class="mx-4 mt-8 flex flex-col items-center">
             <div>
                 <Post
                     v-for="post in props.posts.data"
@@ -31,7 +31,7 @@ const props = defineProps({
                 class="flex flex-col items-center gap-4 text-xl text-gray-500"
             >
                 <span>¯\_( ❛ ͜ʖ ❛ )_/¯</span>
-                <span>Leider wurde nicht gefunden...</span>
+                <span>Leider wurde nichts gefunden...</span>
             </div>
         </div>
     </DefaultLayout>
