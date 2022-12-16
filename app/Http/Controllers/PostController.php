@@ -68,6 +68,7 @@ class PostController extends Controller
             'likes' => $likes,
             'liked' => $liked,
             'attachements' => $files,
+            'comments' => $post->comments(),
         ]);
     }
 

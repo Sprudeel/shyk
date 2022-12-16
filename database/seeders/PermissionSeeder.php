@@ -116,29 +116,43 @@ class PermissionSeeder extends Seeder
             'explanation' => 'Posts melden',
         ]);
         DB::table('permissions')->insert([
-            'id' => 560,
-            'name' => 'post_comment',
-            'explanation' => 'Posts kommentieren',
-        ]);
-        DB::table('permissions')->insert([
-            'id' => 570,
-            'name' => 'post_comment_delete_self',
-            'explanation' => 'Eigene Kommentare löschen',
-        ]);
-        DB::table('permissions')->insert([
-            'id' => 571,
-            'name' => 'post_comment_delete_all',
-            'explanation' => 'Alle Kommentare löschen',
-        ]);
-        DB::table('permissions')->insert([
-            'id' => 580,
-            'name' => 'post_comment_report',
-            'explanation' => 'Kommentare melden',
-        ]);
-        DB::table('permissions')->insert([
             'id' => 590,
             'name' => 'post_verify',
             'explanation' => 'Posts verifizieren',
+        ]);
+
+        /**
+         * Kommentare 600
+         */
+        DB::table('permissions')->insert([
+            'id' => 620,
+            'name' => 'comment_create',
+            'explanation' => 'Kann Kommentare erstellen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 630,
+            'name' => 'comment_update_self',
+            'explanation' => 'Kann eigene Kommentare bearbeiten',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 631,
+            'name' => 'comment_update_all',
+            'explanation' => 'Kann alle Kommentare bearbeiten',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 640,
+            'name' => 'comment_delete_self',
+            'explanation' => 'Kann eigene Kommentare löschen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 641,
+            'name' => 'comment_delete_all',
+            'explanation' => 'Kann alle Kommentare löschen',
+        ]);
+        DB::table('permissions')->insert([
+            'id' => 650,
+            'name' => 'comment_report',
+            'explanation' => 'Kann Kommentare melden',
         ]);
 
         /**

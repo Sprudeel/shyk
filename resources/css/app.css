@@ -8,6 +8,11 @@
     box-sizing: border-box;
 }
 
+p:empty:before {
+    content: " ";
+    white-space: pre;
+}
+
 .shyk-blue {
     color: #14a7db;
 }

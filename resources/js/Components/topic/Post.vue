@@ -1,15 +1,20 @@
 <script setup>
 import { computed } from "vue";
 import { Inertia } from "@inertiajs/inertia";
-import moment from "moment";
 import { usePage, Link } from "@inertiajs/inertia-vue3";
 
 const props = defineProps({
     data: Object,
 });
 
-moment.locale("de-ch");
-const joined = moment(String(props.data.created_at)).format("DD. MMM YY");
+function toDateFormat(date) {
+    var d = new Date(date);
+    return new Intl.DateTimeFormat("de-ch", {
+        dateStyle: "long",
+    }).format(d);
+}
+
+const joined = toDateFormat(props.data.created_at);
 
 const auth = computed(() => usePage().props.value.auth);
 </script>
@@ -40,7 +45,9 @@ const auth = computed(() => usePage().props.value.auth);
                             />
                         </svg>
                     </span>
-                    {{ props.data.title }}
+                    <span class="mr-8 truncate">
+                        {{ props.data.title }}
+                    </span>
                     <span
                         v-if="props.data.verified"
                         title="Dieser Post wurde verifiziert!"
@@ -69,7 +76,7 @@ const auth = computed(() => usePage().props.value.auth);
                         props.data.topic.color +
                         ';'
                     "
-                    class="w-2/3 place-self-end self-center rounded-lg border-2 p-1 text-center font-semibold"
+                    class="w-2/3 min-w-fit place-self-end self-center rounded-lg border-2 p-1 text-center font-semibold"
                     >{{ props.data.topic.name }}</span
                 >
 
@@ -91,7 +98,8 @@ const auth = computed(() => usePage().props.value.auth);
                         <span v-html="props.data.author.role.symbol"> </span
                     ></span>
                     <span class="flex flex-col">
-                        <span class="font-bold"
+                        <span
+                            class="flex w-3/4 flex-row items-center gap-2 font-bold"
                             >{{ props.data.author.username }}
                             <span
                                 v-if="
@@ -118,13 +126,24 @@ const auth = computed(() => usePage().props.value.auth);
                             props.data.category.color +
                             ';'
                         "
-                        class="float-right rounded-lg border-2 px-4 text-center text-sm font-semibold text-white"
+                        class="float-right rounded-lg border-2 px-4 text-center text-sm font-semibold text-white ph:hidden lph:block"
                     >
                         {{ props.data.category.name }}
                     </span>
+                    <span
+                        :style="
+                            'border-color: ' +
+                            props.data.category.color +
+                            '; background-color: ' +
+                            props.data.category.color +
+                            ';'
+                        "
+                        class="float-right h-1/2 rounded-full border-2 p-2 text-white ph:block lph:hidden"
+                    >
+                    </span>
                 </div>
                 <div class="self-center">
-                    <span class="flex flex-row justify-evenly">
+                    <span class="flex flex-row justify-evenly gap-2">
                         <span class="flex flex-row">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

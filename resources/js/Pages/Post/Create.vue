@@ -84,7 +84,7 @@ const handleFilePondRemoveFile = (error, file) => {
 
     <DefaultLayout>
         <div class="py-12">
-            <div class="mx-auto max-w-6xl sm:px-6 lg:px-8">
+            <div class="max-w-6xl ph:mr-4 ph:ml-4 sm:mx-auto sm:px-6 lg:px-8">
                 <h2 class="mb-2 text-2xl font-bold">Post erstellen</h2>
                 <form @submit.prevent="submit">
                     <div>

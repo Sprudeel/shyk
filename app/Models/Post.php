@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Models\Comment;
+use App\Models\Subcomment;
 
 class Post extends Model
 {
@@ -27,6 +29,13 @@ class Post extends Model
 
     public function category() {
         return $this->hasOne(Category::class, 'slug', 'category');
+    }
+
+    public function comments() {
+        $comments = Comment::where('parent_id', $this->id)->with(['author.role', 'subcomments.author.role'])->orderBy('created_at')->paginate(6);
+
+
+        return $comments;
     }
 
     public function author() {

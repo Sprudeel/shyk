@@ -12,6 +12,8 @@ use App\Http\Controllers\TopicController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\UploadController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SubcommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +57,20 @@ Route::get('/user/edit/{username}', [UsersController::class, 'edit'])->middlewar
 Route::post('/user/edit', [UsersController::class, 'update'])->middleware(['auth', 'verified'])->name('userprofile.update');
 Route::post('/user/report', [UsersController::class, 'report'])->middleware(['auth', 'verified'])->name('user.report');
 
+/**
+ * Comments
+ */
+Route::post('/comment/store', [CommentController::class, 'store'])->middleware(['auth', 'verified'])->name('comment.store');
+Route::post('/comment/delete/{id}', [CommentController::class, 'destroy'])->middleware(['auth', 'verified'])->name('comment.delete');
+Route::post('/comment/edit', [CommentController::class, 'update'])->middleware(['auth', 'verified'])->name('comment.update');
+
+/**
+ * Subcomments
+ */
+Route::post('/subcomment/store', [SubcommentController::class, 'store'])->middleware(['auth', 'verified'])->name('subcomment.store');
+Route::post('/subcomment/delete/{id}', [SubcommentController::class, 'destroy'])->middleware(['auth', 'verified'])->name('subcomment.delete');
+Route::post('/subcomment/edit', [SubcommentController::class, 'update'])->middleware(['auth', 'verified'])->name('subcomment.update');
+
 
 /**
  * Forum
@@ -63,6 +79,7 @@ Route::get('/discover/{topic?}', [TopicController::class, 'index'])->name('disco
 
 Route::post('/tmpupload', [UploadController::class, 'store'])->middleware(['auth', 'verified'])->name('tmpupload');
 Route::delete('/tmpdelete', [UploadController::class, 'destroy'])->middleware(['auth', 'verified'])->name('tmpdelete');
+Route::get('/search', [TopicController::class, 'search'])->name('topic.search');
 
 Route::pattern('path', '.*');
 Route::get('local/temp/{path}', function (string $path){
