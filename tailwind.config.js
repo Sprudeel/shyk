@@ -15,6 +15,9 @@ module.exports = {
             fontFamily: {
                 sans: ["Poppins", ...defaultTheme.fontFamily.sans],
             },
+            fontSize: {
+                "2xs": ".5rem",
+            },
             animation: {
                 flash: "flash 1s forwards 3s",
             },
