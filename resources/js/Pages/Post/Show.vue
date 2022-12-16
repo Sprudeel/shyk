@@ -184,28 +184,6 @@ function convert(value) {
                                 <span>{{ convert(file.size) }}</span>
                             </a>
                         </div>
-                        <div>
-                            <div class="mt-8 w-full p-2 o-ph:text-xs">
-                                <Label
-                                    for="title"
-                                    value="Kommentare"
-                                    class="mb-1"
-                                />
-                                <NewComment
-                                    v-if="auth.permissions.comment_create"
-                                />
-                                <Comments
-                                    v-for="comment in props.comments.data"
-                                    :key="comment.id"
-                                    :comment="comment"
-                                />
-
-                                <Pagination
-                                    class="m-6"
-                                    :links="props.comments.links"
-                                />
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -227,7 +205,7 @@ function convert(value) {
                     </svg>
                     <span>{{ props.likes.length }}</span>
                 </span>
-                <span class="mb-4 flex flex-row" v-if="auth.user">
+                <span class="mb-4 flex flex-row items-center" v-if="auth.user">
                     <Link
                         v-if="
                             auth.permissions.post_update_self &&
@@ -375,6 +353,22 @@ function convert(value) {
                         <span class="text-red-700">Entverifizieren</span>
                     </span>
                 </Link>
+            </div>
+        </div>
+        <div class="mx-4 flex w-fit flex-row md:mx-24">
+            <div class="mt-8 p-2 o-ph:text-xs">
+                <Label for="title" value="Kommentare" class="mb-1" />
+                <NewComment
+                    v-if="auth.permissions.comment_create"
+                    class="ph:hidden sm:grid"
+                />
+                <Comments
+                    v-for="comment in props.comments.data"
+                    :key="comment.id"
+                    :comment="comment"
+                />
+
+                <Pagination class="m-6" :links="props.comments.links" />
             </div>
         </div>
     </DefaultLayout>

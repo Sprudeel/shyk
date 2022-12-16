@@ -29,7 +29,7 @@ const form = useForm({
 function toDateFormat(date) {
     var d = new Date(date);
     return new Intl.DateTimeFormat("de-ch", {
-        dateStyle: "long",
+        dateStyle: "medium",
         timeStyle: "short",
     }).format(d);
 }
@@ -59,35 +59,37 @@ const submit = () => {
                         })
                     "
                 >
-                    <span class="relative flex w-fit">
+                    <span class="relative flex w-full">
                         <img
                             :src="
                                 Inertia.page.props.ziggy.url +
                                 '/avatars/' +
                                 props.comment.author.avatar
                             "
-                            class="h-20 w-20 rounded-full object-cover"
+                            class="h-full max-h-20 w-full rounded-full object-cover"
                         />
                         <span
                             v-if="props.comment.author.role.name !== 'User'"
-                            class="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-red-500"
+                            class="absolute top-0 right-0 flex h-auto w-auto items-center justify-center rounded-full bg-red-500 p-1 ph:hidden sm:block"
                         >
                             <div v-html="props.comment.author.role.symbol"></div
                         ></span>
                     </span>
                 </Link>
             </div>
-            <div class="col-span-6 rounded-lg border border-slate-200 p-4">
+            <div
+                class="col-span-6 w-full rounded-lg border border-slate-200 p-4"
+            >
                 <div class="flex flex-col">
                     <div class="flex flex-row items-center gap-4">
-                        <span class="text-sm font-semibold">{{
+                        <span class="text-sm font-semibold o-ph:text-xs">{{
                             props.comment.author.username
                         }}</span>
-                        <span class="text-xs">
+                        <span class="text-2xs">
                             {{ toDateFormat(props.comment.created_at) }}
                         </span>
                         <span
-                            class="text-xs"
+                            class="text-2xs"
                             v-if="
                                 props.comment.created_at !==
                                 props.comment.updated_at
@@ -187,32 +189,38 @@ const submit = () => {
                         :subcomment="subcomment"
                     />
                 </div>
-                <div
-                    v-if="
-                        props.comment.subcomments.length > 3 &&
-                        subcommentslice == 3
-                    "
-                    class="flex cursor-pointer flex-row items-center p-1 text-xs text-slate-500 hover:underline"
-                    @click="subcommentslice = props.comment.subcomments.length"
-                >
-                    mehr anzeigen
-                </div>
-                <div
-                    v-if="
-                        subcommentslice == props.comment.subcomments.length &&
-                        subcommentslice > 3
-                    "
-                    class="flex cursor-pointer flex-row items-center p-1 text-xs text-slate-500 hover:underline"
-                    @click="subcommentslice = 3"
-                >
-                    weniger anzeigen
-                </div>
-                <div
-                    v-if="auth.permissions.comment_create"
-                    class="flex cursor-pointer flex-row items-center p-1 text-xs text-slate-500 hover:underline"
-                    @click="newSubComment = !newSubComment"
-                >
-                    antworten
+
+                <div class="inline-flex gap-4">
+                    <div
+                        v-if="
+                            props.comment.subcomments.length > 3 &&
+                            subcommentslice == 3
+                        "
+                        class="cursor-pointer p-1 text-xs text-slate-500 hover:underline"
+                        @click="
+                            subcommentslice = props.comment.subcomments.length
+                        "
+                    >
+                        mehr anzeigen
+                    </div>
+                    <div
+                        v-if="
+                            subcommentslice ==
+                                props.comment.subcomments.length &&
+                            subcommentslice > 3
+                        "
+                        class="cursor-pointer p-1 text-xs text-slate-600 hover:underline"
+                        @click="subcommentslice = 3"
+                    >
+                        weniger anzeigen
+                    </div>
+                    <div
+                        v-if="auth.permissions.comment_create"
+                        class="cursor-pointer p-1 text-xs text-slate-600 hover:underline"
+                        @click="newSubComment = !newSubComment"
+                    >
+                        antworten
+                    </div>
                 </div>
                 <div>
                     <NewSubComment

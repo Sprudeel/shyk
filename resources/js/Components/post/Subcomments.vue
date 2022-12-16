@@ -27,7 +27,7 @@ const form = useForm({
 function toDateFormat(date) {
     var d = new Date(date);
     return new Intl.DateTimeFormat("de-ch", {
-        dateStyle: "long",
+        dateStyle: "medium",
         timeStyle: "short",
     }).format(d);
 }
@@ -49,8 +49,8 @@ const submit = () => {
 </script>
 
 <template>
-    <div class="grid w-full grid-cols-7 grid-rows-1 items-center gap-4 p-2">
-        <div class="w-fit">
+    <div class="grid w-fit grid-cols-7 grid-rows-1 items-center gap-4 p-2">
+        <div class="col-span-1 w-fit ph:ml-4 ph:hidden sm:block">
             <Link
                 :href="
                     route('userprofile.view', {
@@ -79,14 +79,14 @@ const submit = () => {
         <div class="col-span-6">
             <div class="flex flex-col">
                 <div class="flex flex-row items-center gap-4">
-                    <span class="text-sm font-semibold">{{
+                    <span class="text-sm font-semibold o-ph:text-xs">{{
                         subcomment.author.username
                     }}</span>
-                    <span class="text-xs">
+                    <span class="text-2xs">
                         {{ toDateFormat(subcomment.created_at) }}
                     </span>
                     <span
-                        class="text-xs"
+                        class="text-2xs ph:hidden lph:block"
                         v-if="subcomment.created_at !== subcomment.updated_at"
                     >
                         Bearbeitet

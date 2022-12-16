@@ -31,7 +31,7 @@ const submit = () => {
 </script>
 
 <template>
-    <div class="grid w-full grid-cols-7 grid-rows-1 items-center gap-4 p-2">
+    <div class="grid w-fit grid-cols-7 grid-rows-1 items-center gap-4 p-2">
         <div class="col-span-1 w-fit">
             <span class="relative flex w-fit">
                 <img
