@@ -58,31 +58,15 @@ const user = computed(() => usePage().props.value.auth.user);
                                 </button>
                             </MenuItem>
                         </Link>
-                        <MenuItem v-slot="{ active }">
-                            <button
-                                :class="[
-                                    active
-                                        ? 'shyk-blue text-white'
-                                        : 'text-gray-900',
-                                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                                ]"
-                            >
-                                <CommandLineIcon
-                                    :active="active"
-                                    class="shyk-blue mr-2 h-5 w-5"
-                                    aria-hidden="true"
-                                />
-                                In Development
-                            </button>
-                        </MenuItem>
                     </div>
                     <div class="px-1 py-1">
-                        <MenuItem v-slot="{ active }">
-                            <Link
-                                :href="route('logout')"
-                                method="post"
-                                as="button"
-                            >
+                        <Link
+                            :href="route('logout')"
+                            method="post"
+                            as="button"
+                            class="w-full"
+                        >
+                            <MenuItem v-slot="{ active }">
                                 <button
                                     :class="[
                                         active
@@ -98,8 +82,8 @@ const user = computed(() => usePage().props.value.auth.user);
                                     />
                                     Abmelden
                                 </button>
-                            </Link>
-                        </MenuItem>
+                            </MenuItem>
+                        </Link>
                     </div>
                 </MenuItems>
             </transition>
