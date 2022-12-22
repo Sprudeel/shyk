@@ -35,6 +35,13 @@ Route::get('/test', function () {
 });
 
 /**
+ * Changelog Route
+ */
+Route::get('/changelog', function () {
+    return Inertia::render('Changelog');
+})->name('changelog');
+
+/**
  * Landing Page
  */
 Route::get('/', function () {
