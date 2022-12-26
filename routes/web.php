@@ -42,6 +42,14 @@ Route::get('/changelog', function () {
 })->name('changelog');
 
 /**
+ * Help Route
+ */
+Route::get('/help', function () {
+    return Inertia::render('Help');
+})->name('help');
+
+
+/**
  * Landing Page
  */
 Route::get('/', function () {
