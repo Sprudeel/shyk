@@ -18,7 +18,7 @@
                     mit anderen aus! Nun gehe auf Entdeckung und finden neues!
                 </p>
                 <br />
-                <Link :href="route('dashboard')">
+                <Link :href="route('discover')">
                     <Button
                         class="bg-shyk-blue hover:bg-blue-500 hover:font-bold hover:shadow-lg"
                         >Entdecken!</Button
