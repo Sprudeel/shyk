@@ -34,11 +34,13 @@ const auth = computed(() => usePage().props.value.auth);
                 :active="route().current('discover')"
                 >Entdecken!</NavLink
             >
-            <NavLink :href="route('login')" :active="route().current('login')"
+            <NavLink :href="route('help')" :active="route().current('help')"
                 >Hilfe</NavLink
             >
-            <NavLink :href="route('login')" :active="route().current('login')"
-                >FAQ</NavLink
+            <NavLink
+                :href="route('changelog')"
+                :active="route().current('changelog')"
+                >Neues</NavLink
             >
         </div>
 
