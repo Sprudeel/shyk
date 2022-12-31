@@ -63,7 +63,7 @@ class UsersController extends Controller
             'username' => 'required|string|max:255|min:3',
             'name' => 'required|string|max:255|min:7',
             'about' => 'required|max:500',
-            'avatar' => 'required|max:2048',
+            'avatar' => 'max:2048',
         ]);
 
         if($request->hasFile('avatar') && $request->validate(['avatar' => 'mimes:png,jpg,jpeg'])) {
