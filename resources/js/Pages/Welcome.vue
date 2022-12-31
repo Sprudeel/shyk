@@ -45,7 +45,7 @@
             </div>
         </div>
 
-        <h2
+        <!-- <h2
             class="ml-16 text-2xl font-bold md:ml-8 lg:ml-12 lg:text-3xl xl:ml-40"
         >
             shyk in Zahlen
@@ -81,7 +81,7 @@
                 <span class="text-2xl font-extrabold">1,000</span>
                 <p class="text-gray-600">Likes</p>
             </div>
-        </div>
+        </div> -->
 
         <br />
         <br />
