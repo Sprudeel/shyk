@@ -4,6 +4,7 @@ import { Head } from "@inertiajs/inertia-vue3";
 import Banner from "@/Components/topic/Banner.vue";
 import Post from "@/Components/topic/Post.vue";
 import Pagination from "@/Components/Pagination.vue";
+import Searchbar from "@/Components/forms/Searchbar.vue";
 
 const props = defineProps({
     search: String,
@@ -18,6 +19,10 @@ const props = defineProps({
         <Banner topic="search" :search="props.search" />
 
         <div class="mx-4 mt-8 flex flex-col items-center">
+            <div class="mb-4">
+                <!-- Search Bar -->
+                <Searchbar class="" />
+            </div>
             <div>
                 <Post
                     v-for="post in props.posts.data"
