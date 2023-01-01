@@ -30,6 +30,12 @@ class UserProfileTest extends TestCase
      */
     public function test_userprofile_can_be_rendered()
     {
+
+        $user = User::factory()->create([
+            'role_id' => 2,
+            'username' => 'sprudeel',
+        ]);
+
         $response = $this->get('/user/sprudeel');
 
         $response->assertStatus(200);
