@@ -118,7 +118,7 @@ function NavSelectorChange(click) {
                     >
                 </div>
             </div>
-            <div class="mx-auto w-4/6">
+            <!-- <div class="mx-auto w-4/6">
                 <div class="flex items-center justify-evenly">
                     <span
                         :class="NavClasses"
@@ -161,7 +161,7 @@ function NavSelectorChange(click) {
                 >
                     comments!
                 </div>
-            </div>
+            </div> -->
         </div>
     </DefaultLayout>
 </template>
