@@ -22,7 +22,7 @@
                         </span>
                         <div class="ml-6">
                             <div class="text-2xl font-bold text-gray-800">
-                                Update v0.8.0?
+                                Update v0.9.0?
                             </div>
                             <div class="text-gray-500">in der Zukunft!</div>
                         </div>
@@ -141,6 +141,22 @@ import { Head } from "@inertiajs/inertia-vue3";
 import { ref } from "vue";
 
 const changelog = ref([
+    {
+        name: "Feinschliff",
+        version: "v0.8.0",
+        date: "1. Januar 2023",
+        stage: "finished",
+        changes: [
+            "✨ Diese Seite wurde hinzugefügt",
+            "✨ Mail Aktivierung des Accounts ist nun obligatorisch",
+            "✨ Nutzungsbestimmungen hinzugefügt",
+            "✨ Hilfe Seite beantwortet nun brennende Fragen",
+            "✨ Alle Kategorien und Themen hinzugefügt",
+            "🧪 Tests funktionieren nun ohne extra Datenbank Seeding",
+            "🐛 Dropdown Navigationsleisten Menu funktioniert nun richtig",
+        ],
+        body: "Der letzte Feinschliff vor der Veröffentlichung. Keine Angst diese Applikation wird auch in Zukunft noch weiterentwickelt. Vielleicht sind hier bald auch deine Beteiligungen aufgelistet? 🚀",
+    },
     {
         name: "Suchen, Kommentieren und bessere Responsivität!",
         version: "v0.7.0",
