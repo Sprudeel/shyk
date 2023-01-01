@@ -29,10 +29,31 @@ use App\Http\Controllers\SubcommentController;
 /**
  * Test Route
  */
-Route::get('/test', function () {
-        $permissions = User::find(1)->permissions();
-        return $permissions['view_admin_section'];
-});
+// Route::get('/test', function () {
+//         $permissions = User::find(1)->permissions();
+//         return $permissions['view_admin_section'];
+// });
+
+/**
+ * Changelog Route
+ */
+Route::get('/changelog', function () {
+    return Inertia::render('Changelog');
+})->name('changelog');
+
+/**
+ * Help Route
+ */
+Route::get('/help', function () {
+    return Inertia::render('Help');
+})->name('help');
+
+/**
+ * Terms Route
+ */
+Route::get('/terms', function () {
+    return Inertia::render('Terms');
+})->name('terms');
 
 /**
  * Landing Page
@@ -44,9 +65,9 @@ Route::get('/', function () {
 /**
  * Current Dashboard
  */
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 /**

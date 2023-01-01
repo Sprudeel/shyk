@@ -15,70 +15,70 @@ class SubcommentsSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('subcomments')->insert([
-            'post_id' => 1,
-            'parent_id' => 1,
-            'commenter' => 2,
-            'content' => 'Das ist ein Subkommentar unter einem Kommentar',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('subcomments')->insert([
-            'post_id' => 1,
-            'parent_id' => 1,
-            'commenter' => 2,
-            'content' => 'Das ist ein Subkommentar unter einem Kommentar',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('subcomments')->insert([
-            'post_id' => 1,
-            'parent_id' => 1,
-            'commenter' => 2,
-            'content' => 'Das ist ein Subkommentar unter einem Kommentar',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('subcomments')->insert([
-            'post_id' => 1,
-            'parent_id' => 1,
-            'commenter' => 2,
-            'content' => 'Das ist ein Subkommentar unter einem Kommentar',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('subcomments')->insert([
-            'post_id' => 1,
-            'parent_id' => 1,
-            'commenter' => 2,
-            'content' => 'Das ist ein Subkommentar unter einem Kommentar',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('subcomments')->insert([
-            'post_id' => 1,
-            'parent_id' => 1,
-            'commenter' => 2,
-            'content' => 'Das ist ein Subkommentar unter einem Kommentar',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('subcomments')->insert([
-            'post_id' => 1,
-            'parent_id' => 1,
-            'commenter' => 2,
-            'content' => 'Das ist ein Subkommentar unter einem Kommentar',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        DB::table('subcomments')->insert([
-            'post_id' => 1,
-            'parent_id' => 1,
-            'commenter' => 2,
-            'content' => 'Das ist ein Subkommentar unter einem Kommentar',
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        // DB::table('subcomments')->insert([
+        //     'post_id' => 1,
+        //     'parent_id' => 1,
+        //     'commenter' => 2,
+        //     'content' => 'Das ist ein Subkommentar unter einem Kommentar',
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
+        // DB::table('subcomments')->insert([
+        //     'post_id' => 1,
+        //     'parent_id' => 1,
+        //     'commenter' => 2,
+        //     'content' => 'Das ist ein Subkommentar unter einem Kommentar',
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
+        // DB::table('subcomments')->insert([
+        //     'post_id' => 1,
+        //     'parent_id' => 1,
+        //     'commenter' => 2,
+        //     'content' => 'Das ist ein Subkommentar unter einem Kommentar',
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
+        // DB::table('subcomments')->insert([
+        //     'post_id' => 1,
+        //     'parent_id' => 1,
+        //     'commenter' => 2,
+        //     'content' => 'Das ist ein Subkommentar unter einem Kommentar',
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
+        // DB::table('subcomments')->insert([
+        //     'post_id' => 1,
+        //     'parent_id' => 1,
+        //     'commenter' => 2,
+        //     'content' => 'Das ist ein Subkommentar unter einem Kommentar',
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
+        // DB::table('subcomments')->insert([
+        //     'post_id' => 1,
+        //     'parent_id' => 1,
+        //     'commenter' => 2,
+        //     'content' => 'Das ist ein Subkommentar unter einem Kommentar',
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
+        // DB::table('subcomments')->insert([
+        //     'post_id' => 1,
+        //     'parent_id' => 1,
+        //     'commenter' => 2,
+        //     'content' => 'Das ist ein Subkommentar unter einem Kommentar',
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
+        // DB::table('subcomments')->insert([
+        //     'post_id' => 1,
+        //     'parent_id' => 1,
+        //     'commenter' => 2,
+        //     'content' => 'Das ist ein Subkommentar unter einem Kommentar',
+        //     'created_at' => now(),
+        //     'updated_at' => now(),
+        // ]);
 
     }
 }

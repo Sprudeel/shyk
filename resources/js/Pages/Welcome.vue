@@ -14,14 +14,11 @@
                     Willkommen auf <span class="shyk-blue">shyk</span>!
                 </h2>
                 <p class="">
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                    diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                    justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                    sea takimata sanctus est Lorem ipsum dolor sit amet.
+                    Suche, teile, entdecke, lerne, kommentiere und tausche dich
+                    mit anderen aus! Nun gehe auf Entdeckung und finden neues!
                 </p>
                 <br />
-                <Link :href="route('dashboard')">
+                <Link :href="route('discover')">
                     <Button
                         class="bg-shyk-blue hover:bg-blue-500 hover:font-bold hover:shadow-lg"
                         >Entdecken!</Button
@@ -38,11 +35,8 @@
                     Was ist <span class="shyk-yellow">shyk</span>?
                 </h2>
                 <p class="max-w-xl">
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                    diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                    justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                    sea takimata sanctus est Lorem ipsum dolor sit amet.
+                    shyk enstand im Rahmen einer Maturaarbeit und ist alles
+                    Austauschplattform für alle Schüler:innen der SekII gedacht
                 </p>
             </div>
 
@@ -51,7 +45,7 @@
             </div>
         </div>
 
-        <h2
+        <!-- <h2
             class="ml-16 text-2xl font-bold md:ml-8 lg:ml-12 lg:text-3xl xl:ml-40"
         >
             shyk in Zahlen
@@ -87,7 +81,7 @@
                 <span class="text-2xl font-extrabold">1,000</span>
                 <p class="text-gray-600">Likes</p>
             </div>
-        </div>
+        </div> -->
 
         <br />
         <br />

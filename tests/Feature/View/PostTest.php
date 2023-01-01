@@ -114,6 +114,15 @@ class PostTest extends TestCase
             'role_id' => 2,
         ]);
 
+        $this->actingAs($user)->post('/post/store', [
+            'title' => 'Test Post',
+            'topic' => 'shyk',
+            'status' => 'public',
+            'category' => 'summaries',
+            'content' => 'This is a test post',
+            'author' => $user->id,
+        ]);
+
         $response = $this->actingAs($user)->post('/post/edit', [
             'id' => 1,
             'title' => 'Test Edited Post',

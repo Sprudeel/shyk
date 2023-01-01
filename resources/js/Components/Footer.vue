@@ -59,7 +59,7 @@ const information = computed(() => usePage().props.value.information);
                         />
                     </svg>
                 </a>
-                <a href="mailto:info@lchsd.ch">
+                <a href="mailto:help@shyk.ch">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -73,7 +73,10 @@ const information = computed(() => usePage().props.value.information);
                         />
                     </svg>
                 </a>
-                <a href="" title="shyk?">
+                <a
+                    href="https://github.com/Sprudeel/shyk/blob/devel/LICENSE"
+                    title="shyk?"
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -87,7 +90,7 @@ const information = computed(() => usePage().props.value.information);
                         />
                     </svg>
                 </a>
-                <a href="" title="Code of Conduct">
+                <a href="/terms" title="Nutzungsbestimmungen">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"

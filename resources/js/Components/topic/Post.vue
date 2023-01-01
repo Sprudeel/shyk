@@ -76,7 +76,7 @@ const auth = computed(() => usePage().props.value.auth);
                         props.data.topic.color +
                         ';'
                     "
-                    class="w-2/3 min-w-fit place-self-end self-center rounded-lg border-2 p-1 text-center font-semibold"
+                    class="w-2/3 min-w-fit place-self-end self-center rounded-lg border-2 p-1 px-4 text-center font-semibold"
                     >{{ props.data.topic.name }}</span
                 >
 
@@ -160,7 +160,7 @@ const auth = computed(() => usePage().props.value.auth);
                                 props.data.likes.length
                             }}</span>
                         </span>
-                        <span class="flex flex-row">
+                        <!-- <span class="flex flex-row">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"
@@ -173,7 +173,7 @@ const auth = computed(() => usePage().props.value.auth);
                                 />
                             </svg>
                             <span class="ml-4">X</span>
-                        </span>
+                        </span> -->
                     </span>
                 </div>
             </div>

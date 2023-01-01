@@ -16,6 +16,62 @@ class CommentTest extends TestCase
         parent::setUp();
 
         $this->seed();
+
+        $user = User::factory()->create([
+            'role_id' => 2,
+        ]);
+
+        $this->actingAs($user)->post('/post/store', [
+            'title' => 'GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG',
+            'author' => 1,
+            'slug' => 'gggggggggggggggggggggggg',
+            'topic' => 'shyk',
+            'category' => 'summaries',
+            'status' => 'public',
+            'content' => 'Dies ist ein Test Post',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $this->actingAs($user)->post('/comment/store', [
+            'parent_id' => 1,
+            'content' => 'Dies ist ein Test Kommentar der gelöscht wird.',
+        ]);
+
+        $this->actingAs($user)->post('/comment/store', [
+            'parent_id' => 1,
+            'content' => 'Dies ist ein Test Kommentar der gelöscht wird.',
+        ]);
+
+        $this->actingAs($user)->post('/comment/store', [
+            'parent_id' => 1,
+            'content' => 'Dies ist ein Test Kommentar der gelöscht wird.',
+        ]);
+
+        $this->actingAs($user)->post('/comment/store', [
+            'parent_id' => 1,
+            'content' => 'Dies ist ein Test Kommentar der gelöscht wird.',
+        ]);
+
+        $this->actingAs($user)->post('/comment/store', [
+            'parent_id' => 1,
+            'content' => 'Dies ist ein Test Kommentar der gelöscht wird.',
+        ]);
+
+        $this->actingAs($user)->post('/comment/store', [
+            'parent_id' => 1,
+            'content' => 'Dies ist ein Test Kommentar der gelöscht wird.',
+        ]);
+
+        $this->actingAs($user)->post('/comment/store', [
+            'parent_id' => 1,
+            'content' => 'Dies ist ein Test Kommentar der gelöscht wird.',
+        ]);
+
+        $this->actingAs($user)->post('/comment/store', [
+            'parent_id' => 1,
+            'content' => 'Dies ist ein Test Kommentar der gelöscht wird.',
+        ]);
     }
 
     /**
@@ -44,6 +100,11 @@ class CommentTest extends TestCase
     {
         $user = User::factory()->create([
             'role_id' => 2,
+        ]);
+
+        $this->actingAs($user)->post('/comment/store', [
+            'parent_id' => 1,
+            'content' => 'Dies ist ein Test Kommentar.',
         ]);
 
         $response = $this->actingAs($user)->post('/comment/edit', [
@@ -85,7 +146,7 @@ class CommentTest extends TestCase
     {
         $user = User::factory()->create();
 
-        $response = $this->actingAs($user)->post('/comment/store', [
+        $response = $this->actingAs($user)->post('/subcomment/store', [
             'post_id' => 1,
             'parent_id' => 1,
             'content' => 'Dies ist ein Test Kommentar.',
@@ -103,6 +164,12 @@ class CommentTest extends TestCase
     {
         $user = User::factory()->create([
             'role_id' => 2,
+        ]);
+
+        $comment = $this->actingAs($user)->post('/subcomment/store', [
+            'post_id' => 1,
+            'parent_id' => 1,
+            'content' => 'Dies ist ein Test Kommentar.',
         ]);
 
         $response = $this->actingAs($user)->post('/subcomment/edit', [
@@ -124,7 +191,13 @@ class CommentTest extends TestCase
             'role_id' => 2,
         ]);
 
-        $response = $this->actingAs($user)->post('/subcomment/store', [
+        $parent = $this->actingAs($user)->post('/comment/store', [
+            'parent_id' => 1,
+            'content' => 'Dies ist ein Test Kommentar der gelöscht wird.',
+        ]);
+
+        $comment = $this->actingAs($user)->post('/subcomment/store', [
+            'post_id' => 1,
             'parent_id' => 1,
             'content' => 'Dies ist ein Test Kommentar der gelöscht wird.',
         ]);
