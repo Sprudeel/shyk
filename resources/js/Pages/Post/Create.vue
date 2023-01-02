@@ -55,7 +55,7 @@ const handleFilePondInit = () => {
 };
 
 function handleContent(s) {
-    form.about = s;
+    form.content = s;
 }
 
 const form = useForm({
