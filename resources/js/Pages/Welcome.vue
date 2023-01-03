@@ -15,7 +15,7 @@
                 </h2>
                 <p class="">
                     Suche, teile, entdecke, lerne, kommentiere und tausche dich
-                    mit anderen aus! Nun gehe auf Entdeckung und finden neues!
+                    mit anderen aus! <br> Nun gehe auf Entdeckung und finden neues!
                 </p>
                 <br />
                 <Link :href="route('discover')">
