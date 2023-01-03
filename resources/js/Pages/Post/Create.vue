@@ -189,7 +189,7 @@ const handleFilePondRemoveFile = (error, file) => {
                             :data-file-metadata-folder="
                                 (Math.random() + 1).toString(36).substring(7)
                             "
-                            accepted-file-types="audio/*, video/*, image/*, application/pdf, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .odt, .ods, .odp, .txt, .rtf, .csv, .zip, .rar, .tar, .7z"
+                            accepted-file-types="audio/*, video/*, image/*, application/pdf, application/word, .doc, .docx, .xls, .xlsx, .ppt, .pptx, .odt, .ods, .odp, .txt, .rtf, .csv, .zip, .rar, .tar, .7z"
                             v-bind:files="form.file"
                             maxFiles="3"
                             @init="handleFilePondInit"
