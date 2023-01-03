@@ -35,7 +35,7 @@
                     Was ist <span class="shyk-yellow">shyk</span>?
                 </h2>
                 <p class="max-w-xl">
-                    shyk enstand im Rahmen einer Maturaarbeit und ist alles
+                    shyk enstand im Rahmen einer Maturaarbeit und ist als
                     Austauschplattform für alle Schüler:innen der SekII gedacht
                 </p>
             </div>
