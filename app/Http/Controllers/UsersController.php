@@ -110,7 +110,10 @@ class UsersController extends Controller
     public function adminEdit($id) {
         $this->authorize('updateRole', User::class);
 
-        return Inertia::render('Admin/Manage/ManageUser', ['user' => User::find($id), 'roles' => Role::all()]);
+        $user = User::find($id);
+        $user = $user->makeVisible(['email']);
+
+        return Inertia::render('Admin/Manage/ManageUser', ['user' => $user, 'roles' => Role::all()]);
     }
 
     public function updateRole(Request $request) {
@@ -125,7 +128,7 @@ class UsersController extends Controller
 
         $user = User::find($request->id);
 
-        $user->name = $request->username;
+        $user->username = $request->username;
         $user->email = $request->email;
         $user->role_id = $request->role_id;
 
