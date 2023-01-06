@@ -15,6 +15,7 @@ class Role extends Model
         'name',
         'color',
         'id',
+        'symbol',
     ];
 
     /**
