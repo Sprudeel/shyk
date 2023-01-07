@@ -20,6 +20,8 @@ jobs:
           
             - name: Login to Jelastic
               run: ~/jelastic/users/authentication/signin --login  ${{ secrets.JELASTIC_USERNAME }} --password  ${{ secrets.JELASTIC_TOKEN }} --platformUrl  https://app.jpc.infomaniak.com/
+            - name: Accept 
+              run: y
  
             - name: Pull from GitHub, build and deploy
               run: ~/jelastic/environment/vcs/update --envName shyk-prod --context ROOT
