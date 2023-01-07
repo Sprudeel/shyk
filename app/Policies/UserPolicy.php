@@ -62,6 +62,16 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can report another User.
+     *
+     * @param  \App\Models\User  $user
+     */
+    public function report(User $user)
+    {
+        return $user->permissions()['user_report'];
+    }
+
+    /**
      * Determine whether the user can update the role.
      *
      * @param  \App\Models\User  $user

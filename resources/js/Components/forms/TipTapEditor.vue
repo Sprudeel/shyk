@@ -22,8 +22,9 @@ import Redo from "@/Components/forms/tiptap/Redo.vue";
 const props = defineProps({
     content: String,
     model: String,
+    maxChar: Number,
 });
-const maxCharacters = 500;
+const maxCharacters = props.maxChar;
 
 const emit = defineEmits(["content"]);
 
@@ -85,7 +86,7 @@ let editor = useEditor({
 </script>
 
 <template>
-    <div class="rounded-md border border-gray-500 p-2">
+    <div class="mb-4 rounded-md border border-gray-500 p-1">
         <div v-if="editor" class="mb-2 flex flex-row justify-around">
             <div class="flex flex-row space-x-2">
                 <Bold
@@ -159,7 +160,8 @@ let editor = useEditor({
         </div>
         <hr />
         <editor-content :editor="editor" :v-model="props.model" />
-        <div class="float-right mt-2 p-2 text-sm text-gray-500" v-if="editor">
+        <hr />
+        <div class="mt-2 p-2 text-right text-xs text-gray-500" v-if="editor">
             {{ editor.storage.characterCount.characters() }} /
             {{ maxCharacters }} Zeichen,
 

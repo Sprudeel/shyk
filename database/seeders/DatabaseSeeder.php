@@ -19,9 +19,14 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             PermissionSeeder::class,
             RolePermissionSeeder::class,
+            CategorySeeder::class,
+            PostSeeder::class,
+            TopicSeeder::class,
+            CommentSeeder::class,
+            SubcommentsSeeder::class,
         ]);
 
-        \App\Models\User::factory(10)->create();
+        // \App\Models\User::factory(10)->create();
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

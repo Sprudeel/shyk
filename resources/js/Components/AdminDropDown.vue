@@ -1,3 +1,13 @@
+<script setup>
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+import { computed } from "vue";
+import { Link, usePage } from "@inertiajs/inertia-vue3";
+import { ChevronDownIcon } from "@heroicons/vue/24/solid";
+import { FingerPrintIcon, NewspaperIcon } from "@heroicons/vue/24/outline";
+
+const user = computed(() => usePage().props.value.auth.user);
+</script>
+
 <template>
     <div class="">
         <Menu as="div" class="relative inline-block text-left">
@@ -22,7 +32,7 @@
                 leave-to-class="transform scale-95 opacity-0"
             >
                 <MenuItems
-                    class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    class="absolute right-0 z-50 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                 >
                     <div class="px-1 py-1">
                         <Link :href="route('admin.role.permissions')">
@@ -44,22 +54,28 @@
                                 </button>
                             </MenuItem>
                         </Link>
+                        <Link href="/admin/log-viewer">
+                            <MenuItem v-slot="{ active }">
+                                <button
+                                    :class="[
+                                        active
+                                            ? 'bg-blue-300 text-white'
+                                            : 'text-gray-900',
+                                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                    ]"
+                                >
+                                    <NewspaperIcon
+                                        :active="active"
+                                        class="shyk-blue mr-2 h-5 w-5"
+                                        aria-hidden="true"
+                                    />
+                                    Logs
+                                </button>
+                            </MenuItem>
+                        </Link>
                     </div>
                 </MenuItems>
             </transition>
         </Menu>
     </div>
 </template>
-
-<script setup>
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
-import { computed } from "vue";
-import { Link, usePage } from "@inertiajs/inertia-vue3";
-import { ChevronDownIcon, CommandLineIcon } from "@heroicons/vue/24/solid";
-import {
-    ArrowLeftOnRectangleIcon,
-    FingerPrintIcon,
-} from "@heroicons/vue/24/outline";
-
-const user = computed(() => usePage().props.value.auth.user);
-</script>

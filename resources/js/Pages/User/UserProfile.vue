@@ -3,8 +3,8 @@ import DefaultLayout from "@/Layouts/Default.vue";
 import { Head, usePage, Link } from "@inertiajs/inertia-vue3";
 import { computed, ref } from "vue";
 import { PencilSquareIcon } from "@heroicons/vue/24/outline";
-import moment from "moment";
 import { Inertia } from "@inertiajs/inertia";
+import reportUserModal from "@/Components/modals/reportUser.vue";
 
 const props = defineProps({
     User: Object,
@@ -12,8 +12,14 @@ const props = defineProps({
 
 const auth = computed(() => usePage().props.value.auth);
 
-moment.locale("de-ch");
-const joined = moment(String(props.User.created_at)).format("DD. MMM YY");
+function toDateFormat(date) {
+    var d = new Date(date);
+    return new Intl.DateTimeFormat("de-ch", {
+        dateStyle: "long",
+    }).format(d);
+}
+
+const joined = toDateFormat(props.User.created_at);
 
 const NavClasses = computed(() =>
     props.active
@@ -32,8 +38,11 @@ function NavSelectorChange(click) {
     <Head :title="User.username + 's Profil'" />
 
     <DefaultLayout>
-        <div class="relative mx-auto mt-8 mb-8 h-full w-5/6 shadow-lg">
-            <span class="absolute right-0 m-6 flex flex-row">
+        <div class="relative z-0 mx-auto mb-8 h-full w-5/6">
+            <span
+                class="absolute right-12 top-8 m-6 flex flex-row"
+                v-if="auth.user"
+            >
                 <Link
                     v-if="
                         auth.permissions.userprofile_edit_self &&
@@ -42,7 +51,9 @@ function NavSelectorChange(click) {
                     :href="`/user/edit/${User.username}`"
                     title="Mein Profil bearbeiten"
                 >
-                    <PencilSquareIcon class="shyk-blue mr-2 h-5 w-5" />
+                    <PencilSquareIcon
+                        class="shyk-blue mr-2 h-8 w-8 rounded-lg p-1 hover:bg-blue-500 hover:text-white"
+                    />
                 </Link>
 
                 <Link
@@ -53,20 +64,27 @@ function NavSelectorChange(click) {
                     :href="`/user/edit/${User.username}`"
                     title="Nutzer bearbeiten"
                 >
-                    <PencilSquareIcon class="mr-2 h-5 w-5 text-yellow-300" />
+                    <PencilSquareIcon
+                        class="mr-2 h-8 w-8 rounded-lg p-1 text-yellow-300 hover:bg-yellow-300 hover:text-white"
+                    />
                 </Link>
+
+                <reportUserModal v-if="User.id != auth.user.id" :user="User" />
             </span>
-            <div class="flex items-center divide-x">
-                <div class="mt-8 mb-8 basis-1/3">
+
+            <div
+                class="flex ph:flex-col md:flex-row md:items-center md:divide-x"
+            >
+                <div class="mt-2 mb-8 basis-1/3">
                     <img
                         :src="
                             Inertia.page.props.ziggy.url +
                             '/avatars/' +
                             User.avatar
                         "
-                        class="mx-auto mt-2 mb-8 h-48 w-48 rounded-full object-cover"
+                        class="mx-auto mt-2 mb-8 rounded-full object-cover ph:h-80 md:h-72 md:w-72"
                     />
-                    <div class="ml-10">
+                    <div class="ml-8">
                         <span class="flex items-center">
                             <span class="text-2xl font-bold">{{
                                 User.username
@@ -100,7 +118,7 @@ function NavSelectorChange(click) {
                     >
                 </div>
             </div>
-            <div class="mx-auto w-4/6">
+            <!-- <div class="mx-auto w-4/6">
                 <div class="flex items-center justify-evenly">
                     <span
                         :class="NavClasses"
@@ -143,7 +161,7 @@ function NavSelectorChange(click) {
                 >
                     comments!
                 </div>
-            </div>
+            </div> -->
         </div>
     </DefaultLayout>
 </template>

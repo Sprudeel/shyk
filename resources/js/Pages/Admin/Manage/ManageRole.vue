@@ -50,8 +50,6 @@ let form = useForm({
     permissions: perm,
 });
 
-console.log(form);
-
 const submit = () => {
     form.post(route("admin.role.edit"));
 };

@@ -11,6 +11,7 @@ import { Inertia } from "@inertiajs/inertia";
 let form = useForm({
     name: "",
     color: "",
+    symbol: "",
 });
 
 let submit = () => {
@@ -38,7 +39,6 @@ let submit = () => {
                                         class="mt-1 block w-full"
                                         v-model="form.name"
                                         required
-                                        autofocus
                                     />
                                     <InputError
                                         class="mt-2"
@@ -54,11 +54,25 @@ let submit = () => {
                                         class="mt-1 block w-full"
                                         v-model="form.color"
                                         required
-                                        autofocus
                                     />
                                     <InputError
                                         class="mt-2"
                                         :message="form.errors.color"
+                                    />
+                                </div>
+
+                                <div class="mb-4">
+                                    <Label for="symbol" value="Rollensymbol" />
+                                    <Input
+                                        id="symbol"
+                                        type="text"
+                                        class="mt-1 block w-full"
+                                        v-model="form.symbol"
+                                        required
+                                    />
+                                    <InputError
+                                        class="mt-2"
+                                        :message="form.errors.symbol"
                                     />
                                 </div>
 

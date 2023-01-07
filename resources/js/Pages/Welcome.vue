@@ -3,9 +3,9 @@
 
     <DefaultLayout>
         <div
-            class="mt-6 grid grid-flow-row grid-cols-1 grid-rows-4 items-center md:grid-cols-2 md:grid-rows-2 md:gap-y-4 xl:mx-32"
+            class="mt-2 grid grid-flow-row grid-cols-1 grid-rows-4 items-center sm:grid-cols-2 sm:grid-rows-2 md:gap-y-4 xl:mx-32"
         >
-            <div class="w-8/12 justify-self-center">
+            <div class="justify-self-center ph:w-6/12 sm:w-8/12 lg:w-6/12">
                 <HeroLogo1 class="overflow-x-hidden" />
             </div>
 
@@ -14,14 +14,11 @@
                     Willkommen auf <span class="shyk-blue">shyk</span>!
                 </h2>
                 <p class="">
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                    diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                    justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                    sea takimata sanctus est Lorem ipsum dolor sit amet.
+                    Suche, teile, entdecke, lerne, kommentiere und tausche dich
+                    mit anderen aus! <br> Nun gehe auf Entdeckung und finden neues!
                 </p>
                 <br />
-                <Link :href="route('dashboard')">
+                <Link :href="route('discover')">
                     <Button
                         class="bg-shyk-blue hover:bg-blue-500 hover:font-bold hover:shadow-lg"
                         >Entdecken!</Button
@@ -29,7 +26,7 @@
                 >
             </div>
 
-            <div class="w-11/12 justify-self-center md:hidden">
+            <div class="justify-self-center ph:w-6/12 sm:hidden md:w-11/12">
                 <HeroLogo2 class="overflow-x-hidden" />
             </div>
 
@@ -38,20 +35,17 @@
                     Was ist <span class="shyk-yellow">shyk</span>?
                 </h2>
                 <p class="max-w-xl">
-                    Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed
-                    diam nonumy eirmod tempor invidunt ut labore et dolore magna
-                    aliquyam erat, sed diam voluptua. At vero eos et accusam et
-                    justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-                    sea takimata sanctus est Lorem ipsum dolor sit amet.
+                    shyk enstand im Rahmen einer Maturaarbeit und ist als
+                    Austauschplattform für alle Schüler:innen der SekII gedacht
                 </p>
             </div>
 
-            <div class="w-11/12 justify-self-center ph:hidden md:block">
+            <div class="w-11/12 justify-self-center ph:hidden sm:block">
                 <HeroLogo2 class="overflow-x-hidden" />
             </div>
         </div>
 
-        <h2
+        <!-- <h2
             class="ml-16 text-2xl font-bold md:ml-8 lg:ml-12 lg:text-3xl xl:ml-40"
         >
             shyk in Zahlen
@@ -87,7 +81,7 @@
                 <span class="text-2xl font-extrabold">1,000</span>
                 <p class="text-gray-600">Likes</p>
             </div>
-        </div>
+        </div> -->
 
         <br />
         <br />

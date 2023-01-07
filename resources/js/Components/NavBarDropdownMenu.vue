@@ -1,3 +1,16 @@
+<script setup>
+import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
+import {
+    ChevronDownIcon,
+    GlobeEuropeAfricaIcon,
+    MagnifyingGlassIcon,
+} from "@heroicons/vue/24/solid";
+import {
+    InformationCircleIcon,
+    QuestionMarkCircleIcon,
+} from "@heroicons/vue/24/outline";
+import { Link } from "@inertiajs/inertia-vue3";
+</script>
 <template>
     <div class="">
         <Menu as="div" class="relative inline-block text-left">
@@ -22,95 +35,103 @@
                 leave-to-class="transform scale-95 opacity-0"
             >
                 <MenuItems
-                    class="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    class="absolute right-0 z-50 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                 >
                     <div class="px-1 py-1">
-                        <MenuItem v-slot="{ active }">
-                            <button
-                                :class="[
-                                    active
-                                        ? 'shyk-blue text-white'
-                                        : 'text-gray-900',
-                                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                                ]"
-                            >
-                                <GlobeEuropeAfricaIcon
-                                    :active="active"
-                                    class="shyk-blue mr-2 h-5 w-5"
-                                    aria-hidden="true"
-                                />
-                                Entdecken!
-                            </button>
-                        </MenuItem>
-                        <MenuItem v-slot="{ active }">
-                            <button
-                                :class="[
-                                    active
-                                        ? 'bg-violet-500 text-white'
-                                        : 'text-gray-900',
-                                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                                ]"
-                            >
-                                <InformationCircleIcon
-                                    :active="active"
-                                    class="shyk-blue mr-2 h-5 w-5"
-                                    aria-hidden="true"
-                                />
-                                Hilfe
-                            </button>
-                        </MenuItem>
-                        <MenuItem v-slot="{ active }">
-                            <button
-                                :class="[
-                                    active
-                                        ? 'bg-violet-500 text-white'
-                                        : 'text-gray-900',
-                                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                                ]"
-                            >
-                                <QuestionMarkCircleIcon
-                                    :active="active"
-                                    class="shyk-blue mr-2 h-5 w-5"
-                                    aria-hidden="true"
-                                />
-                                FAQ
-                            </button>
-                        </MenuItem>
+                        <Link
+                            :href="route('discover')"
+                            :active="route().current('discover')"
+                        >
+                            <MenuItem v-slot="{ active }">
+                                <button
+                                    :class="[
+                                        active
+                                            ? 'bg-blue-300 text-white'
+                                            : 'text-gray-900',
+                                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                    ]"
+                                >
+                                    <GlobeEuropeAfricaIcon
+                                        :active="active"
+                                        class="shyk-blue mr-2 h-5 w-5"
+                                        aria-hidden="true"
+                                    />
+                                    Entdecken!
+                                </button>
+                            </MenuItem>
+                        </Link>
+
+                        <Link
+                            :href="route('help')"
+                            :active="route().current('help')"
+                        >
+                            <MenuItem v-slot="{ active }">
+                                <button
+                                    :class="[
+                                        active
+                                            ? 'bg-blue-300 text-white'
+                                            : 'text-gray-900',
+                                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                    ]"
+                                >
+                                    <InformationCircleIcon
+                                        :active="active"
+                                        class="shyk-blue mr-2 h-5 w-5"
+                                        aria-hidden="true"
+                                    />
+                                    Hilfe
+                                </button>
+                            </MenuItem>
+                        </Link>
+                        <Link
+                            :href="route('changelog')"
+                            :active="route().current('changelog')"
+                        >
+                            <MenuItem v-slot="{ active }">
+                                <button
+                                    :class="[
+                                        active
+                                            ? 'bg-blue-300 text-white'
+                                            : 'text-gray-900',
+                                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                    ]"
+                                >
+                                    <QuestionMarkCircleIcon
+                                        :active="active"
+                                        class="shyk-blue mr-2 h-5 w-5"
+                                        aria-hidden="true"
+                                    />
+                                    Neues
+                                </button>
+                            </MenuItem>
+                        </Link>
                     </div>
                     <div class="px-1 py-1">
-                        <MenuItem v-slot="{ active }">
-                            <button
-                                :class="[
-                                    active
-                                        ? 'bg-violet-500 text-white'
-                                        : 'text-gray-900',
-                                    'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                                ]"
-                            >
-                                <MagnifyingGlassIcon
-                                    :active="active"
-                                    class="shyk-blue mr-2 h-5 w-5"
-                                    aria-hidden="true"
-                                />
-                                Suchen
-                            </button>
-                        </MenuItem>
+                        <Link
+                            :href="route('topic.search')"
+                            :active="route().current('topic.search')"
+                        >
+                            <MenuItem v-slot="{ active }">
+                                <button
+                                    :class="[
+                                        active
+                                            ? 'bg-blue-300 text-white'
+                                            : 'text-gray-900',
+                                        'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                                    ]"
+                                >
+                                    <MagnifyingGlassIcon
+                                        :active="active"
+                                        class="shyk-blue mr-2 h-5 w-5"
+                                        aria-hidden="true"
+                                    />
+                                    Suchen
+                                </button>
+                            </MenuItem>
+                        </Link>
                     </div>
                 </MenuItems>
             </transition>
         </Menu>
     </div>
 </template>
-
-<script setup>
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/vue";
-import {
-    ChevronDownIcon,
-    GlobeEuropeAfricaIcon,
-    MagnifyingGlassIcon,
-} from "@heroicons/vue/24/solid";
-import {
-    InformationCircleIcon,
-    QuestionMarkCircleIcon,
-} from "@heroicons/vue/24/outline";
-</script>

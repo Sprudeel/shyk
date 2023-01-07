@@ -8,6 +8,12 @@ use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\TopicController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\UploadController;
+use App\Http\Controllers\CommentController;
+use App\Http\Controllers\SubcommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +29,31 @@ use App\Http\Controllers\PermissionController;
 /**
  * Test Route
  */
-Route::get('/test', function () {
-        $permissions = User::find(1)->permissions();
-        return $permissions['view_admin_section'];
-});
+// Route::get('/test', function () {
+//         $permissions = User::find(1)->permissions();
+//         return $permissions['view_admin_section'];
+// });
+
+/**
+ * Changelog Route
+ */
+Route::get('/changelog', function () {
+    return Inertia::render('Changelog');
+})->name('changelog');
+
+/**
+ * Help Route
+ */
+Route::get('/help', function () {
+    return Inertia::render('Help');
+})->name('help');
+
+/**
+ * Terms Route
+ */
+Route::get('/terms', function () {
+    return Inertia::render('Terms');
+})->name('terms');
 
 /**
  * Landing Page
@@ -38,9 +65,9 @@ Route::get('/', function () {
 /**
  * Current Dashboard
  */
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return Inertia::render('Dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 /**
@@ -49,6 +76,53 @@ Route::get('/dashboard', function () {
 Route::get('/user/{username}', [UsersController::class, 'index'])->name('userprofile.view');
 Route::get('/user/edit/{username}', [UsersController::class, 'edit'])->middleware(['auth', 'verified'])->name('useprofile.edit');
 Route::post('/user/edit', [UsersController::class, 'update'])->middleware(['auth', 'verified'])->name('userprofile.update');
+Route::post('/user/report', [UsersController::class, 'report'])->middleware(['auth', 'verified'])->name('user.report');
+
+/**
+ * Comments
+ */
+Route::post('/comment/store', [CommentController::class, 'store'])->middleware(['auth', 'verified'])->name('comment.store');
+Route::post('/comment/delete/{id}', [CommentController::class, 'destroy'])->middleware(['auth', 'verified'])->name('comment.delete');
+Route::post('/comment/edit', [CommentController::class, 'update'])->middleware(['auth', 'verified'])->name('comment.update');
+
+/**
+ * Subcomments
+ */
+Route::post('/subcomment/store', [SubcommentController::class, 'store'])->middleware(['auth', 'verified'])->name('subcomment.store');
+Route::post('/subcomment/delete/{id}', [SubcommentController::class, 'destroy'])->middleware(['auth', 'verified'])->name('subcomment.delete');
+Route::post('/subcomment/edit', [SubcommentController::class, 'update'])->middleware(['auth', 'verified'])->name('subcomment.update');
+
+
+/**
+ * Forum
+ */
+Route::get('/discover/{topic?}', [TopicController::class, 'index'])->name('discover');
+
+Route::post('/tmpupload', [UploadController::class, 'store'])->middleware(['auth', 'verified'])->name('tmpupload');
+Route::delete('/tmpdelete', [UploadController::class, 'destroy'])->middleware(['auth', 'verified'])->name('tmpdelete');
+Route::get('/search', [TopicController::class, 'search'])->name('topic.search');
+
+Route::pattern('path', '.*');
+Route::get('local/temp/{path}', function (string $path){
+    return Storage::download($path);
+})->middleware(['auth', 'verified'])->name('local.temp');
+
+/**
+ * Posts
+ */
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('post/create', [PostController::class, 'create'])->name('post.create');
+    Route::post('post/store', [PostController::class, 'store'])->name('post.store');
+    Route::post('post/like/{slug}', [LikeController::class, 'post'])->name('post.like');
+    Route::get('post/edit/{slug}', [PostController::class, 'edit'])->name('post.edit');
+    Route::post('post/edit', [PostController::class, 'update'])->name('post.update');
+    Route::post('post/report', [PostController::class, 'report'])->name('post.report');
+    Route::post('post/verify/{slug}', [PostController::class, 'verify'])->name('post.verify');
+    Route::post('post/delete/{slug}', [PostController::class, 'destroy'])->name('post.delete');
+    Route::delete('post/attachements/delete', [PostController::class, 'deleteAttachement'])->name('post.attachement.delete');
+});
+Route::get('post/{slug}', [PostController::class, 'show'])->name('post.show');
+
 
 /**
  * AUTH MIDDLEWARE

@@ -3,10 +3,10 @@ const defaultTheme = require("tailwindcss/defaultTheme");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
+        "./resources/js/**/*.vue",
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
-        "./resources/js/**/*.vue",
         "./node_modules/@protonemedia/inertiajs-tables-laravel-query-builder/**/*.{js,vue}",
     ],
 
@@ -15,6 +15,20 @@ module.exports = {
             fontFamily: {
                 sans: ["Poppins", ...defaultTheme.fontFamily.sans],
             },
+            fontSize: {
+                "2xs": ".5rem",
+            },
+            animation: {
+                flash: "flash 1s forwards 3s",
+            },
+            keyframes: (theme) => ({
+                flash: {
+                    "20%": { transform: "translateX(-10%)" },
+                    "60%": { transform: "translateX(200%)" },
+                    "90%": { opacity: 0 },
+                    "100%": { transform: "translateX(0%)", opacity: 0 },
+                },
+            }),
         },
         screens: {
             ph: "320px",
@@ -40,5 +54,5 @@ module.exports = {
         },
     },
 
-    plugins: [require("@tailwindcss/forms")],
+    plugins: [require("@tailwindcss/forms"), require("tailwindcss")],
 };

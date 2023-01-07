@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 use Illuminate\Http\RedirectResponse;
-use App\Policies\Rolepolicy;
 
 
 class RoleController extends Controller
@@ -59,14 +58,16 @@ class RoleController extends Controller
         $request->validate([
                 'name' => 'required',
                 'color' => 'required',
+                'symbol' => 'required',
         ]);
 
         Role::create([
             'name' => $request->name,
             'color' => $request->color,
+            'symbol' => $request->symbol,
         ]);
 
-        return redirect("admin/roles-permissions/roles");
+        return redirect("admin/roles-permissions/roles")->with('success', 'Rolle erfolgreicht erstellt!');
     }
 
     /**
@@ -79,7 +80,7 @@ class RoleController extends Controller
 
         $role->delete();
 
-        return redirect(route('admin.role.roles'));
+        return redirect(route('admin.role.roles'))->with('success', 'Rolle erfolgreicht gelöscht!');
     }
 
     /**
@@ -112,7 +113,7 @@ class RoleController extends Controller
             }
         }
 
-        return redirect(route('admin.role.roles'));
+        return redirect(route('admin.role.roles'))->with('success', 'Rolle erfolgreicht bearbeitet!');
     }
 
 }

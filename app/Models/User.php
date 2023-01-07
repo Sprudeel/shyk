@@ -2,14 +2,14 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Permissions;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -23,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar',
     ];
 
     /**
@@ -32,6 +33,8 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
+        'email',
+        'email_verified_at',
         'remember_token',
     ];
 
@@ -44,13 +47,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public $timestamps = true;
 
+    public $timestamps = true;
     /**
      * Get the Role associated with the User
      */
     public function role() {
         return $this->belongsTo(Role::class);
+    }
+
+    public function posts() {
+        return $this->hasMany(Post::class);
     }
 
 

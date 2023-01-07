@@ -1,11 +1,21 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+a.link {
+    text-decoration: underline;
+    color: #14a7db;
+}
+
+p:empty:before {
+    content: " ";
+    white-space: pre;
 }
 
 .shyk-blue {
@@ -27,4 +37,27 @@
 .auth-bg {
     background-image: url("../js/Components/svg/bg/AuthBG.svg");
     background-size: cover;
+}
+
+.shyk-gradient-animation {
+    background: rgb(20, 167, 219);
+    background: linear-gradient(
+        205deg,
+        rgba(20, 167, 219, 1) 0%,
+        rgba(243, 218, 56, 1) 100%
+    );
+
+    background-size: 400%;
+    background-clip: text;
+    animation: bg-animation 5s ease infinite;
+}
+
+@keyframes bg-animation {
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
 }

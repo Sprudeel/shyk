@@ -5,6 +5,7 @@ import Input from "@/Components/forms/Input.vue";
 import InputError from "@/Components/forms/InputError.vue";
 import Label from "@/Components/forms/Label.vue";
 import { Head, Link, useForm } from "@inertiajs/inertia-vue3";
+import Checkbox from "@/Components/forms/Checkbox.vue";
 
 const form = useForm({
     username: "",
@@ -80,6 +81,19 @@ const submit = () => {
                     class="mt-2"
                     :message="form.errors.password_confirmation"
                 />
+            </div>
+
+            <div class="mt-4 block">
+                <label class="flex items-center">
+                    <Checkbox name="terms" v-model:checked="form.terms" />
+                    <span class="ml-2 text-sm text-gray-600"
+                        >Ich akzeptiere die
+                        <Link :href="route('terms')" class="link"
+                            >Nutzungsbestimmungen</Link
+                        ></span
+                    >
+                    <InputError class="mt-2" :message="form.errors.terms" />
+                </label>
             </div>
 
             <div class="mt-4 flex items-center justify-end">

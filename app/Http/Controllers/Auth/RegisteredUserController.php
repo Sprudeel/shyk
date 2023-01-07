@@ -38,6 +38,7 @@ class RegisteredUserController extends Controller
             'username' => 'required|string|max:255|min:3',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'terms' => 'required|accepted',
         ]);
 
         $user = User::create([
@@ -51,6 +52,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        return redirect(RouteServiceProvider::HOME)->with('success', 'Registration erfolgreich!');
     }
 }
