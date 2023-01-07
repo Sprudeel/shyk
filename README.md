@@ -32,7 +32,6 @@ npm run dev
 sail artisan migrate:fresh --seed
 ```
 
-#### To Login with an Admin Account use 'sprudeel@example.com' as the mail and 'password' as the password.
 
 Now you're up and running!
 
