@@ -93,7 +93,12 @@ const auth = computed(() => usePage().props.value.auth);
                     />
                     <span
                         v-if="props.data.author.role.name !== 'User'"
-                        class="absolute top-2 left-4 flex h-6 w-6 items-center justify-center rounded-full bg-red-500"
+                        :style="
+                            'background-color: ' +
+                            props.data.author.role.color +
+                            ';'
+                        "
+                        class="absolute top-2 left-4 flex h-6 w-6 items-center justify-center rounded-full"
                     >
                         <span v-html="props.data.author.role.symbol"> </span
                     ></span>

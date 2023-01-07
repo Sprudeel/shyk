@@ -1,8 +1,8 @@
-name: Shyk CI
+name: Shyk CI on prod env
 
 on:
     pull_request:
-        branches: ["devel", "deploy-test"]
+        branches: ["devel", "prod"]
 
 jobs:
     prod-test:

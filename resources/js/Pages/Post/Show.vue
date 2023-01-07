@@ -69,7 +69,12 @@ function convert(value) {
                                     v-if="
                                         props.post.author.role.name !== 'User'
                                     "
-                                    class="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-red-500"
+                                    :style="
+                                        'background-color: ' +
+                                        props.post.author.role.color +
+                                        ';'
+                                    "
+                                    class="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full"
                                 >
                                     <div
                                         v-html="props.post.author.role.symbol"

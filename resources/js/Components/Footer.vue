@@ -1,9 +1,20 @@
 <script setup>
 import LogoMeditating from "@/Components/svg/logo/Meditating.vue";
-import { computed } from "vue";
-import { usePage, Link } from "@inertiajs/inertia-vue3";
+import { computed, ref } from "vue";
+import { usePage } from "@inertiajs/inertia-vue3";
 
 const information = computed(() => usePage().props.value.information);
+
+let forceUpdate = ref(0);
+let sha = ref("");
+const build = axios
+    .get(
+        "https://api.github.com/repos/sprudeel/shyk/commits?page=1&per_page=1&sha=prod"
+    )
+    .then(function response(response) {
+        sha = response.data[0].sha;
+        forceUpdate.value++;
+    });
 </script>
 
 <template>
@@ -13,12 +24,18 @@ const information = computed(() => usePage().props.value.information);
         <div class="flex-1">
             <span class="text-4xl font-bold o-ph:text-2xl">shyk</span>
             <span
+                v-if="information.stage === 'local'"
                 class="shyk-gradient-animation ml-6 text-2xl font-bold text-transparent o-ph:text-lg"
                 >Testumbegung</span
             >
-            <p class="mt-2 o-ph:text-sm">
-                Version {{ information.shyk_stage }}
-                {{ information.shyk_version }}
+            <p class="mt-2 tracking-wide o-ph:text-sm" :key="forceUpdate">
+                Version {{ information.shyk_version }} | Build (<a
+                    class="link"
+                    target="_blank"
+                    :href="'https://github.com/Sprudeel/shyk/tree/' + sha"
+                >
+                    {{ sha.slice(0, 11) }} </a
+                >)
             </p>
             <p class="o-ph:text-sm">
                 Entwickelt von
@@ -26,7 +43,6 @@ const information = computed(() => usePage().props.value.information);
                     >@Sprudeel</a
                 >
             </p>
-            <p class="text-xs">Unterstützt durch Hermelin@PfadiPatria</p>
             <div class="shyk-blue mt-2 flex flex-row space-x-3">
                 <a href="http://github.com/Sprudeel/shyk"
                     ><svg

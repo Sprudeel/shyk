@@ -69,7 +69,12 @@ const submit = () => {
                     />
                     <span
                         v-if="subcomment.author.role.name !== 'User'"
-                        class="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-red-500"
+                        :style="
+                            'background-color: ' +
+                            subcomment.author.role.color +
+                            ';'
+                        "
+                        class="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full"
                     >
                         <div v-html="subcomment.author.role.symbol"></div
                     ></span>

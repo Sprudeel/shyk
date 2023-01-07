@@ -12,7 +12,7 @@ const faq = ref([
     },
     {
         question: "Wo kann ich mich anmelden?",
-        answer: "Um dich anzumelden klicke in der Navigationsleiste auf 'Anmelden'.",
+        answer: "Um dich anzumelden, klicke in der Navigationsleiste auf 'Anmelden'.",
     },
     {
         question: "Darf ich hier alles veröffentlichen?",

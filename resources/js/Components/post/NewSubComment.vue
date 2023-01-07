@@ -49,7 +49,8 @@ const submit = () => {
                 />
                 <span
                     v-if="auth.user.role.name !== 'User'"
-                    class="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full bg-red-500"
+                    :style="'background-color: ' + auth.user.role.color + ';'"
+                    class="absolute top-0 right-0 flex h-6 w-6 items-center justify-center rounded-full"
                 >
                     <div v-html="auth.user.role.symbol"></div
                 ></span>

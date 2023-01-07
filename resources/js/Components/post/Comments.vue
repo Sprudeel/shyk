@@ -70,7 +70,12 @@ const submit = () => {
                         />
                         <span
                             v-if="props.comment.author.role.name !== 'User'"
-                            class="absolute top-0 right-0 flex h-auto w-auto items-center justify-center rounded-full bg-red-500 p-1 ph:hidden sm:block"
+                            :style="
+                                'background-color: ' +
+                                props.comment.author.role.color +
+                                ';'
+                            "
+                            class="absolute top-0 right-0 flex h-auto w-auto items-center justify-center rounded-full p-1 ph:hidden sm:block"
                         >
                             <div v-html="props.comment.author.role.symbol"></div
                         ></span>
