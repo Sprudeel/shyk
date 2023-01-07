@@ -14,11 +14,11 @@ jobs:
 
         steps:
             - uses: actions/checkout@v3
-
-            - name: Deploy to production
+            
+            - name: Run GetEnv command
               uses: DovnarAlexander/github-actions-jelastic@master
               with:
-                  jelastic_url: app.mycloud.by
-                  jelastic_username: ${{ secrets.JELASTIC_USERNAME }}
-                  jelastic_password: ${{ secrets.JELASTIC_TOKEN }}
-                  task: environment/vcs/update --envName shyk-prod --context ROOT
+                jelastic_url: https://app.jpc.infomaniak.com/
+                jelastic_username: ${{ secrets.JELASTIC_USERNAME }}
+                jelastic_password: ${{ secrets.JELASTIC_TOKEN }}
+                task: environment/vcs/update --envName shyk-prod --context ROOT
