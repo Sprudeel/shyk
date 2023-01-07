@@ -152,14 +152,7 @@ class AdminSpaceTest extends TestCase
         $response = $this->actingAs($user)->post('/admin/roles-permissions/role/create/new', [
             'name' => 'Neue Rolle',
             'color' => '#14A7DB',
-        ]);
-        $response = $this->actingAs($user)->post('/admin/roles-permissions/role/create/new', [
-            'name' => 'Neue Rolle',
-            'color' => '#14A7DB',
-        ]);
-        $response = $this->actingAs($user)->post('/admin/roles-permissions/role/create/new', [
-            'name' => 'Neue Rolle',
-            'color' => '#14A7DB',
+            'symbol' => 'testsymbol',
         ]);
 
         $response->assertRedirect('/admin/roles-permissions/roles');
