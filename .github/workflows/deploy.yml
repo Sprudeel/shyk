@@ -14,12 +14,11 @@ jobs:
 
         steps:
             - uses: actions/checkout@v3
-
-            - name: Download Jelastic CLI
-              run: curl -s ftp://ftp.jelastic.com/pub/cli/jelastic-cli-installer.sh | bash
-          
-            - name: Login to Jelastic
-              run: ~/jelastic/users/authentication/signin --login  ${{ secrets.JELASTIC_USERNAME }} --password  ${{ secrets.JELASTIC_TOKEN }} --platformUrl  https://app.jpc.infomaniak.com/ > y
- 
-            - name: Pull from GitHub, build and deploy
-              run: ~/jelastic/environment/vcs/update --envName shyk-prod --context ROOT
+            
+            - name: Run GetEnv command
+              uses: DovnarAlexander/github-actions-jelastic@master
+              with:
+                jelastic_url: https://app.jpc.infomaniak.com/
+                jelastic_username: ${{ secrets.JELASTIC_USERNAME }}
+                jelastic_password: ${{ secrets.JELASTIC_TOKEN }}
+                task: environment/vcs/update --envName shyk-prod --context ROOT
