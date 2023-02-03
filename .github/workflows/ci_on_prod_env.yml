@@ -2,7 +2,7 @@ name: Shyk CI on prod env
 
 on:
     pull_request:
-        branches: ["devel", "prod"]
+        branches: ["devel", "prod", "dependencies"]
 
 jobs:
     prod-test:

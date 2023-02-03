@@ -1,0 +1,49 @@
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  # Composer
+  - package-ecosystem: "composer"
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    target-branch: "dependencies"
+    commit-message:
+      prefix: "📦🎶 Composer: "
+    labels:
+      - "dependencies: composer :notes:"
+    reviewers:
+      - "Sprudeel"
+  - package-ecosystem: "npm"
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    target-branch: "dependencies"
+    commit-message:
+      prefix: "📦💻 NPM: "
+    labels:
+      - "dependencies: npm :computer:"
+    reviewers:
+      - "Sprudeel"
+  - package-ecosystem: "github-actions"
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    target-branch: "dependencies"
+    commit-message:
+      prefix: "📦🧪 GH-A: "
+    labels:
+      - "dependencies: gh-a 🧪"
+    reviewers:
+      - "Sprudeel"
+  - package-ecosystem: "docker"
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+    target-branch: "dependencies"
+    commit-message:
+      prefix: "📦🐋 Docker: "
+    labels:
+      - "dependencies: docker :whale2:"
+    reviewers:
+      - "Sprudeel"
