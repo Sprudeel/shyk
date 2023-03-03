@@ -2319,16 +2319,16 @@
         },
         {
             "name": "opcodesio/log-viewer",
-            "version": "v2.0.2",
+            "version": "v2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/opcodesio/log-viewer.git",
-                "reference": "f547bd9fca8ffc71a39dbb485c87630abda4a60a"
+                "reference": "cbdb50ba8111914350b4972ac0b6479a4e15a55b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/opcodesio/log-viewer/zipball/f547bd9fca8ffc71a39dbb485c87630abda4a60a",
-                "reference": "f547bd9fca8ffc71a39dbb485c87630abda4a60a",
+                "url": "https://api.github.com/repos/opcodesio/log-viewer/zipball/cbdb50ba8111914350b4972ac0b6479a4e15a55b",
+                "reference": "cbdb50ba8111914350b4972ac0b6479a4e15a55b",
                 "shasum": ""
             },
             "require": {
@@ -2387,9 +2387,9 @@
             ],
             "support": {
                 "issues": "https://github.com/opcodesio/log-viewer/issues",
-                "source": "https://github.com/opcodesio/log-viewer/tree/v2.0.2"
+                "source": "https://github.com/opcodesio/log-viewer/tree/v2.1.0"
             },
-            "time": "2023-02-23T07:02:26+00:00"
+            "time": "2023-02-24T07:50:55+00:00"
         },
         {
             "name": "phpoption/phpoption",
