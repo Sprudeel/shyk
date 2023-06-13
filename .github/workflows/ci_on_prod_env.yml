@@ -9,7 +9,7 @@ jobs:
         runs-on: ubuntu-latest
 
         steps:
-            - uses: shivammathur/setup-php@baf9535ba58ae8ac3a7362d932ca85fc38621a5d
+            - uses: shivammathur/setup-php@4bd44f22a98a19e0950cbad5f31095157cc9621b
 
               with:
                   php-version: "8.0"
